@@ -10,8 +10,8 @@
 {
   "current": {
     "logo": "shopify://shop_images/logo-arte_2x_989aaca5-9295-4257-88df-08395c296e0a.png",
-    "logo_height": 36,
-    "logo_height_mobile": 28,
+    "logo_height": 90,
+    "logo_height_mobile": 40,
     "favicon": "shopify://shop_images/logo-arte_2x_1.png",
     "type_body_font": "poppins_n4",
     "type_subheading_font": "poppins_n4",
