@@ -4945,7 +4945,3 @@ product-recommendations:has([data-has-recommendations='false']) {
   }
 }
 
-.header__menu-item:hover,
-.header__menu-item:focus {
-  background-color: transparent !important;
-}
