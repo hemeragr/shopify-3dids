@@ -4945,3 +4945,10 @@ product-recommendations:has([data-has-recommendations='false']) {
   }
 }
 
+.header__underlay-open {
+  background: transparent !important;
+}
+
+.header__underlay-open::after {
+  box-shadow: none !important;
+}
