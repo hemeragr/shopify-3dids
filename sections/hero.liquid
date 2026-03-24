@@ -515,12 +515,24 @@
       style="--hero-media-count: {{ media_count }};--hero-media-count-mobile: {{ media_count_mobile }};{%- if section.settings.image_1 != blank -%} --hero-media-aspect-ratio: {{ section.settings.image_1.aspect_ratio }};{% endif %}"
       data-testid="hero-media-wrapper"
     >
-      {% liquid
-        if section.settings.toggle_overlay
-          render 'overlay', settings: section.settings
-        endif
-      %}
-      {{ media }}
+      {% if section.settings.youtube_bg_url != blank %}
+        <div class="hero__youtube-background">
+          <iframe
+            src="https://www.youtube.com/embed/icrvBJYylNw?autoplay=1&mute=1&controls=0&loop=1&playlist=icrvBJYylNw&playsinline=1&modestbranding=1&rel=0"
+            title="Background video"
+            frameborder="0"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+          ></iframe>
+        </div>
+      {% else %}
+        {% liquid
+          if section.settings.toggle_overlay
+            render 'overlay', settings: section.settings
+          endif
+        %}
+        {{ media }}
+      {% endif %}
     </div>
     <div
       class="
