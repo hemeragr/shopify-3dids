@@ -1286,10 +1286,21 @@
       --color-foreground-rgb: 255 255 255;
     }
 
+    /*menú blanco */
+    #header-component:not([data-sticky-state='active']) .menu-list__link {
+      color: #ffffff;
+    }
+
+
     /* SCROLL → azul */
     #header-component[data-sticky-state='active'] {
       --color-foreground: #273488;
       --color-foreground-rgb: 39 52 136;
+    }
+
+    /* menú azul */
+    #header-component[data-sticky-state='active'] .menu-list__link {
+      color: #273488;
     }
 
     /* transición suave */
