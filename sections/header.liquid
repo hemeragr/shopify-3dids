@@ -440,7 +440,7 @@
     display: contents;
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 991px) {
     #header-component[data-menu-style='menu'] .header__navigation-bar-row {
       display: none;
     }
@@ -682,7 +682,7 @@
   }
 
   .header__row.divider--page-width:not(.section--page-width) .header__columns {
-    @media screen and (min-width: 750px) {
+    @media screen and (min-width: 991px) {
       padding-inline-start: 0;
       padding-inline-end: 0;
       margin-inline-start: var(--page-margin);
@@ -760,7 +760,7 @@
 
     /* If there is no center column, make the column the menu is in grow eagerly */
     &:where(:not(:has(.header__column--center))) {
-      @media screen and (min-width: 750px) {
+      @media screen and (min-width: 991px) {
         --header-template-columns: var(--header-left) var(--header-right);
 
         grid-template-areas: 'left right';
