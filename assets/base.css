@@ -4944,3 +4944,8 @@ product-recommendations:has([data-has-recommendations='false']) {
     translate: 0px var(--atc-destination, 0px);
   }
 }
+
+.header__menu-item:hover,
+.header__menu-item:focus {
+  background-color: transparent !important;
+}
