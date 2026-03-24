@@ -1280,7 +1280,26 @@
       opacity: 0;
     }
 
-  
+    /* SIN SCROLL → blanco */
+    #header-component {
+      --color-foreground: #ffffff;
+      --color-foreground-rgb: 255 255 255;
+    }
+
+    /* SCROLL → azul */
+    #header-component[data-sticky-state='active'] {
+      --color-foreground: #273488;
+      --color-foreground-rgb: 39 52 136;
+    }
+
+    /* transición suave */
+    #header-component,
+    #header-component * {
+      transition: color 0.3s ease, fill 0.3s ease, stroke 0.3s ease;
+    }
+
+
+
 {% endstylesheet %}
 
 {% unless request.design_mode %}
