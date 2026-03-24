@@ -31,6 +31,26 @@
         Buscar
       </button>
     </form>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const searchInputs = document.querySelectorAll('.header-search-input');
+
+        function updateSearchPlaceholders() {
+          const isMobile = window.innerWidth <= 991;
+
+          searchInputs.forEach(function (input) {
+            input.placeholder = isMobile
+              ? input.dataset.placeholderMobile
+              : input.dataset.placeholderDesktop;
+          });
+        }
+
+        updateSearchPlaceholders();
+        window.addEventListener('resize', updateSearchPlaceholders);
+      });
+    </script>
+    
   </div>
 {% endunless %}
 
