@@ -4915,3 +4915,11 @@ product-recommendations:has([data-has-recommendations='false']) {
     translate: 0px var(--atc-destination, 0px);
   }
 }
+
+
+
+/* ESTADO SCROLL  */
+.header[data-sticky-state="active"] .header-actions__action,
+.header[data-sticky-state="active"] .header-actions__action svg {
+  color: #273488 !important;
+}
