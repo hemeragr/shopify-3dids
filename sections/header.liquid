@@ -726,11 +726,22 @@
   }
 
   .header__columns {
-    /* Three column layout */
+    /* Three column layout
     --header-left: 1fr;
     --header-center: auto;
     --header-right: 1fr;
     --header-template-columns: var(--header-left) var(--header-center) var(--header-right);
+
+      --header-left: auto;
+  --header-center: minmax(420px, 1fr);
+  --header-right: auto;
+  --header-template-columns: var(--header-left) var(--header-center) var(--header-right);
+
+  display: grid;
+  grid-template-areas: 'left center right';
+  grid-gap: var(--gap-xl);
+  grid-template-columns: var(--header-template-columns);
+  align-items: center;
 
     /* Mobile layout */
     --header-mobile-bookend: 44px;
