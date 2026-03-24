@@ -1281,33 +1281,6 @@
     }
 
   
-
-    /* =========================
-    COLOR ICONOS + TEXTO
-    ========================= */
-
-  @media screen and (max-width: 991px) {
-
-    /* Estado inicial (sin scroll) → blanco */
-    #header-component {
-      --color-foreground: #ffffff;
-      --color-foreground-rgb: 255 255 255;
-    }
-
-    /* Scroll → negro */
-    #header-component[data-sticky-state='active'] {
-      --color-foreground: #000000;
-      --color-foreground-rgb: 0 0 0;
-    }
-
-    /* Transición suave */
-    #header-component,
-    #header-component * {
-      transition: color 0.3s ease, fill 0.3s ease;
-    }
-
-  }
-
 {% endstylesheet %}
 
 {% unless request.design_mode %}
