@@ -137,6 +137,20 @@
   .header-logo__image-container--inverse {
     display: var(--header-logo-inverse-display, none);
   }
+
+  /* Estado inicial: fondo oscuro */
+  #header-component:not([data-sticky-state='active']) .header-logo__image {
+    filter: brightness(1000%);
+    transition: filter 0.3s ease;
+  }
+
+  /* Cuando haces scroll: fondo blanco */
+  #header-component[data-sticky-state='active'] .header-logo__image {
+    filter: none;
+    transition: filter 0.3s ease;
+  }
+
+
 {% endstylesheet %}
 
 {% schema %}
