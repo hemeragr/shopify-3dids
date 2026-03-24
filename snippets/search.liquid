@@ -31,24 +31,26 @@
         Buscar
       </button>
     </form>
-
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const searchInputs = document.querySelectorAll('.header-search-input');
+      if (!window.headerSearchPlaceholderInit) {
+        window.headerSearchPlaceholderInit = true;
 
-        function updateSearchPlaceholders() {
-          const isMobile = window.innerWidth <= 991;
+        document.addEventListener('DOMContentLoaded', function () {
+          function updateSearchPlaceholders() {
+            const isMobile = window.innerWidth <= 991;
+            const searchInputs = document.querySelectorAll('.header-search-input');
 
-          searchInputs.forEach(function (input) {
-            input.placeholder = isMobile
-              ? input.dataset.placeholderMobile
-              : input.dataset.placeholderDesktop;
-          });
-        }
+            searchInputs.forEach(function (input) {
+              input.placeholder = isMobile
+                ? input.dataset.placeholderMobile
+                : input.dataset.placeholderDesktop;
+            });
+          }
 
-        updateSearchPlaceholders();
-        window.addEventListener('resize', updateSearchPlaceholders);
-      });
+          updateSearchPlaceholders();
+          window.addEventListener('resize', updateSearchPlaceholders);
+        });
+      }
     </script>
     
   </div>
