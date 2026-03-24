@@ -1,5 +1,21 @@
+<div class="custom-button-block">
+  {% render 'button', link: block.settings.link %}
+</div>
 
-{% render 'button', link: block.settings.link %}
+{% stylesheet %}
+  .custom-button-block .button,
+  .custom-button-block .button-secondary {
+    color: #273488 !important;
+    background-color: #ffffff !important;
+    border: 1px solid #273488 !important;
+    border-radius: 100px !important;
+    padding: 0.5em 8em !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
