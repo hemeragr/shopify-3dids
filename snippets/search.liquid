@@ -1,0 +1,163 @@
+{%- doc -%}
+  Renders the search action as a visible search bar.
+
+  @param {string} [style] - The style of the search action.
+  @param {string} [class] - Additional classes for the search action.
+  @param {string} [display_style] - The display style ('icon' or 'text').
+{%- enddoc -%}
+
+{% unless style == 'none' %}
+  <div class="search-action{% if class != blank %} {{ class | strip }}{% endif %}">
+    <form action="{{ routes.search_url }}" method="get" role="search" class="header-search-form">
+      <span class="header-search-icon">
+        {{ 'icon-search.svg' | inline_asset_content }}
+      </span>
+
+      <input
+        type="search"
+        name="q"
+        class="header-search-input"
+        data-placeholder-desktop="¿Qué estás buscando?"
+        data-placeholder-mobile="Buscar en"
+        value="{{ search.terms | escape }}"
+        aria-label="{{ 'content.search_input_label' | t }}"
+      >
+
+      <button
+        type="submit"
+        class="header-search-button visually-hidden"
+        aria-label="{{ 'content.search' | t }}"
+      >
+        Buscar
+      </button>
+    </form>
+    <script>
+      if (!window.headerSearchPlaceholderInit) {
+        window.headerSearchPlaceholderInit = true;
+
+        document.addEventListener('DOMContentLoaded', function () {
+          function updateSearchPlaceholders() {
+            const isMobile = window.innerWidth <= 991;
+            const searchInputs = document.querySelectorAll('.header-search-input');
+
+            searchInputs.forEach(function (input) {
+              input.placeholder = isMobile
+                ? input.dataset.placeholderMobile
+                : input.dataset.placeholderDesktop;
+            });
+          }
+
+          updateSearchPlaceholders();
+          window.addEventListener('resize', updateSearchPlaceholders);
+        });
+      }
+    </script>
+    
+  </div>
+{% endunless %}
+
+{% stylesheet %}
+  .search-action {
+    display: flex;
+    width: 100%;
+  }
+
+  .header-search-form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 260px;
+    max-width: 940px;
+    height: 56px;
+    border: 0;
+    border-radius: 999px;
+    background: #f3f4fb;
+    padding: 0 1.25rem;
+    gap: 0.75rem;
+  }
+
+  .header-search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: currentColor;
+    opacity: 0.9;
+  }
+
+  .header-search-icon svg {
+    width: 20px;
+    height: 20px;
+    color: #000000;
+  }
+
+  .header-search-input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    background: transparent !important;
+    color: inherit;
+    font: inherit;
+    font-size: 1.1rem;
+    padding: 0;
+  }
+
+  .header-search-input::placeholder {
+    color: #9aa3d4;
+    opacity: 1;
+  }
+
+  .header-search-button {
+    border: 0;
+    background: transparent;
+    color: inherit;
+  }
+
+  @media screen and (max-width: 991px) {
+    .search-action--hidden-on-drawer {
+      display: none;
+    }
+
+    .search-action {
+      width: 100%;
+    }
+
+    .header-search-form {
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%;
+      height: 46px;
+      padding: 0 1rem;
+      gap: 0.5rem;
+      border-radius: 999px;
+    }
+
+    .header-search-input {
+      font-size: 1rem;
+    }
+
+    .header-search-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    [data-menu-style='drawer'] .search-action--hidden-on-drawer {
+      display: none;
+    }
+
+    [data-menu-style='menu'] .search-action--hidden-on-menu {
+      display: none;
+    }
+
+    [data-menu-style='menu'] .header__column--left .search-action {
+      margin-inline: 0;
+    }
+
+    .header__column--right .search-action {
+      margin-inline: 0;
+    }
+  }
+{% endstylesheet %}
