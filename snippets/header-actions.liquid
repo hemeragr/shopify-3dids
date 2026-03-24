@@ -362,7 +362,7 @@
     margin-right: calc(var(--padding-sm) * -1);
     top: var(--margin-sm);
 
-    @media screen and (max-width: 749px) {
+    @media screen and (max-width: 991px) {
       top: var(--margin-2xs);
     }
   }
@@ -407,7 +407,7 @@
     /* stylelint-disable-next-line color-named */
     mask-image: linear-gradient(to bottom, transparent, black var(--cart-drawer-summary-padding));
 
-    @media screen and (min-width: 750px) {
+    @media screen and (min-width: 992px) {
       --cart-drawer-summary-padding: var(--padding-2xl);
     }
   }
@@ -434,7 +434,7 @@
   }
 
   .cart-drawer__summary .cart-note {
-    @media screen and (min-width: 750px) {
+    @media screen and (min-width: 992px) {
       margin-block-start: var(--margin-3xs);
     }
   }
@@ -450,7 +450,7 @@
     padding-inline: var(--cart-drawer-padding);
     overflow-y: auto;
 
-    @media screen and (min-width: 750px) {
+    @media screen and (min-width: 992px) {
       padding-inline: var(--cart-drawer-padding-desktop);
     }
   }
@@ -492,7 +492,7 @@
     top: 0;
     z-index: 1;
 
-    @media screen and (min-width: 750px) {
+    @media screen and (min-width: 992px) {
       padding-inline: var(--cart-drawer-padding-desktop);
     }
   }
@@ -510,12 +510,12 @@
   header-actions {
     display: flex;
 
-    @media screen and (max-width: 749px) {
+    @media screen and (max-width: 991px) {
       justify-self: flex-end;
     }
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 992px) {
     .header-actions--text {
       gap: var(--gap-xl);
     }
