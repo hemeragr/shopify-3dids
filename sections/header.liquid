@@ -1308,7 +1308,44 @@
     #header-component * {
       transition: color 0.3s ease, fill 0.3s ease, stroke 0.3s ease;
     }
+  /* Quitar el bloque/fondo que aparece al hacer hover en el menú */
+  .header__underlay-open,
+  .header__underlay-closed,
+  .header__underlay-open::after,
+  .header__underlay-closed::after {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
 
+  /* Quitar cualquier fondo que el header recupere al pasar por el menú */
+  .header:has(.mega-menu__list:hover),
+  .header:has(.menu-list__link:hover),
+  .header:has(.menu-list__link:is([aria-expanded='true'])),
+  .header:has(.menu-list__list-item[slot='overflow'] .menu-list__link:hover),
+  .header:has(.menu-list__list-item[slot='overflow'] .menu-list__link:is([aria-expanded='true'])) {
+    --color-background: transparent !important;
+    --color-background-rgb: transparent !important;
+    --color-scheme-top-row: transparent !important;
+    --color-scheme-bottom-row: transparent !important;
+    --color-submenu: transparent !important;
+    --closed-underlay-height: 0px !important;
+  }
+
+  /* Quitar fondo del desplegable si también lo está pintando */
+  .menu-list__submenu,
+  .mega-menu,
+  .mega-menu__list,
+  details[open] > .menu-list__submenu {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Evitar que las filas del header cojan fondo blanco */
+  .header__row,
+  .header__row--top,
+  .header__row--bottom {
+    background: transparent !important;
+  }
 
 
 {% endstylesheet %}
