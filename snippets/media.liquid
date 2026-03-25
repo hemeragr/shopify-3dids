@@ -10,6 +10,7 @@
   assign block_settings = block.settings
   assign show_image = false
   assign show_video = false
+  assign show_youtube = false
 
   if block_settings.media_type == 'image'
     assign show_image = true
@@ -18,6 +19,35 @@
   if block_settings.media_type == 'video'
     assign show_video = true
   endif
+
+  if block_settings.media_type == 'youtube'
+    assign show_youtube = true
+  endif
+
+  assign youtube_id = blank
+  assign youtube_embed_url = blank
+
+  if show_youtube and block_settings.youtube_url != blank
+    assign youtube_id = block_settings.youtube_url | strip
+
+    if youtube_id contains 'youtube.com/watch?v='
+      assign youtube_id = youtube_id | split: 'watch?v=' | last | split: '&' | first
+    elsif youtube_id contains 'youtu.be/'
+      assign youtube_id = youtube_id | split: 'youtu.be/' | last | split: '?' | first | split: '&' | first
+    elsif youtube_id contains 'youtube.com/shorts/'
+      assign youtube_id = youtube_id | split: 'youtube.com/shorts/' | last | split: '?' | first | split: '&' | first
+    endif
+
+    assign youtube_embed_url = 'https://www.youtube.com/embed/' | append: youtube_id | append: '?rel=0&playsinline=1'
+
+    if block_settings.video_autoplay
+      assign youtube_embed_url = youtube_embed_url | append: '&autoplay=1'
+    endif
+
+    if block_settings.video_loop
+      assign youtube_embed_url = youtube_embed_url | append: '&loop=1&playlist=' | append: youtube_id
+    endif
+  endif
 %}
 
 <div
@@ -25,7 +55,7 @@
     media-block
     spacing-style
     {% if block_settings.inherit_color_scheme == false %} color-{{ block_settings.color_scheme }}{% endif %}
-    {% if show_image and block_settings.image_position == 'contain' or show_video and block_settings.video_position == 'contain' %}
+    {% if show_image and block_settings.image_position == 'contain' or show_video and block_settings.video_position == 'contain' or show_youtube and block_settings.video_position == 'contain' %}
       media-block--contain
     {% endif %}
   "
@@ -62,6 +92,7 @@
     {% else %}
       {{ image_tag }}
     {% endif %}
+
   {%- elsif show_video -%}
     {% render 'video',
       video: block_settings.video,
@@ -70,12 +101,66 @@
       video_class: 'media-block__media media-block__media--video border-style',
       section_id: section_id
     %}
+
+  {%- elsif show_youtube -%}
+    {% if youtube_id != blank %}
+      <div class="media-block__youtube border-style" data-youtube-player>
+        <button
+          type="button"
+          class="media-block__youtube-trigger"
+          aria-label="Reproducir vídeo"
+          data-youtube-trigger
+          data-youtube-src="{{ youtube_embed_url }}"
+        >
+          {% if block_settings.youtube_poster != blank %}
+            {% render 'image',
+              image: block_settings.youtube_poster,
+              class: 'media-block__youtube-poster',
+              unset_image_tag: unset_image_tag
+            %}
+          {% else %}
+            <div class="media-block__youtube-placeholder">
+              {{ 'hero-apparel-3' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+
+          <span class="media-block__youtube-play">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M8 6.5v11l9-5.5-9-5.5z" fill="currentColor"></path>
+            </svg>
+          </span>
+        </button>
+      </div>
+    {% else %}
+      <div class="media-block__media border-style">
+        {{ 'hero-apparel-3' | placeholder_svg_tag }}
+      </div>
+    {% endif %}
+
   {%- else -%}
     <div class="media-block__media border-style">
       {{ 'hero-apparel-3' | placeholder_svg_tag }}
     </div>
   {%- endif -%}
 </div>
+
+<script>
+  document.addEventListener('click', function (event) {
+    const trigger = event.target.closest('[data-youtube-trigger]');
+    if (!trigger) return;
+
+    const wrapper = trigger.closest('[data-youtube-player]');
+    if (!wrapper) return;
+
+    const src = trigger.getAttribute('data-youtube-src');
+    if (!src) return;
+
+    wrapper.innerHTML =
+      '<iframe class="media-block__youtube-iframe" src="' +
+      src +
+      '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+  });
+</script>
 
 {% stylesheet %}
   .media-block {
@@ -104,7 +189,6 @@
     object-fit: var(--video-position, 'cover');
   }
 
-  /* This is to support corner radius on video and align the video to the center of the block */
   .media-block__media--video {
     display: flex;
     align-items: center;
@@ -113,5 +197,67 @@
     @media screen and (max-width: 749px) {
       --media-height-mobile: auto;
     }
+  }
+
+  .media-block__youtube {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+
+  .media-block__youtube-trigger {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    display: block;
+  }
+
+  .media-block__youtube-poster,
+  .media-block__youtube-placeholder {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .media-block__youtube-poster img,
+  .media-block__youtube-placeholder svg {
+    width: 100%;
+    height: 100%;
+    object-fit: var(--video-position, 'cover');
+    display: block;
+  }
+
+  .media-block__youtube-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 72px;
+    height: 72px;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    color: #273488;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .media-block__youtube-play svg {
+    width: 28px;
+    height: 28px;
+    margin-left: 3px;
+  }
+
+  .media-block__youtube-iframe {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    display: block;
   }
 {% endstylesheet %}

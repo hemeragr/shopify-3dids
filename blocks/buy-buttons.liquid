@@ -666,6 +666,108 @@
   .volume-pricing--expanded .volume-pricing__show-less {
     display: inline;
   }
+/* =========================
+   PRODUCT CARD HOVER BUTTON
+   ========================= */
+
+.product-card {
+  position: relative;
+}
+
+.product-card .buy-buttons-block {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 105px;
+  z-index: 40;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .25s ease, transform .25s ease;
+  pointer-events: none;
+}
+
+.product-card:hover .buy-buttons-block {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.product-card .product-form-buttons {
+  display: block;
+  width: 100%;
+}
+
+.product-card .product-form-buttons > * {
+  display: none;
+}
+
+.product-card .product-form-buttons > span {
+  display: block;
+  width: 100%;
+}
+
+.product-card .product-form-buttons > span > button,
+.product-card .add-to-cart-button-clean {
+
+  justify-content: center;
+  width: 85%;
+  margin: 5px 10px;
+  padding: 0.679rem 1.5rem;
+  height: 40px;
+  background: #273488;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* machacar capas visuales del tema */
+.product-card .product-form-buttons > span > button::before,
+.product-card .product-form-buttons > span > button::after,
+.product-card .add-to-cart-button-clean::before,
+.product-card .add-to-cart-button-clean::after {
+  content: none !important;
+  display: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* reset de cualquier span interno heredado */
+.product-card .product-form-buttons > span > button * {
+  all: unset;
+  color: #fff !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+}
+
+/* ocultar extras */
+.product-card .quantity-selector-wrapper,
+.product-card .quantity-selector,
+.product-card .quantity-label,
+.product-card .quantity-rules,
+.product-card .volume-pricing,
+.product-card .shopify-payment-button,
+.product-card shopify-accelerated-checkout,
+.product-card .product-form-text__error {
+  display: none !important;
+}
+
+/* =========================
+   HOVER BOTÓN - INVERTIR COLORES
+   ========================= */
+
+.product-card .add-to-cart-button-clean:hover,
+.product-card .product-form-buttons button[type="submit"]:hover {
+  background: #ffffff !important;
+  color: #273488 !important;
+  border: 2px solid #273488 !important;
+}
+
+/* asegurar que el texto también cambia */
+.product-card .add-to-cart-button-clean:hover *,
+.product-card .product-form-buttons button[type="submit"]:hover * {
+  color: #273488 !important;
+}
+
 {% endstylesheet %}
 
 {% schema %}

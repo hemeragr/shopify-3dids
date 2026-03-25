@@ -1,32 +1,38 @@
-
-
 {% assign product = closest.product %}
 
 {% capture children %}
   {% unless product == blank %}
-    <div
-      class="product-badges product-badges--{{ settings.badge_position }}"
-      style="
-        --badge-border-radius: {{ settings.badge_corner_radius }}px;
-        --badge-font-family: var(--font-{{ settings.badge_font_family }}--family); --badge-font-weight: var(--font-{{ settings.badge_font_family }}--weight); --badge-text-transform: {{ settings.badge_text_transform }};
-      "
-    >
-      {%- if product.available == false or product.compare_at_price > product.price -%}
-        <div
-          class="
-            product-badges__badge product-badges__badge--rectangle
-            {% if product.available == false %} color-{{ settings.badge_sold_out_color_scheme }}{% elsif product.compare_at_price > product.price %} color-{{ settings.badge_sale_color_scheme }}{% endif %}
-          "
-        >
-          {%- if product.available == false -%}
-            {{ 'content.product_badge_sold_out' | t }}
-          {%- elsif product.compare_at_price > product.price -%}
-            {{ 'content.product_badge_sale' | t }}
-          {%- endif -%}
+    {% assign nivel_texto = blank %}
+    {% assign nivel_clase = blank %}
+
+    {% if product.tags contains 'Iniciacion' or product.tags contains 'Iniciación' %}
+      {% assign nivel_texto = 'Iniciación' %}
+      {% assign nivel_clase = 'iniciacion' %}
+    {% elsif product.tags contains 'Iniciados' %}
+      {% assign nivel_texto = 'Iniciados' %}
+      {% assign nivel_clase = 'iniciados' %}
+    {% elsif product.tags contains 'Experimentados' %}
+      {% assign nivel_texto = 'Experimentados' %}
+      {% assign nivel_clase = 'experimentados' %}
+    {% elsif product.tags contains 'Experto' %}
+      {% assign nivel_texto = 'Experto' %}
+      {% assign nivel_clase = 'experto' %}
+    {% endif %}
+
+    <div class="product-card-top-ui">
+      {% if nivel_texto != blank %}
+        <div class="product-level-badge product-level-badge--{{ nivel_clase }}">
+          <span class="product-level-badge__dot"></span>
+          <span>{{ nivel_texto }}</span>
         </div>
-      {%- endif -%}
+      {% endif %}
+
+      <button class="product-card-wishlist" type="button" aria-label="Añadir a favoritos">
+        ♡
+      </button>
     </div>
-    {%  if settings.quick_add or settings.mobile_quick_add %}
+
+    {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add', product: product, section_id: section.id %}
     {% endif %}
   {% endunless %}
@@ -44,47 +50,70 @@
 </div>
 
 {% stylesheet %}
-  .product-badges {
-    --badge-inset: max(var(--padding-xs), calc((var(--border-radius) + var(--padding-xs)) * (1 - cos(45deg))));
-
+  .product-card-top-ui {
     position: absolute;
-    z-index: var(--layer-flat);
-  }
-
-  .product-badges--bottom-left {
-    bottom: calc(var(--badge-inset) + var(--padding-block-start));
-    left: calc(var(--badge-inset) + var(--padding-inline-start));
-  }
-
-  .product-badges--top-left {
-    top: calc(var(--badge-inset) + var(--padding-block-start));
-    left: calc(var(--badge-inset) + var(--padding-inline-start));
-  }
-
-  .product-badges--top-right {
-    top: calc(var(--badge-inset) + var(--padding-block-start));
-    right: calc(var(--badge-inset) + var(--padding-inline-start));
-  }
-
-  .product-badges__badge {
-    --badge-font-size: var(--font-size--xs);
-
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    z-index: 50;
     display: flex;
+    justify-content: space-between;
+  }
+
+  .product-level-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid #273488;
+    color: #273488;
+    font-size: 11px;
+  }
+
+  .product-level-badge__dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* Colores según etiqueta */
+  .product-level-badge--iniciacion .product-level-badge__dot {
+    background: #67d45a; /* verde */
+  }
+
+  .product-level-badge--iniciados .product-level-badge__dot {
+    background: #efc533; /* amarillo */
+  }
+
+  .product-level-badge--experimentados .product-level-badge__dot {
+    background: #f29f3f; /* naranja */
+  }
+
+  .product-level-badge--experto .product-level-badge__dot {
+    background: #e25b4f; /* rojo */
+  }
+
+  .product-card-wishlist {
+    width: 14px;
+    height: 14px;
+    border: none;
+    background: transparent;
+    color: #273488;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    color: var(--color-foreground);
-    background: var(--color-background);
-    font-size: var(--badge-font-size);
-    font-family: var(--badge-font-family);
-    font-weight: var(--badge-font-weight);
-    text-transform: var(--badge-text-transform);
-    border-radius: var(--badge-border-radius);
+    pointer-events: auto;
   }
 
-  .product-badges__badge--rectangle {
-    padding-block: var(--badge-rectangle-padding-block);
-    padding-inline: var(--badge-rectangle-padding-inline);
+  .product-card-wishlist:hover {
+    transform: scale(1.08);
   }
 {% endstylesheet %}
 

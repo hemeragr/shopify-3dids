@@ -70,7 +70,21 @@
     test_id: 'collections-list-grid'
   %}
 </div>
+{% stylesheet %}
+  /* SOLO MÓVIL: 2 columnas */
+  @media screen and (max-width: 749px) {
+    .ui-test-collection-list .resource-list,
+    .ui-test-collection-list [data-testid="collections-list-grid"] {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 12px !important;
+    }
 
+    .ui-test-collection-list .resource-list__item {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+  }
+{% endstylesheet %}
 {% schema %}
 {
   "name": "t:names.collection_list",

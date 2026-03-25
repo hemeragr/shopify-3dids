@@ -1,4 +1,3 @@
-
 {% liquid
   assign unset_image_tag = false
   if block.settings.image_position == 'contain'
@@ -25,6 +24,10 @@
         {
           "value": "video",
           "label": "t:options.video"
+        },
+        {
+          "value": "youtube",
+          "label": "YouTube"
         }
       ],
       "default": "image"
@@ -39,7 +42,7 @@
       "type": "url",
       "id": "link",
       "label": "t:settings.link",
-      "visible_if": "{{ block.settings.media_type == 'image'  }}"
+      "visible_if": "{{ block.settings.media_type == 'image' }}"
     },
     {
       "type": "video",
@@ -48,18 +51,24 @@
       "visible_if": "{{ block.settings.media_type == 'video' }}"
     },
     {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "URL de YouTube",
+      "visible_if": "{{ block.settings.media_type == 'youtube' }}"
+    },
+    {
       "type": "checkbox",
       "id": "video_loop",
       "label": "t:settings.loop",
       "default": true,
-      "visible_if": "{{ block.settings.media_type == 'video' }}"
+      "visible_if": "{{ block.settings.media_type == 'video' or block.settings.media_type == 'youtube' }}"
     },
     {
       "type": "checkbox",
       "id": "video_autoplay",
       "label": "t:settings.autoplay",
       "default": false,
-      "visible_if": "{{ block.settings.media_type == 'video' }}"
+      "visible_if": "{{ block.settings.media_type == 'video' or block.settings.media_type == 'youtube' }}"
     },
     {
       "type": "select",
@@ -71,7 +80,7 @@
           "label": "t:options.cover"
         },
         {
-          "value": "contain ",
+          "value": "contain",
           "label": "t:options.contain"
         }
       ],
@@ -93,7 +102,7 @@
         }
       ],
       "default": "cover",
-      "visible_if": "{{ block.settings.media_type == 'video' }}"
+      "visible_if": "{{ block.settings.media_type == 'video' or block.settings.media_type == 'youtube' }}"
     }
   ],
   "presets": [
