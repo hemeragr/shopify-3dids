@@ -667,68 +667,103 @@
     display: inline;
   }
 
-/* --- BOTÓN HOVER EN PRODUCT CARD --- */
+/* =========================
+   PRODUCT CARD - BOTÓN HOVER LIMPIO
+   ========================= */
 
 .product-card {
   position: relative;
 }
 
+/* Contenedor del botón */
 .product-card .buy-buttons-block {
   position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: 110px;
-  z-index: 5;
+  left: 16px;
+  right: 16px;
+  bottom: 105px;
+  z-index: 20;
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transform: translateY(10px);
+  transition: opacity .25s ease, transform .25s ease;
   pointer-events: none;
 }
 
+/* Mostrar en hover */
 .product-card:hover .buy-buttons-block {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
 }
 
+/* Reset del layout interno */
 .product-card .product-form-buttons {
+  display: block !important;
   width: 100%;
 }
 
-.product-card .product-form-buttons > *:not(.quantity-selector-wrapper, .quantity-rules, .quantity-label, .volume-pricing) {
-  flex: 1 1 100%;
+/* Ocultar TODO lo que no sea el botón */
+.product-card .product-form-buttons > * {
+  display: none !important;
 }
 
-/* ocultar cantidad, reglas y checkout acelerado dentro de la card */
+/* Mostrar solo el botón de añadir */
+.product-card .product-form-buttons button[type="submit"],
+.product-card .add-to-cart-button {
+  display: flex !important;
+}
+
+/* Estilo del botón */
+.product-card .add-to-cart-button,
+.product-card .product-form-buttons button[type="submit"] {
+  width: 100% !important;
+  height: 52px !important;
+  border-radius: 999px !important;
+  background: #273488 !important;
+  color: #fff !important;
+  border: 0 !important;
+  box-shadow: none !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+
+  padding: 0 20px !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+
+  appearance: none !important;
+}
+
+/* Quitar iconos o cosas raras del tema */
+.product-card .add-to-cart-button::before,
+.product-card .add-to-cart-button::after,
+.product-card button[type="submit"]::before,
+.product-card button[type="submit"]::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Ocultar cualquier SVG o icono interno */
+.product-card .add-to-cart-button svg,
+.product-card button[type="submit"] svg,
+.product-card .svg-wrapper {
+  display: none !important;
+}
+
+/* Ocultar elementos extra del form */
 .product-card .quantity-selector-wrapper,
+.product-card .quantity-selector,
 .product-card .quantity-label,
 .product-card .quantity-rules,
 .product-card .volume-pricing,
 .product-card shopify-accelerated-checkout,
-.product-card .shopify-payment-button {
+.product-card .shopify-payment-button,
+.product-card .product-form-text__error {
   display: none !important;
-}
-
-/* estilo visual del botón */
-.product-card .add-to-cart-button,
-.product-card .product-form-buttons .button,
-.product-card .product-form-buttons button[type="submit"] {
-  width: 100%;
-  min-height: 52px;
-  border-radius: 999px;
-  background: #273488;
-  color: #fff;
-  border: 0;
-  box-shadow: none;
-  font-size: 18px;
-  font-weight: 500;
-  padding: 0 24px;
-}
-
-.product-card .buy-buttons-block .button,
-.product-card .buy-buttons-block .add-to-cart-button {
-  text-transform: none;
-  letter-spacing: 0;
 }
 
 {% endstylesheet %}
