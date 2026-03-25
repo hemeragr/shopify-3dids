@@ -2,15 +2,17 @@
 
 {% capture children %}
   {% unless product == blank %}
-    {% assign nivel = product.metafields.custom.nivel.value | default: product.metafields.custom.nivel %}
+    {% assign nivel_raw = product.metafields.custom.nivel.value | default: product.metafields.custom.nivel %}
+    {% assign nivel = nivel_raw | strip | downcase %}
 
     <div class="product-card-top-ui">
-      {% if nivel != blank %}
-        <div class="product-level-badge product-level-badge--{{ nivel | handleize }}">
-          <span class="product-level-badge__dot"></span>
-          <span>{{ nivel }}</span>
-        </div>
-      {% endif %}
+      {% case nivel %}
+        {% when 'iniciacion', 'iniciación', 'iniciados', 'experimentados', 'experto' %}
+          <div class="product-level-badge product-level-badge--{{ nivel | handleize }}">
+            <span class="product-level-badge__dot"></span>
+            <span>{{ nivel_raw }}</span>
+          </div>
+      {% endcase %}
 
       <button class="product-card-wishlist" type="button" aria-label="Añadir a favoritos">
         ♡
@@ -36,79 +38,76 @@
 
 {% stylesheet %}
   .product-card-top-ui {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  right: 14px;
-  z-index: 50;
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    right: 14px;
+    z-index: 50;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 8px;
+  }
 
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end; 
-  gap: 8px;
-}
+  .product-level-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid #273488;
+    color: #273488;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    pointer-events: auto;
+  }
 
-.product-level-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: #ffffff;
-  border: 1px solid #273488;
-  color: #273488;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1;
-  pointer-events: auto;
-}
+  .product-level-badge__dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+  }
 
-.product-level-badge__dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  display: inline-block;
-}
+  /* Colores según nivel */
+  .product-level-badge--iniciacion .product-level-badge__dot,
+  .product-level-badge--iniciación .product-level-badge__dot {
+    background: #67d45a; /* verde */
+  }
 
-/* Colores según nivel */
-.product-level-badge--iniciacion .product-level-badge__dot,
-.product-level-badge--iniciación .product-level-badge__dot {
-  background: #67d45a;
-}
+  .product-level-badge--iniciados .product-level-badge__dot {
+    background: #efc533; /* amarillo */
+  }
 
-.product-level-badge--iniciados .product-level-badge__dot {
-  background: #efc533;
-}
+  .product-level-badge--experimentados .product-level-badge__dot {
+    background: #f29f3f; /* naranja */
+  }
 
-.product-level-badge--experto .product-level-badge__dot,
-.product-level-badge--expertos .product-level-badge__dot {
-  background: #e25b4f;
-}
+  .product-level-badge--experto .product-level-badge__dot {
+    background: #e25b4f; /* rojo */
+  }
 
-.product-level-badge--experimentado .product-level-badge__dot,
-.product-level-badge--experimentados .product-level-badge__dot {
-  background: #4aa3df;
-}
+  .product-card-wishlist {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    color: #273488;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+  }
 
-.product-card-wishlist {
-  width: 28px;
-  height: 28px;
-  border: none;
-  background: transparent;
-  color: #273488;
-  font-size: 22px;
-  line-height: 1;
-  cursor: pointer;
-  padding: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: auto;
-}
-
-.product-card-wishlist:hover {
-  transform: scale(1.08);
-}
+  .product-card-wishlist:hover {
+    transform: scale(1.08);
+  }
 {% endstylesheet %}
 
 {% schema %}
