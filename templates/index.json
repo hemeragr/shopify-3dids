@@ -526,7 +526,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<h3>Compra por colección</h3>",
+                "text": "",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
