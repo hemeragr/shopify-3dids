@@ -7,7 +7,7 @@
 
     <div class="product-card-top-ui">
       {% case nivel %}
-        {% when 'iniciacion', 'iniciación', 'iniciados', 'experimentados', 'experto' %}
+        {% when 'Iniciacion', 'Iniciación', 'Iniciados', 'Experimentados', 'Experto' %}
           <div class="product-level-badge product-level-badge--{{ nivel | handleize }}">
             <span class="product-level-badge__dot"></span>
             <span>{{ nivel_raw }}</span>
