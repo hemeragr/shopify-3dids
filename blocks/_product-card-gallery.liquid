@@ -2,17 +2,30 @@
 
 {% capture children %}
   {% unless product == blank %}
-    {% assign nivel_raw = product.metafields.custom.nivel.value | default: product.metafields.custom.nivel %}
-    {% assign nivel = nivel_raw | strip | downcase %}
+    {% assign nivel_texto = blank %}
+    {% assign nivel_clase = blank %}
+
+    {% if product.tags contains 'Iniciacion' or product.tags contains 'Iniciación' %}
+      {% assign nivel_texto = 'Iniciación' %}
+      {% assign nivel_clase = 'iniciacion' %}
+    {% elsif product.tags contains 'Iniciados' %}
+      {% assign nivel_texto = 'Iniciados' %}
+      {% assign nivel_clase = 'iniciados' %}
+    {% elsif product.tags contains 'Experimentados' %}
+      {% assign nivel_texto = 'Experimentados' %}
+      {% assign nivel_clase = 'experimentados' %}
+    {% elsif product.tags contains 'Experto' %}
+      {% assign nivel_texto = 'Experto' %}
+      {% assign nivel_clase = 'experto' %}
+    {% endif %}
 
     <div class="product-card-top-ui">
-      {% case nivel %}
-        {% when 'Iniciacion', 'Iniciación', 'Iniciados', 'Experimentados', 'Experto' %}
-          <div class="product-level-badge product-level-badge--{{ nivel | handleize }}">
-            <span class="product-level-badge__dot"></span>
-            <span>{{ nivel_raw }}</span>
-          </div>
-      {% endcase %}
+      {% if nivel_texto != blank %}
+        <div class="product-level-badge product-level-badge--{{ nivel_clase }}">
+          <span class="product-level-badge__dot"></span>
+          <span>{{ nivel_texto }}</span>
+        </div>
+      {% endif %}
 
       <button class="product-card-wishlist" type="button" aria-label="Añadir a favoritos">
         ♡
@@ -71,9 +84,8 @@
     display: inline-block;
   }
 
-  /* Colores según nivel */
-  .product-level-badge--iniciacion .product-level-badge__dot,
-  .product-level-badge--iniciación .product-level-badge__dot {
+  /* Colores según etiqueta */
+  .product-level-badge--iniciacion .product-level-badge__dot {
     background: #67d45a; /* verde */
   }
 
