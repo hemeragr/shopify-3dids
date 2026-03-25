@@ -4952,3 +4952,10 @@ product-recommendations:has([data-has-recommendations='false']) {
 .header__underlay-open::after {
   box-shadow: none !important;
 }
+
+
+
+/* ESTADO SCROLL  */
+.header[data-sticky-state="active"] .header-actions__action,
+.header[data-sticky-state="active"] .header-actions__action svg {
+  color: #273488 !important;
