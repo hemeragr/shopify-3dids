@@ -666,6 +666,65 @@
   .volume-pricing--expanded .volume-pricing__show-less {
     display: inline;
   }
+
+/* --- BOTÓN HOVER EN PRODUCT CARD --- */
+
+.product-card {
+  position: relative;
+}
+
+.product-card .buy-buttons-block {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 110px;
+  z-index: 5;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+.product-card:hover .buy-buttons-block {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.product-card .product-form-buttons {
+  width: 100%;
+}
+
+.product-card .product-form-buttons > *:not(.quantity-selector-wrapper, .quantity-rules, .quantity-label, .volume-pricing) {
+  flex: 1 1 100%;
+}
+
+/* ocultar cantidad, reglas y checkout acelerado dentro de la card */
+.product-card .quantity-selector-wrapper,
+.product-card .quantity-label,
+.product-card .quantity-rules,
+.product-card .volume-pricing,
+.product-card shopify-accelerated-checkout,
+.product-card .shopify-payment-button {
+  display: none !important;
+}
+
+/* estilo visual del botón */
+.product-card .add-to-cart-button,
+.product-card .product-form-buttons .button,
+.product-card .product-form-buttons button[type="submit"] {
+  width: 100%;
+  min-height: 52px;
+  border-radius: 999px;
+  background: #273488;
+  color: #fff;
+  border: 0;
+  box-shadow: none;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 0 24px;
+}
+
 {% endstylesheet %}
 
 {% schema %}
