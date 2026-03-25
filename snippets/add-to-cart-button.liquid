@@ -1,41 +1,24 @@
 {%- doc -%}
-  Renders a clean "Add to cart" button without icon or animation.
-
-  @param {boolean} can_add_to_cart
-  @param {string} add_to_cart_text
-  @param {object} product
-  @param {boolean} [icon_only_on_mobile]
-  @param {string} [class]
-  @param {string} [id]
-  @param {string} [data_testid]
+  Clean add to cart button for product cards.
 {%- enddoc -%}
 
 {%- liquid
   assign default_add_to_cart_text = 'actions.add_to_cart' | t
 -%}
 
-<add-to-cart-component
-  ref="addToCartButtonContainer"
-  data-add-to-cart-animation="false"
+<button
+  {% if id != blank %}
+    id="{{ id }}"
+  {% endif %}
+  type="submit"
+  name="add"
+  class="button {{ class }} add-to-cart-button-clean"
+  {% if data_testid %}
+    data-testid="{{ data_testid }}"
+  {% endif %}
+  {% unless can_add_to_cart %}
+    disabled
+  {% endunless %}
 >
-  <button
-    {% if id != blank %}
-      id="{{ id }}"
-    {% endif %}
-    type="submit"
-    name="add"
-    ref="addToCartButton"
-    on:click="/handleClick"
-    class="button {{ class }} add-to-cart-button-clean"
-    {% if data_testid %}
-      data-testid="{{ data_testid }}"
-    {% endif %}
-    {% unless can_add_to_cart %}
-      disabled
-    {% endunless %}
-  >
-    <span class="add-to-cart-text__content">
-      {{- add_to_cart_text | default: default_add_to_cart_text -}}
-    </span>
-  </button>
-</add-to-cart-component>
+  {{- add_to_cart_text | default: default_add_to_cart_text -}}
+</button>
