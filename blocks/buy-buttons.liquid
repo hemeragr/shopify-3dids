@@ -666,9 +666,8 @@
   .volume-pricing--expanded .volume-pricing__show-less {
     display: inline;
   }
-
 /* =========================
-   BOTÓN LIMPIO EN HOVER PARA PRODUCT CARD
+   PRODUCT CARD HOVER BUTTON
    ========================= */
 
 .product-card {
@@ -680,7 +679,7 @@
   left: 16px !important;
   right: 16px !important;
   bottom: 105px !important;
-  z-index: 30 !important;
+  z-index: 40 !important;
   opacity: 0 !important;
   transform: translateY(10px) !important;
   transition: opacity .25s ease, transform .25s ease !important;
@@ -707,54 +706,52 @@
   width: 100% !important;
 }
 
-.product-card .product-form-buttons > span > * {
-  display: block !important;
-  width: 100% !important;
-}
-
-.product-card .add-to-cart-button-clean,
-.product-card .add-to-cart-button,
-.product-card button[type="submit"] {
+.product-card .product-form-buttons > span > button,
+.product-card .add-to-cart-button-clean {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   width: 100% !important;
   min-width: 100% !important;
   height: 52px !important;
   min-height: 52px !important;
-  border-radius: 999px !important;
-  background: #273488 !important;
-  color: #ffffff !important;
-  border: 0 !important;
-  box-shadow: none !important;
   padding: 0 24px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  border-radius: 999px !important;
+  border: 0 !important;
+  background: #273488 !important;
+  color: #fff !important;
+  box-shadow: none !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
   font-size: 16px !important;
   font-weight: 500 !important;
   line-height: 1 !important;
-  text-transform: none !important;
-  letter-spacing: 0 !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
   overflow: hidden !important;
-  position: relative !important;
 }
 
+/* machacar capas visuales del tema */
+.product-card .product-form-buttons > span > button::before,
+.product-card .product-form-buttons > span > button::after,
 .product-card .add-to-cart-button-clean::before,
-.product-card .add-to-cart-button-clean::after,
-.product-card .add-to-cart-button::before,
-.product-card .add-to-cart-button::after,
-.product-card button[type="submit"]::before,
-.product-card button[type="submit"]::after {
+.product-card .add-to-cart-button-clean::after {
   content: none !important;
   display: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
-.product-card .add-to-cart-text__content {
-  color: #ffffff !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 100% !important;
+/* reset de cualquier span interno heredado */
+.product-card .product-form-buttons > span > button * {
+  all: unset;
+  color: #fff !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
 }
 
+/* ocultar extras */
 .product-card .quantity-selector-wrapper,
 .product-card .quantity-selector,
 .product-card .quantity-label,
