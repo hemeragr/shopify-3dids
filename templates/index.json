@@ -624,7 +624,10 @@
       "name": "t:names.collections_grid",
       "settings": {
         "collection_list": [
-          "barcos"
+          "maquetas-de-barcos",
+          "maqueta-de-aviones",
+          "herramientas",
+          "acabados"
         ],
         "layout_type": "grid",
         "carousel_on_mobile": false,
