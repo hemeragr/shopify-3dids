@@ -708,7 +708,7 @@
 
 .product-card .product-form-buttons > span > button,
 .product-card .add-to-cart-button-clean {
-  
+
   justify-content: center;
   width: 85%;
   margin: 5px 10px;
@@ -750,6 +750,24 @@
 .product-card .product-form-text__error {
   display: none !important;
 }
+
+/* =========================
+   HOVER BOTÓN - INVERTIR COLORES
+   ========================= */
+
+.product-card .add-to-cart-button-clean:hover,
+.product-card .product-form-buttons button[type="submit"]:hover {
+  background: #ffffff !important;
+  color: #273488 !important;
+  border: 2px solid #273488 !important;
+}
+
+/* asegurar que el texto también cambia */
+.product-card .add-to-cart-button-clean:hover *,
+.product-card .product-form-buttons button[type="submit"]:hover * {
+  color: #273488 !important;
+}
+
 {% endstylesheet %}
 
 {% schema %}
