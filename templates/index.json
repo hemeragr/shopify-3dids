@@ -668,147 +668,74 @@
         "youtube_url_2": "https://www.youtube.com/watch?v=Lu-GImpTE8k&list=TLGGAppObONA9dIyNjAzMjAyNg"
       }
     },
-    "featured_blog_posts_qRcqbT": {
-      "type": "featured-blog-posts",
+    "custom_cards_grid_nWNXrX": {
+      "type": "custom-cards-grid",
       "blocks": {
-        "static-blog-title": {
-          "type": "_featured-blog-posts-title",
-          "name": "t:names.title",
-          "static": true,
+        "card_aUFa6N": {
+          "type": "card",
           "settings": {
-            "text": "<h3>{{ closest.blog.title }}</h3>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "image": "shopify://shop_images/DSC_6741_1.jpg",
+            "title": "¿Quieres vender nuestros productos?",
+            "button_label": "SABER MÁS",
+            "link": ""
+          }
         },
-        "static-blog-post-card": {
-          "type": "_featured-blog-posts-card",
-          "name": "t:names.blog_card",
-          "static": true,
+        "card_HigRiK": {
+          "type": "card",
           "settings": {
-            "alignment": "left",
-            "gap": 8,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "image": {
-              "type": "_featured-blog-posts-image",
-              "static": true,
-              "settings": {
-                "image_ratio": "square",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0
-              },
-              "blocks": {}
-            },
-            "title": {
-              "type": "_heading",
-              "name": "t:names.title",
-              "static": true,
-              "settings": {
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "text": "<h4>{{ closest.article.title }}</h4>",
-                "read_only": false,
-                "alignment": "left",
-                "show_alignment": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "blog-post-info-text": {
-              "type": "_blog-post-info-text",
-              "name": "t:names.details",
-              "static": true,
-              "settings": {
-                "show_date": true,
-                "show_author": true,
-                "type_preset": "",
-                "alignment": "left",
-                "show_alignment": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0
-              },
-              "blocks": {}
-            },
-            "blog-post-description": {
-              "type": "_blog-post-description",
-              "name": "t:names.excerpt",
-              "static": true,
-              "settings": {
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "padding-block-start": 8,
-                "padding-block-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": []
+            "image": "shopify://shop_images/shipping_1.jpg",
+            "title": "Realizamos envíos rápidos y seguros a todo el mundo",
+            "button_label": "SABER MÁS",
+            "link": ""
+          }
+        },
+        "card_KBFAMp": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Blog_1.jpg",
+            "title": "La comunidad para los amantes del modelismo",
+            "button_label": "SABER MÁS",
+            "link": ""
+          }
+        },
+        "card_LCpG3A": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/contacta.jpg",
+            "title": "¿Tienes alguna duda? Contacta con nosotros",
+            "button_label": "CONTACTAR",
+            "link": ""
+          }
+        },
+        "card_pUMUig": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Solicitud_de_instrucciones.jpg",
+            "title": "¿Necesitas instrucciones para un kit?",
+            "button_label": "PÍDELAS AQUÍ",
+            "link": ""
+          }
+        },
+        "card_YpReBM": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Solicitud_de_piezas.jpg",
+            "title": "Reposición de piezas",
+            "button_label": "PÍDELAS AQUÍ",
+            "link": ""
+          }
         }
       },
-      "name": "t:names.blog_posts_grid",
-      "settings": {
-        "blog": "",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "post_limit": 3,
-        "columns": 3,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 8,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 12,
-        "color_scheme": "",
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      }
+      "block_order": [
+        "card_aUFa6N",
+        "card_HigRiK",
+        "card_KBFAMp",
+        "card_LCpG3A",
+        "card_pUMUig",
+        "card_YpReBM"
+      ],
+      "name": "Custom cards grid",
+      "settings": {}
     },
     "section_efFz8i": {
       "type": "section",
@@ -1072,7 +999,7 @@
     "product_list_QVxwhn",
     "collection_list_YVCDiD",
     "two_video_hero_4RRDiL",
-    "featured_blog_posts_qRcqbT",
+    "custom_cards_grid_nWNXrX",
     "section_efFz8i",
     "177446794061cdf6ee"
   ]
