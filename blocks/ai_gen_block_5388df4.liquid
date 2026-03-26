@@ -439,23 +439,31 @@
       constructor() {
         super();
         this.currentIndex = 0;
-        this.track = this.querySelector('[data-track]');
-        this.prevButton = this.querySelector('[data-prev]');
-        this.nextButton = this.querySelector('[data-next]');
-        this.cards = this.querySelectorAll('.ai-reviews-carousel__card-{{ ai_gen_id }}');
-        this.totalCards = this.cards.length;
       }
 
       connectedCallback() {
-        this.setupEventListeners();
-        this.updateButtons();
+        this.track = this.querySelector('[data-track]');
+        this.prevButton = this.querySelector('[data-prev]');
+        this.nextButton = this.querySelector('[data-next]');
+        this.cards = Array.from(this.querySelectorAll('.ai-reviews-carousel__card-{{ ai_gen_id }}'));
+
+        if (!this.track || !this.prevButton || !this.nextButton || this.cards.length === 0) return;
+
+        this.prev = this.prev.bind(this);
+        this.next = this.next.bind(this);
+        this.onResize = this.onResize.bind(this);
+
+        this.prevButton.addEventListener('click', this.prev);
+        this.nextButton.addEventListener('click', this.next);
+        window.addEventListener('resize', this.onResize);
+
+        this.updateCarousel();
       }
 
-      setupEventListeners() {
-        this.prevButton.addEventListener('click', () => this.prev());
-        this.nextButton.addEventListener('click', () => this.next());
-        
-        window.addEventListener('resize', () => this.updateButtons());
+      disconnectedCallback() {
+        if (this.prevButton) this.prevButton.removeEventListener('click', this.prev);
+        if (this.nextButton) this.nextButton.removeEventListener('click', this.next);
+        window.removeEventListener('resize', this.onResize);
       }
 
       getVisibleCards() {
@@ -466,37 +474,43 @@
         return 4;
       }
 
+      getMaxIndex() {
+        return Math.max(0, this.cards.length - this.getVisibleCards());
+      }
+
       prev() {
-        if (this.currentIndex > 0) {
-          this.currentIndex--;
-          this.updateCarousel();
-        }
+        this.currentIndex = Math.max(0, this.currentIndex - 1);
+        this.updateCarousel();
       }
 
       next() {
-        const visibleCards = this.getVisibleCards();
-        if (this.currentIndex < this.totalCards - visibleCards) {
-          this.currentIndex++;
-          this.updateCarousel();
-        }
+        this.currentIndex = Math.min(this.getMaxIndex(), this.currentIndex + 1);
+        this.updateCarousel();
+      }
+
+      onResize() {
+        this.currentIndex = Math.min(this.currentIndex, this.getMaxIndex());
+        this.updateCarousel();
       }
 
       updateCarousel() {
-        const cardWidth = this.cards[0].offsetWidth;
-        const gap = {{ block.settings.card_gap }};
-        const offset = -(this.currentIndex * (cardWidth + gap));
-        this.track.style.transform = `translateX(${offset}px)`;
-        this.updateButtons();
-      }
+        if (!this.cards.length) return;
 
-      updateButtons() {
-        const visibleCards = this.getVisibleCards();
-        this.prevButton.disabled = this.currentIndex === 0;
-        this.nextButton.disabled = this.currentIndex >= this.totalCards - visibleCards;
+        const cardStyle = window.getComputedStyle(this.cards[0]);
+        const cardWidth = this.cards[0].getBoundingClientRect().width;
+        const gap = parseFloat(window.getComputedStyle(this.track).gap) || {{ block.settings.card_gap }};
+        const offset = this.currentIndex * (cardWidth + gap);
+
+        this.track.style.transform = 'translateX(-' + offset + 'px)';
+
+        this.prevButton.disabled = this.currentIndex <= 0;
+        this.nextButton.disabled = this.currentIndex >= this.getMaxIndex();
       }
     }
 
-    customElements.define('reviews-carousel-{{ ai_gen_id }}', ReviewsCarousel{{ ai_gen_id }});
+    if (!customElements.get('reviews-carousel-{{ ai_gen_id }}')) {
+      customElements.define('reviews-carousel-{{ ai_gen_id }}', ReviewsCarousel{{ ai_gen_id }});
+    }
   })();
 </script>
 
