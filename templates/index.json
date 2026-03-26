@@ -647,154 +647,25 @@
         "padding-block-end": 48
       }
     },
-    "media_with_content_CWyDp6": {
-      "type": "media-with-content",
-      "blocks": {
-        "media": {
-          "type": "_media-without-appearance",
-          "static": true,
-          "settings": {
-            "media_type": "youtube",
-            "link": "",
-            "youtube_url": "https://www.youtube.com/watch?v=LiQRUHBoF-k&list=TLGG-xd8sCYGiZoyNTAzMjAyNg",
-            "video_loop": false,
-            "video_autoplay": true,
-            "image_position": "cover",
-            "video_position": "cover"
-          },
-          "blocks": {}
-        },
-        "content": {
-          "type": "_content-without-appearance",
-          "static": true,
-          "settings": {
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-end",
-            "gap": 24
-          },
-          "blocks": {
-            "jumbo_text_fP7FFH": {
-              "type": "jumbo-text",
-              "name": "t:names.jumbo_text",
-              "settings": {
-                "text": "Sube\nLa\nApuesta",
-                "font": "heading",
-                "alignment": "right",
-                "line_height": "0.8",
-                "letter_spacing": "-0.03em",
-                "case": "uppercase",
-                "text_effect": "none",
-                "animation_repeat": false
-              },
-              "blocks": {}
-            },
-            "button_9bhcAw": {
-              "type": "button",
-              "name": "t:names.button",
-              "settings": {
-                "label": "Comprar ahora",
-                "link": "shopify://collections/all",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "jumbo_text_fP7FFH",
-            "button_9bhcAw"
-          ]
-        }
-      },
-      "name": "t:names.editorial_jumbo_text",
+    "two_video_hero_4RRDiL": {
+      "type": "two-video-hero",
+      "name": "Two video hero",
       "settings": {
-        "media_position": "right",
-        "media_width": "medium",
-        "media_height": "60svh",
-        "section_width": "full-width",
-        "extend_media": true,
-        "color_scheme": "scheme-3",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
-    "media_with_content_FQVkLG": {
-      "type": "media-with-content",
-      "blocks": {
-        "media": {
-          "type": "_media-without-appearance",
-          "static": true,
-          "settings": {
-            "media_type": "youtube",
-            "link": "",
-            "youtube_url": "https://www.youtube.com/watch?v=LiQRUHBoF-k&list=TLGG-xd8sCYGiZoyNTAzMjAyNg",
-            "video_loop": false,
-            "video_autoplay": true,
-            "image_position": "cover",
-            "video_position": "cover"
-          },
-          "blocks": {}
-        },
-        "content": {
-          "type": "_content-without-appearance",
-          "static": true,
-          "settings": {
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-end",
-            "gap": 24
-          },
-          "blocks": {
-            "jumbo_text_F46XPU": {
-              "type": "jumbo-text",
-              "name": "t:names.jumbo_text",
-              "settings": {
-                "text": "Sube\nLa\nApuesta",
-                "font": "heading",
-                "alignment": "right",
-                "line_height": "0.8",
-                "letter_spacing": "-0.03em",
-                "case": "uppercase",
-                "text_effect": "none",
-                "animation_repeat": false
-              },
-              "blocks": {}
-            },
-            "button_RHAhjq": {
-              "type": "button",
-              "name": "t:names.button",
-              "settings": {
-                "label": "Comprar ahora",
-                "link": "shopify://collections/all",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "jumbo_text_F46XPU",
-            "button_RHAhjq"
-          ]
-        }
-      },
-      "name": "t:names.editorial_jumbo_text",
-      "settings": {
-        "media_position": "left",
-        "media_width": "medium",
-        "media_height": "60svh",
-        "section_width": "full-width",
-        "extend_media": true,
-        "color_scheme": "scheme-3",
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "background_color": "#273488",
+        "heading_color": "#ffffff",
+        "text_color": "#ffffff",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#ffffff",
+        "button_hover_bg": "#ffffff",
+        "button_hover_text": "#1438a6",
+        "heading_1": "Despierta al constructor que llevas dentro",
+        "text_1": "",
+        "youtube_url_1": "https://www.youtube.com/watch?v=LiQRUHBoF-k&list=TLGG-xd8sCYGiZoyNjAzMjAyNg",
+        "button_label_1": "Descubre Artesanía Latina 🡢",
+        "button_link_1": "shopify://pages/hms-victory",
+        "heading_2": "Construyendo maquetasjuntos desde 1970",
+        "text_2": "<p>Artesanía Latina es una marca con más de 50 años de historia especializada en la concepción, fabricación y comercialización de maquetas en kit a escala de madera y metal. Nuestros modelos, están fabricados con materiales de excelente calidad y con maquinaria de última generación para ofrecer una magnífica experiencia de montaje. </p><p>Tanto si ya eres todo un experto modelista como alguien que se pregunta si este hobby es para ti, tenemos el modelo ideal para ti. </p><p>Disponemos además una completa selección de herramientas, accesorios y complementos para llevar a tus maquetas al siguiente nivel </p><p>Si estás buscando un regalo perfecto para ti o tus allegados, tenemos una extensa selección de Ideas para regalar. </p>",
+        "youtube_url_2": "https://www.youtube.com/watch?v=Lu-GImpTE8k&list=TLGGAppObONA9dIyNjAzMjAyNg"
       }
     },
     "featured_blog_posts_qRcqbT": {
@@ -1069,7 +940,7 @@
             "card_shadow_x": 0,
             "card_shadow_y": 2,
             "card_shadow_blur": 10,
-            "card_shadow_color": "#00000010",
+            "card_shadow_color": "#0000000f",
             "star_size": 20,
             "star_color": "#ffc107",
             "avatar_size": 50,
@@ -1200,8 +1071,7 @@
     "product_list_fa6P9H",
     "product_list_QVxwhn",
     "collection_list_YVCDiD",
-    "media_with_content_CWyDp6",
-    "media_with_content_FQVkLG",
+    "two_video_hero_4RRDiL",
     "featured_blog_posts_qRcqbT",
     "section_efFz8i",
     "177446794061cdf6ee"
