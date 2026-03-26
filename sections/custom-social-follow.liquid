@@ -1,0 +1,183 @@
+<div class="custom-social-follow">
+  <div class="custom-social-follow__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="custom-social-follow__heading">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    <div class="custom-social-follow__icons">
+      {% if section.settings.facebook_url != blank %}
+        <a
+          href="{{ section.settings.facebook_url }}"
+          class="custom-social-follow__icon custom-social-follow__icon--facebook"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook"
+        >
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            {%- render 'icon', icon: 'facebook' -%}
+          </svg>
+        </a>
+      {% endif %}
+
+      {% if section.settings.instagram_url != blank %}
+        <a
+          href="{{ section.settings.instagram_url }}"
+          class="custom-social-follow__icon custom-social-follow__icon--instagram"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+        >
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            {%- render 'icon', icon: 'instagram' -%}
+          </svg>
+        </a>
+      {% endif %}
+
+      {% if section.settings.youtube_url != blank %}
+        <a
+          href="{{ section.settings.youtube_url }}"
+          class="custom-social-follow__icon custom-social-follow__icon--youtube"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="YouTube"
+        >
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            {%- render 'icon', icon: 'youtube' -%}
+          </svg>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% style %}
+  .custom-social-follow {
+    background: {{ section.settings.background_color }};
+    padding: 72px 20px;
+  }
+
+  .custom-social-follow__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .custom-social-follow__heading {
+    margin: 0 0 28px;
+    color: {{ section.settings.heading_color }};
+    font-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+    font-style: {{ settings.type_header_font.style }};
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 54px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+
+  .custom-social-follow__icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .custom-social-follow__icon {
+    width: 62px;
+    height: 62px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .custom-social-follow__icon:hover {
+    transform: translateY(-2px);
+    opacity: 0.92;
+  }
+
+  .custom-social-follow__icon svg {
+    width: 30px;
+    height: 30px;
+    fill: #ffffff;
+    display: block;
+  }
+
+  .custom-social-follow__icon--facebook {
+    background: #4560a8;
+  }
+
+  .custom-social-follow__icon--instagram {
+    background: #2d2d2d;
+  }
+
+  .custom-social-follow__icon--youtube {
+    background: #df2020;
+  }
+
+  @media screen and (max-width: 749px) {
+    .custom-social-follow {
+      padding: 48px 16px;
+    }
+
+    .custom-social-follow__icon {
+      width: 56px;
+      height: 56px;
+    }
+
+    .custom-social-follow__icon svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Custom social follow",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "SÍGUENOS EN NUESTRAS REDES SOCIALES"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Color de fondo",
+      "default": "#f3f3f3"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Color del título",
+      "default": "#2f3f9d"
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "YouTube"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom social follow"
+    }
+  ]
+}
+{% endschema %}
