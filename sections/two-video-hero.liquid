@@ -1,0 +1,343 @@
+{% liquid
+  assign youtube_id_1 = section.settings.youtube_url_1
+  assign youtube_id_2 = section.settings.youtube_url_2
+
+  if youtube_id_1 contains 'youtube.com/watch?v='
+    assign youtube_id_1 = youtube_id_1 | split: 'v=' | last | split: '&' | first
+  elsif youtube_id_1 contains 'youtu.be/'
+    assign youtube_id_1 = youtube_id_1 | split: 'youtu.be/' | last | split: '?' | first
+  endif
+
+  if youtube_id_2 contains 'youtube.com/watch?v='
+    assign youtube_id_2 = youtube_id_2 | split: 'v=' | last | split: '&' | first
+  elsif youtube_id_2 contains 'youtu.be/'
+    assign youtube_id_2 = youtube_id_2 | split: 'youtu.be/' | last | split: '?' | first
+  endif
+%}
+
+<div class="two-video-hero color-{{ section.settings.color_scheme }}">
+  <div class="two-video-hero__row two-video-hero__row--video-right">
+    <div class="two-video-hero__content">
+      {% if section.settings.heading_1 != blank %}
+        <h2 class="two-video-hero__heading">{{ section.settings.heading_1 }}</h2>
+      {% endif %}
+
+      {% if section.settings.text_1 != blank %}
+        <div class="two-video-hero__text rte">{{ section.settings.text_1 }}</div>
+      {% endif %}
+
+      {% if section.settings.button_label_1 != blank and section.settings.button_link_1 != blank %}
+        <a href="{{ section.settings.button_link_1 }}" class="two-video-hero__button">
+          {{ section.settings.button_label_1 }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="two-video-hero__media">
+      {% if youtube_id_1 != blank %}
+        <div class="two-video-hero__video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/{{ youtube_id_1 }}?rel=0&playsinline=1"
+            title="{{ section.settings.heading_1 | escape }}"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="two-video-hero__row two-video-hero__row--video-left">
+    <div class="two-video-hero__media">
+      {% if youtube_id_2 != blank %}
+        <div class="two-video-hero__video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/{{ youtube_id_2 }}?rel=0&playsinline=1"
+            title="{{ section.settings.heading_2 | escape }}"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="two-video-hero__content">
+      {% if section.settings.heading_2 != blank %}
+        <h2 class="two-video-hero__heading">{{ section.settings.heading_2 }}</h2>
+      {% endif %}
+
+      {% if section.settings.text_2 != blank %}
+        <div class="two-video-hero__text rte">{{ section.settings.text_2 }}</div>
+      {% endif %}
+
+      {% if section.settings.button_label_2 != blank and section.settings.button_link_2 != blank %}
+        <a href="{{ section.settings.button_link_2 }}" class="two-video-hero__button">
+          {{ section.settings.button_label_2 }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .two-video-hero {
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .two-video-hero__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    gap: 32px;
+    min-height: 72vh;
+    padding: 40px 24px;
+  }
+
+  .two-video-hero__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 28px;
+    max-width: 760px;
+  }
+
+  .two-video-hero__heading {
+    margin: 0;
+    color: {{ section.settings.heading_color }};
+    font-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+    font-weight: 700;
+    font-size: clamp(42px, 6vw, 86px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+
+  .two-video-hero__text,
+  .two-video-hero__text p {
+    color: {{ section.settings.text_color }};
+    font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+    font-size: clamp(16px, 1.5vw, 22px);
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  .two-video-hero__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    min-width: 280px;
+    padding: 16px 32px;
+    border: 1.5px solid {{ section.settings.button_border_color }};
+    border-radius: 999px;
+    color: {{ section.settings.button_text_color }};
+    text-decoration: none;
+    background: transparent;
+    font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+    font-size: 1.1rem;
+    transition: all 0.25s ease;
+  }
+
+  .two-video-hero__button:hover {
+    background: {{ section.settings.button_hover_bg }};
+    color: {{ section.settings.button_hover_text }};
+    border-color: {{ section.settings.button_hover_bg }};
+  }
+
+  .two-video-hero__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .two-video-hero__video-wrap {
+    width: 100%;
+    max-width: 620px;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .two-video-hero__video-wrap iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  @media screen and (min-width: 750px) {
+    .two-video-hero__row {
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: clamp(32px, 5vw, 90px);
+      padding: 60px clamp(32px, 5vw, 80px);
+    }
+
+    .two-video-hero__row--video-right {
+      grid-template-areas: "content media";
+    }
+
+    .two-video-hero__row--video-left {
+      grid-template-areas: "media content";
+    }
+
+    .two-video-hero__row--video-right .two-video-hero__content {
+      grid-area: content;
+    }
+
+    .two-video-hero__row--video-right .two-video-hero__media {
+      grid-area: media;
+    }
+
+    .two-video-hero__row--video-left .two-video-hero__content {
+      grid-area: content;
+    }
+
+    .two-video-hero__row--video-left .two-video-hero__media {
+      grid-area: media;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .two-video-hero__row {
+      min-height: auto;
+      padding: 32px 20px;
+    }
+
+    .two-video-hero__heading {
+      font-size: clamp(34px, 12vw, 56px);
+    }
+
+    .two-video-hero__button {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Two video hero",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Esquema de color",
+      "default": "scheme-3"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Color de fondo",
+      "default": "#1438A6"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Color del título",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color del texto",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Color texto botón",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Color borde botón",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Fondo hover botón",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text",
+      "label": "Texto hover botón",
+      "default": "#1438A6"
+    },
+
+    {
+      "type": "header",
+      "content": "Bloque 1"
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Título 1",
+      "default": "Despierta al constructor que llevas dentro"
+    },
+    {
+      "type": "richtext",
+      "id": "text_1",
+      "label": "Texto 1",
+      "default": "<p>Descubre Artesanía Latina</p>"
+    },
+    {
+      "type": "text",
+      "id": "youtube_url_1",
+      "label": "Link YouTube 1"
+    },
+    {
+      "type": "text",
+      "id": "button_label_1",
+      "label": "Texto botón 1",
+      "default": "Descubre Artesanía Latina"
+    },
+    {
+      "type": "url",
+      "id": "button_link_1",
+      "label": "Enlace botón 1"
+    },
+
+    {
+      "type": "header",
+      "content": "Bloque 2"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Título 2",
+      "default": "Construye historia con tus propias manos"
+    },
+    {
+      "type": "richtext",
+      "id": "text_2",
+      "label": "Texto 2",
+      "default": "<p>Explora nuestra colección de maquetas y modelismo.</p>"
+    },
+    {
+      "type": "text",
+      "id": "youtube_url_2",
+      "label": "Link YouTube 2"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Texto botón 2",
+      "default": "Ver colección"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Enlace botón 2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Two video hero"
+    }
+  ]
+}
+{% endschema %}
