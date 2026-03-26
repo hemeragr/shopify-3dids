@@ -172,6 +172,45 @@
   .header__underlay {
     --color-submenu: rgb({{ block_settings.color_scheme.settings.background.rgba }});
   }
+
+  @media screen and (min-width: 993px) {
+  .menu-list {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    overflow: visible !important;
+  }
+
+  .menu-list__list-item {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .menu-list__link {
+    padding-left: clamp(8px, 1vw, 18px);
+    padding-right: clamp(8px, 1vw, 18px);
+    white-space: nowrap;
+  }
+
+  .menu-list__link-title {
+    font-size: clamp(13px, 0.95vw, 16px);
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .header__inline-menu,
+  .menu-list {
+    display: none !important;
+  }
+
+  .header__icon--menu,
+  .header__menu-toggle,
+  .menu-drawer-container {
+    display: flex !important;
+  }
+}
+
 {% endstyle %}
 {% stylesheet %}
   .header__drawer {
