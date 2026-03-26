@@ -737,6 +737,18 @@
       "name": "Custom cards grid",
       "settings": {}
     },
+    "custom_social_follow_nDYw7V": {
+      "type": "custom-social-follow",
+      "name": "Custom social follow",
+      "settings": {
+        "heading": "SÍGUENOS EN NUESTRAS REDES SOCIALES",
+        "background_color": "#f3f3f3",
+        "heading_color": "#2f3f9d",
+        "facebook_url": "https://www.facebook.com/ArtesaniaLatina.net/",
+        "instagram_url": "https://www.instagram.com/artesanialatina_oficial",
+        "youtube_url": "https://www.youtube.com/channel/UCIzu-_drkkuu_5I1-Y7J1wQ"
+      }
+    },
     "section_efFz8i": {
       "type": "section",
       "blocks": {
@@ -745,32 +757,6 @@
           "name": "t:names.heading",
           "settings": {
             "text": "<h2>Novedades</h2>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "text_y6Cf9z": {
-          "type": "text",
-          "name": "t:names.text",
-          "settings": {
-            "text": "<p>Creamos cosas que funcionan mejor y duran más. Nuestros productos resuelven problemas reales con un diseño limpio y materiales honestos.</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -815,7 +801,6 @@
       },
       "block_order": [
         "text_KXf3MA",
-        "text_y6Cf9z",
         "social_links_3mjAXB"
       ],
       "name": "t:names.rich_text_section",
@@ -1000,6 +985,7 @@
     "collection_list_YVCDiD",
     "two_video_hero_4RRDiL",
     "custom_cards_grid_nWNXrX",
+    "custom_social_follow_nDYw7V",
     "section_efFz8i",
     "177446794061cdf6ee"
   ]
