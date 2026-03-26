@@ -651,24 +651,21 @@
       "type": "two-video-hero",
       "name": "Two video hero",
       "settings": {
-        "color_scheme": "",
         "background_color": "#273488",
-        "heading_color": "#FFFFFF",
-        "text_color": "#FFFFFF",
-        "button_text_color": "#FFFFFF",
-        "button_border_color": "#FFFFFF",
-        "button_hover_bg": "#FFFFFF",
-        "button_hover_text": "#1438A6",
+        "heading_color": "#ffffff",
+        "text_color": "#ffffff",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#ffffff",
+        "button_hover_bg": "#ffffff",
+        "button_hover_text": "#1438a6",
         "heading_1": "Despierta al constructor que llevas dentro",
         "text_1": "<p>Descubre Artesanía Latina</p>",
         "youtube_url_1": "https://www.youtube.com/watch?v=LiQRUHBoF-k&list=TLGG-xd8sCYGiZoyNjAzMjAyNg",
         "button_label_1": "Descubre Artesanía Latina",
         "button_link_1": "",
-        "heading_2": "Construye historia con tus propias manos",
-        "text_2": "<p>Explora nuestra colección de maquetas y modelismo.</p>",
-        "youtube_url_2": "https://www.youtube.com/watch?v=Lu-GImpTE8k&list=TLGGAppObONA9dIyNjAzMjAyNg",
-        "button_label_2": "Ver colección",
-        "button_link_2": ""
+        "heading_2": "Construyendo maquetasjuntos desde 1970",
+        "text_2": "<p>Artesanía Latina es una marca con más de 50 años de historia especializada en la concepción, fabricación y comercialización de maquetas en kit a escala de madera y metal. Nuestros modelos, están fabricados con materiales de excelente calidad y con maquinaria de última generación para ofrecer una magnífica experiencia de montaje. </p><p>Tanto si ya eres todo un experto modelista como alguien que se pregunta si este hobby es para ti, tenemos el modelo ideal para ti. </p><p>Disponemos además una completa selección de herramientas, accesorios y complementos para llevar a tus maquetas al siguiente nivel </p><p>Si estás buscando un regalo perfecto para ti o tus allegados, tenemos una extensa selección de Ideas para regalar. </p>",
+        "youtube_url_2": "https://www.youtube.com/watch?v=Lu-GImpTE8k&list=TLGGAppObONA9dIyNjAzMjAyNg"
       }
     },
     "featured_blog_posts_qRcqbT": {
