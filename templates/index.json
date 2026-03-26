@@ -703,7 +703,7 @@
           "settings": {
             "image": "shopify://shop_images/contacta.jpg",
             "title": "¿Tienes alguna duda? Contacta con nosotros",
-            "button_label": "SABER MÁS",
+            "button_label": "CONTACTAR",
             "link": ""
           }
         },
@@ -712,7 +712,7 @@
           "settings": {
             "image": "shopify://shop_images/Solicitud_de_instrucciones.jpg",
             "title": "¿Necesitas instrucciones para un kit?",
-            "button_label": "SABER MÁS",
+            "button_label": "PÍDELAS AQUÍ",
             "link": ""
           }
         },
@@ -721,15 +721,7 @@
           "settings": {
             "image": "shopify://shop_images/Solicitud_de_piezas.jpg",
             "title": "Reposición de piezas",
-            "button_label": "SABER MÁS",
-            "link": ""
-          }
-        },
-        "card_3tQbfG": {
-          "type": "card",
-          "settings": {
-            "title": "Título ejemplo",
-            "button_label": "SABER MÁS",
+            "button_label": "PÍDELAS AQUÍ",
             "link": ""
           }
         }
@@ -740,8 +732,7 @@
         "card_KBFAMp",
         "card_LCpG3A",
         "card_pUMUig",
-        "card_YpReBM",
-        "card_3tQbfG"
+        "card_YpReBM"
       ],
       "name": "Custom cards grid",
       "settings": {}
