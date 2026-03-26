@@ -195,6 +195,146 @@
 
     min-height: 500px;
   }
+
+  /* HERO estilo como la segunda imagen */
+  .media-with-content {
+    min-height: 72vh;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .media-with-content {
+      --media-with-content-grid-columns: 1.1fr 0.9fr;
+      grid-template-areas: 'content media';
+      align-items: center;
+      min-height: 78vh;
+      column-gap: clamp(32px, 5vw, 90px);
+    }
+
+    .media-with-content .media-with-content__content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .media-with-content .media-with-content__content > .group-block-content {
+      width: 100%;
+      max-width: 760px;
+      padding-inline: clamp(32px, 5vw, 80px);
+      padding-block: clamp(32px, 4vw, 64px);
+    }
+
+    .media-with-content .media-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-right: clamp(24px, 4vw, 60px);
+    }
+  }
+
+  /* Caja del vídeo / media */
+  .media-with-content .media-block > * {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .media-with-content .media-block > * {
+      max-width: 620px;
+    }
+  }
+
+  /* Si el bloque de vídeo o iframe permite ratio */
+  .media-with-content .media-block iframe,
+  .media-with-content .media-block video,
+  .media-with-content .media-block .video,
+  .media-with-content .media-block .deferred-media,
+  .media-with-content .media-block .media {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  /* Contenido izquierdo más limpio */
+  .media-with-content .media-with-content__content .group-block-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 28px;
+  }
+
+  /* Título grande tipo hero */
+  .media-with-content .media-with-content__content h1,
+  .media-with-content .media-with-content__content h2,
+  .media-with-content .media-with-content__content h3,
+  .media-with-content .media-with-content__content .text-block h1,
+  .media-with-content .media-with-content__content .text-block h2,
+  .media-with-content .media-with-content__content .text-block h3 {
+    margin: 0;
+    max-width: 680px;
+    font-size: clamp(42px, 6vw, 86px);
+    line-height: 0.95;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  /* Texto secundario si lo hay */
+  .media-with-content .media-with-content__content p {
+    max-width: 560px;
+    font-size: clamp(16px, 1.5vw, 22px);
+    line-height: 1.35;
+  }
+
+  /* Botón tipo outline blanco */
+  .media-with-content .media-with-content__content .button,
+  .media-with-content .media-with-content__content .button-link,
+  .media-with-content .media-with-content__content a.button {
+    min-width: 280px;
+    padding: 16px 32px;
+    border: 1.5px solid currentColor;
+    border-radius: 999px;
+    background: transparent;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  /* Móvil */
+  @media screen and (max-width: 749px) {
+    .media-with-content {
+      min-height: auto;
+    }
+
+    .media-with-content .media-with-content__content > .group-block-content {
+      padding-inline: 24px;
+      padding-block: 32px 20px;
+    }
+
+    .media-with-content .media-block {
+      padding-inline: 24px;
+      padding-bottom: 32px;
+    }
+
+    .media-with-content .media-block > * {
+      max-width: 100%;
+    }
+
+    .media-with-content .media-with-content__content h1,
+    .media-with-content .media-with-content__content h2,
+    .media-with-content .media-with-content__content h3,
+    .media-with-content .media-with-content__content .text-block h1,
+    .media-with-content .media-with-content__content .text-block h2,
+    .media-with-content .media-with-content__content .text-block h3 {
+      font-size: clamp(34px, 12vw, 56px);
+      line-height: 0.95;
+    }
+
+    .media-with-content .media-with-content__content .button,
+    .media-with-content .media-with-content__content .button-link,
+    .media-with-content .media-with-content__content a.button {
+      width: 100%;
+      min-width: 0;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
