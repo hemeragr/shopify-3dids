@@ -89,8 +89,7 @@
       <a
         href="{{ link.url }}"
         data-skip-node-update="true"
-        class="menu-list__link{% if link.active %} menu-list__link--active{% endif %}"
-        {%- if link.links != blank -%}
+class="menu-list__link{% if forloop.last %} menu-list__link--last{% endif %}{% if link.active %} menu-list__link--active{% endif %}"        {%- if link.links != blank -%}
           aria-controls="submenu-{{ forloop.index }}"
           aria-haspopup="true"
           aria-expanded="false"
