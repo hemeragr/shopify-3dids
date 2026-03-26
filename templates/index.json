@@ -722,81 +722,6 @@
         "padding-block-end": 0
       }
     },
-    "media_with_content_FQVkLG": {
-      "type": "media-with-content",
-      "blocks": {
-        "media": {
-          "type": "_media-without-appearance",
-          "static": true,
-          "settings": {
-            "media_type": "youtube",
-            "link": "",
-            "youtube_url": "https://www.youtube.com/watch?v=LiQRUHBoF-k&list=TLGG-xd8sCYGiZoyNTAzMjAyNg",
-            "video_loop": false,
-            "video_autoplay": true,
-            "image_position": "cover",
-            "video_position": "cover"
-          },
-          "blocks": {}
-        },
-        "content": {
-          "type": "_content-without-appearance",
-          "static": true,
-          "settings": {
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-end",
-            "gap": 24
-          },
-          "blocks": {
-            "jumbo_text_F46XPU": {
-              "type": "jumbo-text",
-              "name": "t:names.jumbo_text",
-              "settings": {
-                "text": "Sube\nLa\nApuesta",
-                "font": "heading",
-                "alignment": "right",
-                "line_height": "0.8",
-                "letter_spacing": "-0.03em",
-                "case": "uppercase",
-                "text_effect": "none",
-                "animation_repeat": false
-              },
-              "blocks": {}
-            },
-            "button_RHAhjq": {
-              "type": "button",
-              "name": "t:names.button",
-              "settings": {
-                "label": "Comprar ahora",
-                "link": "shopify://collections/all",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "jumbo_text_F46XPU",
-            "button_RHAhjq"
-          ]
-        }
-      },
-      "name": "t:names.editorial_jumbo_text",
-      "settings": {
-        "media_position": "left",
-        "media_width": "medium",
-        "media_height": "60svh",
-        "section_width": "full-width",
-        "extend_media": true,
-        "color_scheme": "scheme-3",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
     "featured_blog_posts_qRcqbT": {
       "type": "featured-blog-posts",
       "blocks": {
@@ -1069,7 +994,7 @@
             "card_shadow_x": 0,
             "card_shadow_y": 2,
             "card_shadow_blur": 10,
-            "card_shadow_color": "#00000010",
+            "card_shadow_color": "#0000000f",
             "star_size": 20,
             "star_color": "#ffc107",
             "avatar_size": 50,
@@ -1201,7 +1126,6 @@
     "product_list_QVxwhn",
     "collection_list_YVCDiD",
     "media_with_content_CWyDp6",
-    "media_with_content_FQVkLG",
     "featured_blog_posts_qRcqbT",
     "section_efFz8i",
     "177446794061cdf6ee"
