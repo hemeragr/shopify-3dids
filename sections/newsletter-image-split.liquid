@@ -1,0 +1,435 @@
+{% assign section_id = section.id %}
+
+<section class="newsletter-split newsletter-split--{{ section_id }}">
+  <div class="newsletter-split__wrapper page-width {% if section.settings.reverse_layout %}newsletter-split__wrapper--reverse{% endif %}">
+    <div class="newsletter-split__media">
+      {% if section.settings.image != blank %}
+        <img
+          src="{{ section.settings.image | image_url: width: 1600 }}"
+          alt="{{ section.settings.image.alt | escape }}"
+          loading="lazy"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          class="newsletter-split__image"
+        >
+      {% else %}
+        {{ 'image' | placeholder_svg_tag: 'newsletter-split__placeholder' }}
+      {% endif %}
+    </div>
+
+    <div class="newsletter-split__content">
+      {% if section.settings.badge_text != blank %}
+        <span class="newsletter-split__badge">{{ section.settings.badge_text }}</span>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="newsletter-split__heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <div class="newsletter-split__subheading rte">
+          {{ section.settings.subheading }}
+        </div>
+      {% endif %}
+
+      {% form 'customer', class: 'newsletter-split__form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+
+        <div class="newsletter-split__form-inner">
+          <label class="visually-hidden" for="NewsletterEmail-{{ section_id }}">
+            {{ 'newsletter.label' | t | default: 'Correo electrónico' }}
+          </label>
+
+          <input
+            id="NewsletterEmail-{{ section_id }}"
+            type="email"
+            name="contact[email]"
+            class="newsletter-split__input"
+            value="{% if customer %}{{ customer.email }}{% endif %}"
+            placeholder="{{ section.settings.placeholder }}"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            required
+          >
+
+          <button type="submit" class="newsletter-split__button">
+            {{ section.settings.button_label }}
+          </button>
+        </div>
+
+        {% if form.posted_successfully? %}
+          <p class="newsletter-split__message newsletter-split__message--success" tabindex="-1" autofocus>
+            {{ section.settings.success_text }}
+          </p>
+        {% endif %}
+
+        {% if form.errors %}
+          <div class="newsletter-split__message newsletter-split__message--error">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .newsletter-split--{{ section_id }} {
+    background: {{ section.settings.section_bg }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__wrapper {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 56px;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__wrapper--reverse {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__wrapper--reverse .newsletter-split__media {
+    order: 2;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__wrapper--reverse .newsletter-split__content {
+    order: 1;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__media {
+    position: relative;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__image,
+  .newsletter-split--{{ section_id }} .newsletter-split__placeholder {
+    width: 100%;
+    display: block;
+    border-radius: {{ section.settings.image_radius }}px;
+    object-fit: cover;
+    min-height: 420px;
+    background: #f2f2f2;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__content {
+    max-width: 560px;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__badge {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 18px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: {{ section.settings.badge_bg }};
+    color: {{ section.settings.badge_color }};
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__heading {
+    margin: 0 0 16px;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_size }}px;
+    line-height: 1.08;
+    font-weight: 700;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__subheading {
+    margin-bottom: 28px;
+    color: {{ section.settings.text_color }};
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__form {
+    width: 100%;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__form-inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1.5px solid {{ section.settings.field_border }};
+    border-radius: 999px;
+    background: {{ section.settings.field_bg }};
+    overflow: hidden;
+    min-height: 58px;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__input {
+    flex: 1;
+    border: 0;
+    background: transparent;
+    padding: 16px 22px;
+    font-size: 16px;
+    color: {{ section.settings.input_text_color }};
+    outline: none;
+    box-shadow: none;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__input::placeholder {
+    color: {{ section.settings.placeholder_color }};
+    opacity: 1;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__button {
+    border: 0;
+    min-width: 172px;
+    padding: 16px 28px;
+    border-radius: 999px;
+    background: {{ section.settings.button_bg }};
+    color: {{ section.settings.button_text }};
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__button:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__message {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__message--success {
+    color: #1f7a3f;
+  }
+
+  .newsletter-split--{{ section_id }} .newsletter-split__message--error {
+    color: #b42318;
+  }
+
+  @media screen and (max-width: 989px) {
+    .newsletter-split--{{ section_id }} .newsletter-split__wrapper,
+    .newsletter-split--{{ section_id }} .newsletter-split__wrapper--reverse {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .newsletter-split--{{ section_id }} .newsletter-split__wrapper--reverse .newsletter-split__media,
+    .newsletter-split--{{ section_id }} .newsletter-split__wrapper--reverse .newsletter-split__content {
+      order: initial;
+    }
+
+    .newsletter-split--{{ section_id }} .newsletter-split__content {
+      max-width: 100%;
+    }
+
+    .newsletter-split--{{ section_id }} .newsletter-split__heading {
+      font-size: calc({{ section.settings.heading_size }}px * 0.78);
+    }
+
+    .newsletter-split--{{ section_id }} .newsletter-split__image,
+    .newsletter-split--{{ section_id }} .newsletter-split__placeholder {
+      min-height: 300px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .newsletter-split--{{ section_id }} {
+      padding-top: {{ section.settings.padding_top | times: 0.7 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.7 | round: 0 }}px;
+    }
+
+    .newsletter-split--{{ section_id }} .newsletter-split__form-inner {
+      flex-direction: column;
+      align-items: stretch;
+      border-radius: 22px;
+      padding: 8px;
+      gap: 8px;
+      min-height: auto;
+    }
+
+    .newsletter-split--{{ section_id }} .newsletter-split__input {
+      padding: 14px 16px;
+    }
+
+    .newsletter-split--{{ section_id }} .newsletter-split__button {
+      width: 100%;
+      min-width: 100%;
+      padding: 15px 20px;
+    }
+
+    .newsletter-split--{{ section_id }} .newsletter-split__heading {
+      font-size: 34px;
+    }
+
+    .newsletter-split--{{ section_id }} .newsletter-split__subheading {
+      font-size: 15px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Newsletter imagen split",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen"
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse_layout",
+      "label": "Invertir columnas",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Texto superior pequeño",
+      "default": "Newsletter exclusiva"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Título",
+      "default": "Suscríbete a nuestra newsletter y disfruta de un 5% de descuento en tu primera compra"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Texto descriptivo",
+      "default": "<p>Entérate antes que nadie de novedades, colecciones y ofertas especiales.</p>"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Placeholder del campo email",
+      "default": "Su dirección de correo electrónico"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón",
+      "default": "SUSCRÍBASE"
+    },
+    {
+      "type": "text",
+      "id": "success_text",
+      "label": "Texto de éxito",
+      "default": "Gracias por suscribirte."
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Radio imagen",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Fondo sección",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Color título",
+      "default": "#27348b"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color texto",
+      "default": "#2d2d2d"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg",
+      "label": "Fondo badge",
+      "default": "#e8ecff"
+    },
+    {
+      "type": "color",
+      "id": "badge_color",
+      "label": "Color badge",
+      "default": "#27348b"
+    },
+    {
+      "type": "color",
+      "id": "field_bg",
+      "label": "Fondo campo",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "field_border",
+      "label": "Borde campo",
+      "default": "#27348b"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "Color texto input",
+      "default": "#1f1f1f"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color",
+      "label": "Color placeholder",
+      "default": "#9aa3c7"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Fondo botón",
+      "default": "#27348b"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Color texto botón",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding superior",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding inferior",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 56
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter imagen split"
+    }
+  ]
+}
+{% endschema %}
