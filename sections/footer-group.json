@@ -42,6 +42,121 @@
     },
     "custom_footer_main_Wzwxqg": {
       "type": "custom-footer-main",
+      "blocks": {
+        "info_link_gRDWNH": {
+          "type": "info_link",
+          "settings": {
+            "label": "Blog",
+            "link": ""
+          }
+        },
+        "info_link_GhDTXK": {
+          "type": "info_link",
+          "settings": {
+            "label": "Condiciones Generales",
+            "link": ""
+          }
+        },
+        "info_link_mhQLCj": {
+          "type": "info_link",
+          "settings": {
+            "label": "Devoluciones",
+            "link": "#"
+          }
+        },
+        "info_link_YLRijD": {
+          "type": "info_link",
+          "settings": {
+            "label": "Política de Privacidad y Cookies",
+            "link": "#"
+          }
+        },
+        "info_link_Ddx6tx": {
+          "type": "info_link",
+          "settings": {
+            "label": "Pago seguro",
+            "link": "#"
+          }
+        },
+        "info_link_bAc4K7": {
+          "type": "info_link",
+          "settings": {
+            "label": "Gastos de envío",
+            "link": ""
+          }
+        },
+        "contact_link_3wqiEq": {
+          "type": "contact_link",
+          "settings": {
+            "label": "HMS Victory - Trafalgar",
+            "link": ""
+          }
+        },
+        "info_link_fCgwRP": {
+          "type": "info_link",
+          "settings": {
+            "label": "Sobre nosotros",
+            "link": "#"
+          }
+        },
+        "contact_link_DXkwyJ": {
+          "type": "contact_link",
+          "settings": {
+            "label": "Instrucciones antiguas",
+            "link": "#"
+          }
+        },
+        "contact_link_jaQUkq": {
+          "type": "contact_link",
+          "settings": {
+            "label": "Solicitud de piezas",
+            "link": "#"
+          }
+        },
+        "contact_link_TwjwjB": {
+          "type": "contact_link",
+          "settings": {
+            "label": "FAQs",
+            "link": "#"
+          }
+        },
+        "contact_link_96nrYL": {
+          "type": "contact_link",
+          "settings": {
+            "label": "Cómo comprar",
+            "link": "#"
+          }
+        },
+        "contact_link_37f9bY": {
+          "type": "contact_link",
+          "settings": {
+            "label": "Contacto",
+            "link": "#"
+          }
+        },
+        "payment_item_rQxHhz": {
+          "type": "payment_item",
+          "settings": {
+            "label": ""
+          }
+        }
+      },
+      "block_order": [
+        "info_link_gRDWNH",
+        "info_link_GhDTXK",
+        "info_link_mhQLCj",
+        "info_link_YLRijD",
+        "info_link_Ddx6tx",
+        "info_link_bAc4K7",
+        "contact_link_3wqiEq",
+        "info_link_fCgwRP",
+        "contact_link_DXkwyJ",
+        "contact_link_jaQUkq",
+        "contact_link_TwjwjB",
+        "contact_link_96nrYL",
+        "contact_link_37f9bY",
+        "payment_item_rQxHhz"
+      ],
       "custom_css": [],
       "name": "Custom footer principal",
       "settings": {
