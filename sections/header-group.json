@@ -34,6 +34,15 @@
       "name": "t:names.announcement_bar",
       "settings": {
         "speed": 5,
+        "left_text": "España",
+        "left_link": "",
+        "show_location_icon": true,
+        "right_link_1_text": "Profesional",
+        "right_link_1_url": "",
+        "show_right_separator": true,
+        "right_link_2_text": "Español",
+        "right_link_2_url": "",
+        "show_language_arrow": true,
         "section_width": "page-width",
         "color_scheme": "scheme-57669b90-d43e-4df8-a3b4-cf51a6f8f9a9",
         "divider_width": 1,
@@ -107,11 +116,11 @@
         "color_scheme_top": "scheme-6",
         "color_scheme_bottom": "scheme-6",
         "color_scheme_transparent": "scheme-6",
-        "enable_transparent_header_home": true,
+        "enable_transparent_header_home": false,
         "home_color_scheme": "inverse",
-        "enable_transparent_header_product": true,
+        "enable_transparent_header_product": false,
         "product_color_scheme": "default",
-        "enable_transparent_header_collection": true,
+        "enable_transparent_header_collection": false,
         "collection_color_scheme": "default"
       }
     }
