@@ -332,6 +332,29 @@
   #shopify-section-sections--28162806939988__custom_footer_main_Wzwxqg {
     display: block !important;
   }
+  #shopify-section-{{ section.id }} {
+  display: block !important;
+  width: 100% !important;
+}
+
+#shopify-section-{{ section.id }} > .shopify-section,
+#shopify-section-{{ section.id }} .section {
+  display: block !important;
+  width: 100% !important;
+  grid-template-columns: none !important;
+}
+
+.custom-footer-main--{{ section.id }} {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.custom-footer-main--{{ section.id }} .custom-footer-main__topbar,
+.custom-footer-main--{{ section.id }} .custom-footer-main__inner,
+.custom-footer-main--{{ section.id }} .custom-footer-main__social {
+  width: 100%;
+  max-width: 100%;
+}
 
 </style>
 
