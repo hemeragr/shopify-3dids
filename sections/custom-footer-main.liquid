@@ -1,4 +1,21 @@
 <section class="custom-footer-main custom-footer-main--{{ section.id }}">
+  {% if section.settings.top_bar_text != blank %}
+    <div class="custom-footer-main__topbar">
+      <div class="custom-footer-main__topbar-inner page-width">
+        <div class="custom-footer-main__topbar-text">
+          {{ section.settings.top_bar_text }}
+        </div>
+
+        {% if section.settings.top_bar_button_label != blank and section.settings.top_bar_button_link != blank %}
+          <a href="{{ section.settings.top_bar_button_link }}" class="custom-footer-main__topbar-button">
+            {{ section.settings.top_bar_button_label }}
+            <span aria-hidden="true">→</span>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
   <div class="custom-footer-main__inner page-width">
     <div class="custom-footer-main__left">
       {% if section.settings.logo != blank %}
@@ -118,7 +135,7 @@
 <style>
   .custom-footer-main--{{ section.id }} {
     background: {{ section.settings.bg_color }};
-    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    padding: 0 0 {{ section.settings.padding_bottom }}px;
     color: {{ section.settings.text_color }};
   }
 
@@ -137,6 +154,41 @@
 
   .custom-footer-main--{{ section.id }} a:hover {
     opacity: .75;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__topbar {
+    background: {{ section.settings.top_bar_bg_color }};
+    padding: 18px 0;
+    margin-bottom: {{ section.settings.padding_top }}px;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__topbar-text {
+    color: {{ section.settings.top_bar_text_color }};
+    font-size: 17px;
+    line-height: 1.4;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__topbar-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1.5px solid {{ section.settings.top_bar_button_text_color }};
+    color: {{ section.settings.top_bar_button_text_color }} !important;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
   }
 
   .custom-footer-main--{{ section.id }} .custom-footer-main__inner {
@@ -234,7 +286,27 @@
 
   @media screen and (max-width: 749px) {
     .custom-footer-main--{{ section.id }} {
-      padding: {{ section.settings.padding_top | times: 0.7 | round: 0 }}px 0 {{ section.settings.padding_bottom | times: 0.7 | round: 0 }}px;
+      padding: 0 0 {{ section.settings.padding_bottom | times: 0.7 | round: 0 }}px;
+    }
+
+    .custom-footer-main--{{ section.id }} .custom-footer-main__topbar {
+      margin-bottom: {{ section.settings.padding_top | times: 0.7 | round: 0 }}px;
+      padding: 16px 0;
+    }
+
+    .custom-footer-main--{{ section.id }} .custom-footer-main__topbar-inner {
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .custom-footer-main--{{ section.id }} .custom-footer-main__topbar-text {
+      font-size: 15px;
+    }
+
+    .custom-footer-main--{{ section.id }} .custom-footer-main__topbar-button {
+      font-size: 14px;
+      padding: 10px 18px;
     }
 
     .custom-footer-main--{{ section.id }} .custom-footer-main__inner {
@@ -266,6 +338,41 @@
     "groups": ["footer"]
   },
   "settings": [
+    {
+      "type": "text",
+      "id": "top_bar_text",
+      "label": "Texto franja superior",
+      "default": "Págalo a tu ritmo en 3, 6, 12 o 18 meses con SeQura"
+    },
+    {
+      "type": "text",
+      "id": "top_bar_button_label",
+      "label": "Texto botón franja superior",
+      "default": "Saber más"
+    },
+    {
+      "type": "url",
+      "id": "top_bar_button_link",
+      "label": "Enlace botón franja superior"
+    },
+    {
+      "type": "color",
+      "id": "top_bar_bg_color",
+      "label": "Color fondo franja superior",
+      "default": "#27348b"
+    },
+    {
+      "type": "color",
+      "id": "top_bar_text_color",
+      "label": "Color texto franja superior",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "top_bar_button_text_color",
+      "label": "Color texto y borde botón franja superior",
+      "default": "#ffffff"
+    },
     {
       "type": "image_picker",
       "id": "logo",
@@ -362,7 +469,7 @@
     {
       "type": "range",
       "id": "padding_top",
-      "label": "Padding superior",
+      "label": "Espacio entre franja azul y contenido",
       "min": 0,
       "max": 120,
       "step": 4,
