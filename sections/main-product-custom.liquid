@@ -1,6 +1,12 @@
 {% liquid
   assign current_product = product
   assign first_variant = current_product.selected_or_first_available_variant
+  assign breve_descripcion = current_product.metafields.custom.breve_descripcion
+  assign detalles_producto = current_product.metafields.custom.detalles_producto
+  assign instrucciones = current_product.metafields.custom.instrucciones
+  assign video_1_url = current_product.metafields.custom.video_1_url
+  assign video_2_url = current_product.metafields.custom.video_2_url
+  assign video_3_url = current_product.metafields.custom.video_3_url
 %}
 
 <section class="main-product-custom main-product-custom--{{ section.id }}">
@@ -41,7 +47,7 @@
                   {% case media.media_type %}
                     {% when 'image' %}
                       <img
-                        src="{{ media | image_url: width: 1400 }}"
+                        src="{{ media | image_url: width: 1600 }}"
                         alt="{{ media.alt | escape }}"
                         loading="lazy"
                         width="{{ media.width }}"
@@ -54,7 +60,7 @@
                     {% else %}
                       {% if media.preview_image != blank %}
                         <img
-                          src="{{ media.preview_image | image_url: width: 1400 }}"
+                          src="{{ media.preview_image | image_url: width: 1600 }}"
                           alt="{{ media.alt | escape }}"
                           loading="lazy"
                           width="{{ media.preview_image.width }}"
@@ -66,103 +72,105 @@
               {% endfor %}
             </div>
           </div>
-        {% else %}
-          <div class="main-product-custom__empty">Este producto no tiene imágenes.</div>
         {% endif %}
       </div>
 
       <div class="main-product-custom__info">
-        <div class="main-product-custom__info-inner">
-          {% if current_product.vendor != blank and section.settings.show_vendor %}
-            <div class="main-product-custom__vendor">{{ current_product.vendor }}</div>
-          {% endif %}
+        {% if section.settings.show_vendor and current_product.vendor != blank %}
+          <div class="main-product-custom__vendor">{{ current_product.vendor }}</div>
+        {% endif %}
 
-          <h1 class="main-product-custom__title">{{ current_product.title }}</h1>
+        <h1 class="main-product-custom__title">{{ current_product.title }}</h1>
 
-          <div class="main-product-custom__price-wrap">
-            {% if first_variant.compare_at_price > first_variant.price %}
-              <span class="main-product-custom__price main-product-custom__price--compare">
-                {{ first_variant.compare_at_price | money }}
-              </span>
-            {% endif %}
-            <span class="main-product-custom__price">
-              {{ first_variant.price | money }}
+        <div class="main-product-custom__price-wrap">
+          {% if first_variant.compare_at_price > first_variant.price %}
+            <span class="main-product-custom__price main-product-custom__price--compare">
+              {{ first_variant.compare_at_price | money }}
             </span>
-          </div>
-
-          {% if section.settings.show_short_description and current_product.description != blank %}
-            <div class="main-product-custom__short-description rte">
-              {{ current_product.description | truncatewords: 45 }}
-            </div>
           {% endif %}
+          <span class="main-product-custom__price">
+            {{ first_variant.price | money }}
+          </span>
+        </div>
 
-          {% form 'product', current_product, class: 'main-product-custom__form', data-type: 'add-to-cart-form' %}
-            {% unless current_product.has_only_default_variant %}
-              <div class="main-product-custom__variants">
-                {% for option in current_product.options_with_values %}
-                  <div class="main-product-custom__option">
-                    <label class="main-product-custom__option-label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
-                      {{ option.name }}
-                    </label>
-                    <select
-                      id="Option-{{ section.id }}-{{ forloop.index0 }}"
-                      class="main-product-custom__select"
-                      name="options[{{ option.name | escape }}]"
-                    >
-                      {% for value in option.values %}
-                        <option
-                          value="{{ value | escape }}"
-                          {% if option.selected_value == value %}selected="selected"{% endif %}
-                        >
-                          {{ value }}
-                        </option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                {% endfor %}
-              </div>
-            {% endunless %}
+        {% if section.settings.show_short_description and breve_descripcion != blank %}
+          <div class="main-product-custom__short-description rte">
+            {{ breve_descripcion | metafield_tag }}
+          </div>
+        {% endif %}
 
-            <input type="hidden" name="id" value="{{ first_variant.id }}">
-
-            <div class="main-product-custom__buybox">
-              <button
-                type="submit"
-                name="add"
-                class="main-product-custom__add-to-cart"
-                {% unless first_variant.available %}disabled{% endunless %}
-              >
-                {% if first_variant.available %}
-                  {{ section.settings.add_to_cart_text }}
-                {% else %}
-                  Agotado
-                {% endif %}
-              </button>
+        {% form 'product', current_product, class: 'main-product-custom__form', data-type: 'add-to-cart-form' %}
+          {% unless current_product.has_only_default_variant %}
+            <div class="main-product-custom__variants">
+              {% for option in current_product.options_with_values %}
+                <div class="main-product-custom__option">
+                  <label class="main-product-custom__option-label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+                    {{ option.name }}
+                  </label>
+                  <select
+                    id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                    class="main-product-custom__select"
+                    name="options[{{ option.name | escape }}]"
+                  >
+                    {% for value in option.values %}
+                      <option
+                        value="{{ value | escape }}"
+                        {% if option.selected_value == value %}selected="selected"{% endif %}
+                      >
+                        {{ value }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endfor %}
             </div>
-          {% endform %}
+          {% endunless %}
 
-          <div class="main-product-custom__accordions">
+          <input type="hidden" name="id" value="{{ first_variant.id }}">
+
+          <div class="main-product-custom__buybox">
+            <button
+              type="submit"
+              name="add"
+              class="main-product-custom__add-to-cart"
+              {% unless first_variant.available %}disabled{% endunless %}
+            >
+              {% if first_variant.available %}
+                {{ section.settings.add_to_cart_text }}
+              {% else %}
+                Agotado
+              {% endif %}
+            </button>
+          </div>
+        {% endform %}
+
+        <div class="main-product-custom__accordions">
+          {% if breve_descripcion != blank %}
             <details class="main-product-custom__accordion" open>
               <summary>Breve descripción</summary>
               <div class="main-product-custom__accordion-content rte">
-                {{ current_product.description }}
+                {{ breve_descripcion | metafield_tag }}
               </div>
             </details>
+          {% endif %}
 
+          {% if detalles_producto != blank %}
             <details class="main-product-custom__accordion">
               <summary>Detalles del producto</summary>
               <div class="main-product-custom__accordion-content rte">
-                {{ current_product.metafields.custom.detalles_producto | metafield_tag }}
+                {{ detalles_producto | metafield_tag }}
               </div>
             </details>
+          {% endif %}
 
+          {% if instrucciones != blank %}
             <details class="main-product-custom__accordion">
               <summary>Instrucciones</summary>
               <div class="main-product-custom__accordion-content rte">
-                {{ current_product.metafields.custom.instrucciones | metafield_tag }}
+                {{ instrucciones | metafield_tag }}
               </div>
             </details>
-          </div>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -195,34 +203,39 @@
       {% endif %}
     {% endif %}
 
-    {% if section.settings.show_videos %}
+    {% assign has_videos = false %}
+    {% if video_1_url != blank or video_2_url != blank or video_3_url != blank %}
+      {% assign has_videos = true %}
+    {% endif %}
+
+    {% if section.settings.show_videos and has_videos %}
       <div class="main-product-custom__videos">
         <h2 class="main-product-custom__section-title">{{ section.settings.videos_title }}</h2>
 
         <div class="main-product-custom__videos-grid">
-          {% if current_product.metafields.custom.video_1_url != blank %}
+          {% if video_1_url != blank %}
             <div class="main-product-custom__video-card">
               <h3>{{ current_product.metafields.custom.video_1_title | default: 'Presentación' }}</h3>
               <div class="main-product-custom__video-embed">
-                {{ current_product.metafields.custom.video_1_url | external_video_url: autoplay: false | external_video_tag }}
+                {{ video_1_url | external_video_url: autoplay: false | external_video_tag }}
               </div>
             </div>
           {% endif %}
 
-          {% if current_product.metafields.custom.video_2_url != blank %}
+          {% if video_2_url != blank %}
             <div class="main-product-custom__video-card">
               <h3>{{ current_product.metafields.custom.video_2_title | default: 'Contenido del kit' }}</h3>
               <div class="main-product-custom__video-embed">
-                {{ current_product.metafields.custom.video_2_url | external_video_url: autoplay: false | external_video_tag }}
+                {{ video_2_url | external_video_url: autoplay: false | external_video_tag }}
               </div>
             </div>
           {% endif %}
 
-          {% if current_product.metafields.custom.video_3_url != blank %}
+          {% if video_3_url != blank %}
             <div class="main-product-custom__video-card">
               <h3>{{ current_product.metafields.custom.video_3_title | default: 'Instrucciones' }}</h3>
               <div class="main-product-custom__video-embed">
-                {{ current_product.metafields.custom.video_3_url | external_video_url: autoplay: false | external_video_tag }}
+                {{ video_3_url | external_video_url: autoplay: false | external_video_tag }}
               </div>
             </div>
           {% endif %}
@@ -263,29 +276,29 @@
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__container {
-    max-width: 1400px;
+    max-width: 1360px;
     margin: 0 auto;
-    padding: 24px 32px 60px;
+    padding: 24px 28px 56px;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__top {
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(380px, 0.8fr);
-    gap: 36px;
+    grid-template-columns: minmax(0, 58%) minmax(360px, 42%);
+    gap: 32px;
     align-items: start;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__gallery-grid {
     display: grid;
-    grid-template-columns: 84px minmax(0, 1fr);
-    gap: 18px;
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 16px;
     align-items: start;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__thumbs {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__thumb {
@@ -293,7 +306,7 @@
     background: #fff;
     padding: 0;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 6px;
     overflow: hidden;
   }
 
@@ -304,19 +317,19 @@
   .main-product-custom--{{ section.id }} .main-product-custom__thumb img {
     display: block;
     width: 100%;
-    height: auto;
     aspect-ratio: 1 / 1;
     object-fit: cover;
+    height: auto;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__main-media {
-    min-height: 560px;
+    min-height: 0;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__media-item {
     display: none;
     background: #fff;
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
   }
 
@@ -330,7 +343,6 @@
     display: block;
     width: 100%;
     height: auto;
-    object-fit: cover;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__info {
@@ -338,20 +350,16 @@
     top: 24px;
   }
 
-  .main-product-custom--{{ section.id }} .main-product-custom__info-inner {
-    padding: 0;
-  }
-
   .main-product-custom--{{ section.id }} .main-product-custom__vendor {
     margin-bottom: 8px;
     font-size: 13px;
-    opacity: 0.75;
+    opacity: .7;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__title {
     margin: 0 0 14px;
-    font-size: 48px;
-    line-height: 0.98;
+    font-size: 32px;
+    line-height: 1.05;
     font-weight: 800;
   }
 
@@ -363,19 +371,18 @@
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__price {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 700;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__price--compare {
-    text-decoration: line-through;
-    opacity: 0.55;
     font-size: 18px;
-    font-weight: 500;
+    opacity: .5;
+    text-decoration: line-through;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__short-description {
-    margin-bottom: 22px;
+    margin-bottom: 18px;
     font-size: 15px;
     line-height: 1.6;
   }
@@ -383,7 +390,7 @@
   .main-product-custom--{{ section.id }} .main-product-custom__variants {
     display: grid;
     gap: 14px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__option {
@@ -398,7 +405,7 @@
 
   .main-product-custom--{{ section.id }} .main-product-custom__select {
     width: 100%;
-    min-height: 46px;
+    min-height: 44px;
     border: 1px solid rgba(0,0,0,0.14);
     border-radius: 8px;
     padding: 0 14px;
@@ -406,12 +413,12 @@
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__buybox {
-    margin-bottom: 24px;
+    margin-bottom: 18px;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__add-to-cart {
     width: 100%;
-    min-height: 52px;
+    min-height: 50px;
     border: 0;
     border-radius: 10px;
     background: {{ section.settings.button_bg }};
@@ -419,6 +426,10 @@
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
+  }
+
+  .main-product-custom--{{ section.id }} .main-product-custom__accordions {
+    margin-top: 8px;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__accordion {
@@ -434,6 +445,7 @@
     cursor: pointer;
     font-weight: 700;
     list-style: none;
+    font-size: 14px;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__accordion summary::-webkit-details-marker {
@@ -442,27 +454,27 @@
 
   .main-product-custom--{{ section.id }} .main-product-custom__accordion-content {
     padding-top: 14px;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.7;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__related,
   .main-product-custom--{{ section.id }} .main-product-custom__videos {
-    margin-top: 56px;
+    margin-top: 48px;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__section-title {
-    margin: 0 0 24px;
-    font-size: 34px;
-    line-height: 1.05;
+    margin: 0 0 22px;
+    font-size: 22px;
+    line-height: 1.1;
     font-weight: 800;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__related-grid,
   .main-product-custom--{{ section.id }} .main-product-custom__videos-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__card {
@@ -472,19 +484,19 @@
 
   .main-product-custom--{{ section.id }} .main-product-custom__card-image {
     background: #fff;
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__card-image img {
+    display: block;
     width: 100%;
     height: auto;
-    display: block;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__card-title {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.4;
     margin-bottom: 6px;
   }
@@ -495,38 +507,23 @@
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__video-card h3 {
-    margin: 0 0 14px;
-    font-size: 20px;
+    margin: 0 0 12px;
+    font-size: 18px;
     font-weight: 700;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__video-embed iframe,
   .main-product-custom--{{ section.id }} .main-product-custom__video-embed video {
+    display: block;
     width: 100%;
-    min-height: 240px;
+    aspect-ratio: 16 / 9;
+    min-height: auto;
     border: 0;
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
   }
 
-  .main-product-custom--{{ section.id }} .main-product-custom__empty {
-    padding: 40px;
-    background: #fff;
-    border-radius: 12px;
-  }
-
   @media screen and (max-width: 1200px) {
-    .main-product-custom--{{ section.id }} .main-product-custom__title {
-      font-size: 38px;
-    }
-
-    .main-product-custom--{{ section.id }} .main-product-custom__related-grid,
-    .main-product-custom--{{ section.id }} .main-product-custom__videos-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media screen and (max-width: 989px) {
     .main-product-custom--{{ section.id }} .main-product-custom__top {
       grid-template-columns: 1fr;
     }
@@ -548,118 +545,20 @@
     .main-product-custom--{{ section.id }} .main-product-custom__thumbs {
       flex-direction: row;
       overflow-x: auto;
+      order: 2;
     }
 
     .main-product-custom--{{ section.id }} .main-product-custom__thumb {
       min-width: 70px;
     }
 
-    .main-product-custom--{{ section.id }} .main-product-custom__main-media {
-      min-height: auto;
-    }
-
     .main-product-custom--{{ section.id }} .main-product-custom__title {
-      font-size: 30px;
-    }
-
-    .main-product-custom--{{ section.id }} .main-product-custom__section-title {
-      font-size: 26px;
+      font-size: 28px;
     }
 
     .main-product-custom--{{ section.id }} .main-product-custom__related-grid,
     .main-product-custom--{{ section.id }} .main-product-custom__videos-grid {
       grid-template-columns: 1fr;
-      gap: 18px;
     }
   }
 </style>
-
-{% schema %}
-{
-  "name": "Main product custom",
-  "settings": [
-    {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "label": "Mostrar marca",
-      "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "show_short_description",
-      "label": "Mostrar descripción corta",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_related_products",
-      "label": "Mostrar productos recomendados",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "related_title",
-      "label": "Título recomendados",
-      "default": "También puedes necesitar..."
-    },
-    {
-      "type": "collection",
-      "id": "related_collection",
-      "label": "Colección recomendados"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_videos",
-      "label": "Mostrar vídeos",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "videos_title",
-      "label": "Título vídeos",
-      "default": "Vídeos"
-    },
-    {
-      "type": "text",
-      "id": "add_to_cart_text",
-      "label": "Texto botón añadir al carrito",
-      "default": "Añadir al carrito"
-    },
-    {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Color fondo",
-      "default": "#f5f5f7"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Color texto",
-      "default": "#1e1e1e"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Color acento",
-      "default": "#27348b"
-    },
-    {
-      "type": "color",
-      "id": "button_bg",
-      "label": "Color botón",
-      "default": "#27348b"
-    },
-    {
-      "type": "color",
-      "id": "button_text",
-      "label": "Color texto botón",
-      "default": "#ffffff"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Main product custom"
-    }
-  ]
-}
-{% endschema %}
