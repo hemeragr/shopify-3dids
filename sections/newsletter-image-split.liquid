@@ -108,7 +108,7 @@
 
   .newsletter-split--{{ section_id }} .newsletter-split__image,
   .newsletter-split--{{ section_id }} .newsletter-split__placeholder {
-    width: 100%;
+    width: 90%;
     display: block;
     border-radius: {{ section.settings.image_radius }}px;
     object-fit: cover;
@@ -181,6 +181,7 @@
 
   .newsletter-split--{{ section_id }} .newsletter-split__button {
     border: 0;
+    margin: 3px;
     min-width: 172px;
     padding: 16px 28px;
     border-radius: 999px;
@@ -239,8 +240,7 @@
 
   @media screen and (max-width: 749px) {
     .newsletter-split--{{ section_id }} {
-      padding-top: {{ section.settings.padding_top | times: 0.7 | round: 0 }}px;
-      padding-bottom: {{ section.settings.padding_bottom | times: 0.7 | round: 0 }}px;
+      padding: 25px;
     }
 
     .newsletter-split--{{ section_id }} .newsletter-split__form-inner {
