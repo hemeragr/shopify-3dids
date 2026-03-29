@@ -1,7 +1,7 @@
 <section class="custom-footer-main custom-footer-main--{{ section.id }}">
   {% if section.settings.top_bar_text != blank %}
     <div class="custom-footer-main__topbar">
-      <div class="custom-footer-main__topbar-inner page-width">
+      <div class="custom-footer-main__topbar-inner">
         <div class="custom-footer-main__topbar-text">
           {{ section.settings.top_bar_text }}
         </div>
@@ -116,7 +116,7 @@
     </div>
   </div>
 
-  <div class="custom-footer-main__social page-width">
+  <div class="custom-footer-main__social">
     {% if section.settings.instagram_url != blank %}
       <a href="{{ section.settings.instagram_url }}">Instagram</a>
     {% endif %}
