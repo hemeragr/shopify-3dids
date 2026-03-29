@@ -42,6 +42,7 @@
     },
     "custom_footer_main_Wzwxqg": {
       "type": "custom-footer-main",
+      "custom_css": [],
       "name": "Custom footer principal",
       "settings": {
         "top_bar_text": "Págalo a tu ritmo en 3, 6, 12 o 18 meses con SeQura",
