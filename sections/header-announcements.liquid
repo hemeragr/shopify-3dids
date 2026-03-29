@@ -1,5 +1,4 @@
 
-
 {% if section.blocks.size > 1 %}
   <script
     src="{{ 'announcement-bar.js' | asset_url }}"
@@ -22,20 +21,73 @@
     endif
   %}
 
-  <announcement-bar-component
-    class="announcement-bar__slider"
-    {% if autoplay == true %}
-      autoplay="{{ section.settings.speed }}" aria-live="polite"
-    {% endif %}
-  >
-    {% if show_arrows %}
-      {% render 'slideshow-arrows', icon_style: 'chevron' %}
-    {% endif %}
-
-    <div class="announcement-bar__slides">
-      {% content_for 'blocks' %}
+  <div class="announcement-bar__layout">
+    <div class="announcement-bar__side announcement-bar__side--left">
+      {% if section.settings.left_text != blank %}
+        {% if section.settings.left_link != blank %}
+          <a href="{{ section.settings.left_link }}" class="announcement-bar__side-link">
+            {% if section.settings.show_location_icon %}
+              <span class="announcement-bar__icon" aria-hidden="true">📍</span>
+            {% endif %}
+            <span>{{ section.settings.left_text }}</span>
+          </a>
+        {% else %}
+          <div class="announcement-bar__side-text">
+            {% if section.settings.show_location_icon %}
+              <span class="announcement-bar__icon" aria-hidden="true">📍</span>
+            {% endif %}
+            <span>{{ section.settings.left_text }}</span>
+          </div>
+        {% endif %}
+      {% endif %}
     </div>
-  </announcement-bar-component>
+
+    <announcement-bar-component
+      class="announcement-bar__slider"
+      {% if autoplay == true %}
+        autoplay="{{ section.settings.speed }}" aria-live="polite"
+      {% endif %}
+    >
+      {% if show_arrows %}
+        {% render 'slideshow-arrows', icon_style: 'chevron' %}
+      {% endif %}
+
+      <div class="announcement-bar__slides">
+        {% content_for 'blocks' %}
+      </div>
+    </announcement-bar-component>
+
+    <div class="announcement-bar__side announcement-bar__side--right">
+      {% if section.settings.right_link_1_text != blank %}
+        <a href="{{ section.settings.right_link_1_url }}" class="announcement-bar__side-link">
+          {{ section.settings.right_link_1_text }}
+        </a>
+      {% endif %}
+
+      {% if section.settings.show_right_separator %}
+        <span class="announcement-bar__separator">|</span>
+      {% endif %}
+
+      {% if section.settings.right_link_2_text != blank %}
+        <a href="{{ section.settings.right_link_2_url }}" class="announcement-bar__side-link">
+          {% if section.settings.right_flag != blank %}
+            <img
+              class="announcement-bar__flag"
+              src="{{ section.settings.right_flag | image_url: width: 40 }}"
+              alt="{{ section.settings.right_link_2_text | escape }}"
+              loading="lazy"
+              width="{{ section.settings.right_flag.width }}"
+              height="{{ section.settings.right_flag.height }}"
+            >
+          {% endif %}
+          <span>{{ section.settings.right_link_2_text }}</span>
+          {% if section.settings.show_language_arrow %}
+            <span class="announcement-bar__chevron" aria-hidden="true">⌄</span>
+          {% endif %}
+        </a>
+      {% endif %}
+    </div>
+  </div>
 </aside>
 
 {% stylesheet %}
@@ -43,15 +95,69 @@
     border-block-end: var(--border-bottom-width) solid var(--color-border);
   }
 
+  .announcement-bar__layout {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 680px) 1fr;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .announcement-bar__side {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .announcement-bar__side--left {
+    justify-content: flex-start;
+  }
+
+  .announcement-bar__side--right {
+    justify-content: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .announcement-bar__side-link,
+  .announcement-bar__side-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: var(--color-foreground);
+    font-size: 1.4rem;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .announcement-bar__separator {
+    opacity: 0.5;
+  }
+
+  .announcement-bar__icon {
+    display: inline-flex;
+    line-height: 1;
+  }
+
+  .announcement-bar__flag {
+    width: 20px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  .announcement-bar__chevron {
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
   .announcement-bar__slider {
     display: flex;
     flex-direction: row;
     align-items: center;
     position: relative;
-
-    @media screen and (max-width: 749px) {
-      grid-column: 1 / -1;
-    }
+    min-width: 0;
   }
 
   .announcement-bar__slides {
@@ -69,11 +175,12 @@
   .announcement-bar__slide {
     transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
     content-visibility: visible;
+    place-content: center;
+  }
 
-    &[aria-hidden='true'] {
-      opacity: 0;
-      visibility: hidden;
-    }
+  .announcement-bar__slide[aria-hidden='true'] {
+    opacity: 0;
+    visibility: hidden;
   }
 
   .announcement-bar__slider slideshow-arrows {
@@ -94,23 +201,21 @@
     justify-content: center;
     opacity: 1;
     animation: none;
+  }
 
-    @media screen and (min-width: 750px) {
+  @media screen and (min-width: 750px) {
+    .announcement-bar__slider .slideshow-control {
       --slideshow-control-offset: calc((var(--button-size) - var(--icon-size-xs)) / 2);
+    }
 
-      .section--page-width &.slideshow-control--previous {
-        transform: translateX(var(--slideshow-control-offset));
-      }
+    .section--page-width .announcement-bar__slider .slideshow-control.slideshow-control--previous {
+      transform: translateX(var(--slideshow-control-offset));
     }
   }
 
   .announcement-bar__slider .slideshow-control .svg-wrapper {
     width: var(--icon-size-xs);
     height: var(--icon-size-xs);
-  }
-
-  .announcement-bar__slide {
-    place-content: center;
   }
 
   .announcement-bar__text:first-child {
@@ -120,6 +225,46 @@
   .announcement-bar__link {
     position: absolute;
     inset: 0;
+  }
+
+  @media screen and (max-width: 989px) {
+    .announcement-bar__layout {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .announcement-bar__side--left,
+    .announcement-bar__side--right {
+      justify-content: center;
+    }
+
+    .announcement-bar__slider {
+      order: 2;
+    }
+
+    .announcement-bar__side--left {
+      order: 1;
+    }
+
+    .announcement-bar__side--right {
+      order: 3;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .announcement-bar__slider {
+      grid-column: 1 / -1;
+    }
+
+    .announcement-bar__slides {
+      width: calc(100% - var(--button-size) * 2);
+      max-width: 100%;
+    }
+
+    .announcement-bar__side-link,
+    .announcement-bar__side-text {
+      font-size: 1.3rem;
+    }
   }
 {% endstylesheet %}
 
