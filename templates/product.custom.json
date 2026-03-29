@@ -12,11 +12,12 @@
     "main": {
       "type": "main-product-custom",
       "settings": {
-        "show_vendor": false,
+        "show_vendor": true,
         "show_short_description": true,
         "show_related_products": true,
-        "show_videos": true,
         "related_title": "También puedes necesitar...",
+        "related_collection": "acabados",
+        "show_videos": true,
         "videos_title": "Vídeos",
         "add_to_cart_text": "Añadir al carrito",
         "bg_color": "#f5f5f7",
