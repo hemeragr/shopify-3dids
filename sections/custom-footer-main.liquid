@@ -1,0 +1,437 @@
+<section class="custom-footer-main custom-footer-main--{{ section.id }}">
+  <div class="custom-footer-main__inner page-width">
+    <div class="custom-footer-main__left">
+      {% if section.settings.logo != blank %}
+        <div class="custom-footer-main__logo">
+          <img
+            src="{{ section.settings.logo | image_url: width: 400 }}"
+            alt="{{ section.settings.logo.alt | escape }}"
+            loading="lazy"
+            width="{{ section.settings.logo.width }}"
+            height="{{ section.settings.logo.height }}"
+          >
+        </div>
+      {% endif %}
+
+      <div class="custom-footer-main__company">
+        {% if section.settings.company_name != blank %}
+          <p>{{ section.settings.company_name }}</p>
+        {% endif %}
+        {% if section.settings.address_line_1 != blank %}
+          <p>{{ section.settings.address_line_1 }}</p>
+        {% endif %}
+        {% if section.settings.address_line_2 != blank %}
+          <p>{{ section.settings.address_line_2 }}</p>
+        {% endif %}
+        {% if section.settings.address_line_3 != blank %}
+          <p>{{ section.settings.address_line_3 }}</p>
+        {% endif %}
+      </div>
+
+      {% if section.settings.trust_badge != blank %}
+        <div class="custom-footer-main__badge">
+          <img
+            src="{{ section.settings.trust_badge | image_url: width: 300 }}"
+            alt="{{ section.settings.trust_badge.alt | escape }}"
+            loading="lazy"
+            width="{{ section.settings.trust_badge.width }}"
+            height="{{ section.settings.trust_badge.height }}"
+          >
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="custom-footer-main__column">
+      {% if section.settings.contact_title != blank %}
+        <h3>{{ section.settings.contact_title }}</h3>
+      {% endif %}
+
+      <ul>
+        {% for block in section.blocks %}
+          {% if block.type == 'contact_link' %}
+            <li {{ block.shopify_attributes }}>
+              <a href="{{ block.settings.link }}">{{ block.settings.label }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="custom-footer-main__column">
+      {% if section.settings.info_title != blank %}
+        <h3>{{ section.settings.info_title }}</h3>
+      {% endif %}
+
+      <ul>
+        {% for block in section.blocks %}
+          {% if block.type == 'info_link' %}
+            <li {{ block.shopify_attributes }}>
+              <a href="{{ block.settings.link }}">{{ block.settings.label }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="custom-footer-main__column custom-footer-main__payments">
+      {% if section.settings.payment_title != blank %}
+        <h3>{{ section.settings.payment_title }}</h3>
+      {% endif %}
+
+      <ul class="custom-footer-main__payment-list">
+        {% for block in section.blocks %}
+          {% if block.type == 'payment_item' %}
+            <li class="custom-footer-main__payment-item" {{ block.shopify_attributes }}>
+              {% if block.settings.icon != blank %}
+                <img
+                  src="{{ block.settings.icon | image_url: width: 100 }}"
+                  alt="{{ block.settings.label | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.icon.width }}"
+                  height="{{ block.settings.icon.height }}"
+                >
+              {% endif %}
+              <span>{{ block.settings.label }}</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="custom-footer-main__social page-width">
+    {% if section.settings.instagram_url != blank %}
+      <a href="{{ section.settings.instagram_url }}">Instagram</a>
+    {% endif %}
+    {% if section.settings.facebook_url != blank %}
+      <a href="{{ section.settings.facebook_url }}">Facebook</a>
+    {% endif %}
+    {% if section.settings.youtube_url != blank %}
+      <a href="{{ section.settings.youtube_url }}">YouTube</a>
+    {% endif %}
+    {% if section.settings.tiktok_url != blank %}
+      <a href="{{ section.settings.tiktok_url }}">TikTok</a>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .custom-footer-main--{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    color: {{ section.settings.text_color }};
+  }
+
+  .custom-footer-main--{{ section.id }} a,
+  .custom-footer-main--{{ section.id }} p,
+  .custom-footer-main--{{ section.id }} span,
+  .custom-footer-main--{{ section.id }} li,
+  .custom-footer-main--{{ section.id }} h3 {
+    color: {{ section.settings.text_color }};
+  }
+
+  .custom-footer-main--{{ section.id }} a {
+    text-decoration: none;
+    transition: opacity .2s ease;
+  }
+
+  .custom-footer-main--{{ section.id }} a:hover {
+    opacity: .75;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__inner {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__logo img {
+    max-width: {{ section.settings.logo_width }}px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 28px;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__company p {
+    margin: 0 0 8px;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__badge img {
+    margin-top: 28px;
+    max-width: 190px;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__column h3 {
+    margin: 0 0 22px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__column li {
+    margin-bottom: 14px;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__payment-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__payment-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__payment-item img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__payment-item span {
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__social {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .custom-footer-main--{{ section.id }} .custom-footer-main__social a {
+    font-size: 16px;
+  }
+
+  @media screen and (max-width: 1100px) {
+    .custom-footer-main--{{ section.id }} .custom-footer-main__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .custom-footer-main--{{ section.id }} {
+      padding: {{ section.settings.padding_top | times: 0.7 | round: 0 }}px 0 {{ section.settings.padding_bottom | times: 0.7 | round: 0 }}px;
+    }
+
+    .custom-footer-main--{{ section.id }} .custom-footer-main__inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .custom-footer-main--{{ section.id }} .custom-footer-main__social {
+      justify-content: flex-start;
+      margin-top: 32px;
+      gap: 18px;
+    }
+
+    .custom-footer-main--{{ section.id }} .custom-footer-main__company p,
+    .custom-footer-main--{{ section.id }} .custom-footer-main__column li,
+    .custom-footer-main--{{ section.id }} .custom-footer-main__payment-item span,
+    .custom-footer-main--{{ section.id }} .custom-footer-main__social a {
+      font-size: 15px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom footer principal",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Ancho logo",
+      "min": 80,
+      "max": 300,
+      "step": 10,
+      "default": 150
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_badge",
+      "label": "Insignia / sello confianza"
+    },
+    {
+      "type": "text",
+      "id": "company_name",
+      "label": "Nombre empresa",
+      "default": "Excellence Model Kits S.L."
+    },
+    {
+      "type": "text",
+      "id": "address_line_1",
+      "label": "Dirección línea 1",
+      "default": "Calle La Orotava 87"
+    },
+    {
+      "type": "text",
+      "id": "address_line_2",
+      "label": "Dirección línea 2",
+      "default": "29006 Málaga"
+    },
+    {
+      "type": "text",
+      "id": "address_line_3",
+      "label": "Dirección línea 3",
+      "default": "España"
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "label": "Título columna contacto",
+      "default": "CONTACTO"
+    },
+    {
+      "type": "text",
+      "id": "info_title",
+      "label": "Título columna información",
+      "default": "INFORMACIÓN"
+    },
+    {
+      "type": "text",
+      "id": "payment_title",
+      "label": "Título columna pagos",
+      "default": "MÉTODOS DE PAGO"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook"
+    },
+    {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "YouTube"
+    },
+    {
+      "type": "url",
+      "id": "tiktok_url",
+      "label": "TikTok"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fondo",
+      "default": "#efeff5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color texto",
+      "default": "#27348b"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding superior",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding inferior",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "contact_link",
+      "name": "Enlace contacto",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texto"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace"
+        }
+      ]
+    },
+    {
+      "type": "info_link",
+      "name": "Enlace información",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texto"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace"
+        }
+      ]
+    },
+    {
+      "type": "payment_item",
+      "name": "Método de pago",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icono"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Nombre método"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom footer principal"
+    }
+  ]
+}
+{% endschema %}
