@@ -43,11 +43,32 @@
     "custom_footer_main_Wzwxqg": {
       "type": "custom-footer-main",
       "blocks": {
+        "payment_item_hhPGDy": {
+          "type": "payment_item",
+          "settings": {
+            "icon": "shopify://shop_images/visa-logo-visa-icon-transparent-free-png.webp",
+            "label": "Visa"
+          }
+        },
+        "payment_item_UtRLEn": {
+          "type": "payment_item",
+          "settings": {
+            "icon": "shopify://shop_images/revolut-logo-rounded-icon-transparent-background-free-png.webp",
+            "label": "Revolut"
+          }
+        },
+        "payment_item_b8iFg7": {
+          "type": "payment_item",
+          "settings": {
+            "icon": "shopify://shop_images/paypal-logo-0.webp",
+            "label": "Paypal"
+          }
+        },
         "payment_item_ipkfd9": {
           "type": "payment_item",
           "settings": {
-            "icon": "shopify://shop_images/ChatGPT_Image_Mar_29_2026_11_43_31_PM.png",
-            "label": ""
+            "icon": "shopify://shop_images/Bizum-Logo.webp",
+            "label": "Bizum"
           }
         },
         "info_link_gRDWNH": {
@@ -149,6 +170,9 @@
         }
       },
       "block_order": [
+        "payment_item_hhPGDy",
+        "payment_item_UtRLEn",
+        "payment_item_b8iFg7",
         "payment_item_ipkfd9",
         "info_link_gRDWNH",
         "info_link_GhDTXK",
