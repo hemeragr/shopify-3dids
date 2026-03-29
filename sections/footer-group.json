@@ -43,6 +43,13 @@
     "custom_footer_main_Wzwxqg": {
       "type": "custom-footer-main",
       "blocks": {
+        "payment_item_ipkfd9": {
+          "type": "payment_item",
+          "settings": {
+            "icon": "shopify://shop_images/ChatGPT_Image_Mar_29_2026_11_43_31_PM.png",
+            "label": ""
+          }
+        },
         "info_link_gRDWNH": {
           "type": "info_link",
           "settings": {
@@ -142,6 +149,7 @@
         }
       },
       "block_order": [
+        "payment_item_ipkfd9",
         "info_link_gRDWNH",
         "info_link_GhDTXK",
         "info_link_mhQLCj",
