@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% liquid
   assign youtube_id_1 = section.settings.youtube_url_1
   assign youtube_id_2 = section.settings.youtube_url_2
@@ -355,4 +356,363 @@
     }
   ]
 }
+=======
+{% liquid
+  assign youtube_id_1 = section.settings.youtube_url_1
+  assign youtube_id_2 = section.settings.youtube_url_2
+
+  if youtube_id_1 contains 'youtube.com/watch?v='
+    assign youtube_id_1 = youtube_id_1 | split: 'v=' | last | split: '&' | first
+  elsif youtube_id_1 contains 'youtu.be/'
+    assign youtube_id_1 = youtube_id_1 | split: 'youtu.be/' | last | split: '?' | first
+  endif
+
+  if youtube_id_2 contains 'youtube.com/watch?v='
+    assign youtube_id_2 = youtube_id_2 | split: 'v=' | last | split: '&' | first
+  elsif youtube_id_2 contains 'youtu.be/'
+    assign youtube_id_2 = youtube_id_2 | split: 'youtu.be/' | last | split: '?' | first
+  endif
+%}
+
+<div class="two-video-hero">
+  <div class="two-video-hero__row two-video-hero__row--video-right">
+    <div class="two-video-hero__content">
+      {% if section.settings.heading_1 != blank %}
+        <h2 class="two-video-hero__heading two-video-hero__heading--main">{{ section.settings.heading_1 }}</h2>
+      {% endif %}
+
+      {% if section.settings.text_1 != blank %}
+        <div class="two-video-hero__text rte">{{ section.settings.text_1 }}</div>
+      {% endif %}
+
+      {% if section.settings.button_label_1 != blank and section.settings.button_link_1 != blank %}
+        <a href="{{ section.settings.button_link_1 }}" class="two-video-hero__button">
+          {{ section.settings.button_label_1 }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="two-video-hero__media">
+      {% if youtube_id_1 != blank %}
+        <div class="two-video-hero__video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/{{ youtube_id_1 }}?rel=0&playsinline=1"
+            title="{{ section.settings.heading_1 | escape }}"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="two-video-hero__row two-video-hero__row--video-left">
+    <div class="two-video-hero__media">
+      {% if youtube_id_2 != blank %}
+        <div class="two-video-hero__video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/{{ youtube_id_2 }}?rel=0&playsinline=1"
+            title="{{ section.settings.heading_2 | escape }}"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="two-video-hero__content two-video-hero__content--secondary">
+      {% if section.settings.heading_2 != blank %}
+        <h3 class="two-video-hero__heading two-video-hero__heading--secondary">{{ section.settings.heading_2 }}</h3>
+      {% endif %}
+
+      {% if section.settings.text_2 != blank %}
+        <div class="two-video-hero__text rte">{{ section.settings.text_2 }}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% style %}
+  .two-video-hero {
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .two-video-hero__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    gap: 32px;
+    padding: 40px 24px;
+  }
+
+  .two-video-hero__row--video-right {
+    min-height: 72vh;
+  }
+
+  .two-video-hero__row--video-left {
+    min-height: auto;
+    padding-top: 0;
+    padding-bottom: 56px;
+  }
+
+  .two-video-hero__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 28px;
+    max-width: 760px;
+  }
+
+  .two-video-hero__content--secondary {
+    gap: 18px;
+    max-width: 680px;
+  }
+
+  .two-video-hero__heading {
+    margin: 0;
+    color: {{ section.settings.heading_color }};
+    font-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+    font-style: {{ settings.type_header_font.style }};
+  }
+
+  .two-video-hero__heading--main {
+    font-weight: 700;
+    font-size: clamp(42px, 6vw, 86px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+
+  .two-video-hero__heading--secondary {
+    font-weight: 700;
+    font-size: clamp(28px, 3vw, 44px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .two-video-hero__text,
+  .two-video-hero__text p {
+    color: {{ section.settings.text_color }};
+    font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+    font-style: {{ settings.type_body_font.style }};
+    font-weight: {{ settings.type_body_font.weight }};
+    font-size: 14px;;
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  .two-video-hero__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    min-width: 280px;
+    padding: 16px 32px;
+    border: 1.5px solid {{ section.settings.button_border_color }};
+    border-radius: 999px;
+    color: {{ section.settings.button_text_color }};
+    background: transparent;
+    text-decoration: none;
+    font-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+    font-style: {{ settings.type_body_font.style }};
+    font-weight: 500;
+    font-size: 1.1rem;
+    line-height: 1;
+    transition: all 0.25s ease;
+  }
+
+  .two-video-hero__button:hover {
+    background: {{ section.settings.button_hover_bg }};
+    color: {{ section.settings.button_hover_text }};
+    border-color: {{ section.settings.button_hover_bg }};
+  }
+
+  .two-video-hero__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .two-video-hero__video-wrap {
+    width: 100%;
+    max-width: 620px;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .two-video-hero__video-wrap iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  @media screen and (min-width: 750px) {
+    .two-video-hero__row {
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: clamp(32px, 5vw, 90px);
+      padding: 60px clamp(32px, 5vw, 80px);
+    }
+
+    .two-video-hero__row--video-right {
+      grid-template-areas: "content media";
+    }
+
+    .two-video-hero__row--video-left {
+      grid-template-areas: "media content";
+      padding-top: 0;
+    }
+
+    .two-video-hero__row--video-right .two-video-hero__content {
+      grid-area: content;
+    }
+
+    .two-video-hero__row--video-right .two-video-hero__media {
+      grid-area: media;
+    }
+
+    .two-video-hero__row--video-left .two-video-hero__content {
+      grid-area: content;
+    }
+
+    .two-video-hero__row--video-left .two-video-hero__media {
+      grid-area: media;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .two-video-hero__row {
+      padding: 32px 20px;
+    }
+
+    .two-video-hero__row--video-right {
+      min-height: auto;
+    }
+
+    .two-video-hero__heading--main {
+      font-size: clamp(34px, 12vw, 56px);
+    }
+
+    .two-video-hero__heading--secondary {
+      font-size: clamp(24px, 8vw, 34px);
+    }
+
+    .two-video-hero__button {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Two video hero",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Color de fondo",
+      "default": "#1438A6"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Color del título",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color del texto",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Color texto botón",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Color borde botón",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Fondo hover botón",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text",
+      "label": "Texto hover botón",
+      "default": "#1438A6"
+    },
+
+    {
+      "type": "header",
+      "content": "Bloque superior"
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Título superior",
+      "default": "Despierta al constructor que llevas dentro"
+    },
+    {
+      "type": "richtext",
+      "id": "text_1",
+      "label": "Texto superior",
+      "default": "<p>Descubre Artesanía Latina</p>"
+    },
+    {
+      "type": "text",
+      "id": "youtube_url_1",
+      "label": "Link YouTube superior"
+    },
+    {
+      "type": "text",
+      "id": "button_label_1",
+      "label": "Texto botón superior",
+      "default": "Descubre Artesanía Latina"
+    },
+    {
+      "type": "url",
+      "id": "button_link_1",
+      "label": "Enlace botón superior"
+    },
+
+    {
+      "type": "header",
+      "content": "Bloque inferior"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Título inferior",
+      "default": "Construye historia con tus propias manos"
+    },
+    {
+      "type": "richtext",
+      "id": "text_2",
+      "label": "Texto inferior",
+      "default": "<p>Explora nuestra colección de maquetas y modelismo.</p>"
+    },
+    {
+      "type": "text",
+      "id": "youtube_url_2",
+      "label": "Link YouTube inferior"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Two video hero"
+    }
+  ]
+}
+>>>>>>> f06736b545b9e0c2dd9c2010b54e601b2b6c01ed
 {% endschema %}

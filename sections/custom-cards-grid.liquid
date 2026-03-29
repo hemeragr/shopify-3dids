@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="custom-cards">
   <div class="custom-cards__grid">
 
@@ -154,3 +155,161 @@
   ]
 }
 {% endschema %}
+=======
+<div class="custom-cards">
+  <div class="custom-cards__grid">
+
+    {% for block in section.blocks %}
+      <div class="custom-card">
+
+        {% if block.settings.image != blank %}
+          <div class="custom-card__image">
+            <img src="{{ block.settings.image | image_url: width: 600 }}" alt="">
+          </div>
+        {% endif %}
+
+        <div class="custom-card__content">
+          <h3>{{ block.settings.title }}</h3>
+
+          {% if block.settings.button_label != blank %}
+            <a href="{{ block.settings.link }}" class="custom-card__button">
+              {{ block.settings.button_label }}
+              <span>→</span>
+            </a>
+          {% endif %}
+        </div>
+
+      </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+{% stylesheet %}
+.custom-cards {
+  padding: 60px 20px;
+}
+
+.custom-cards__grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.custom-card {
+  background: #eef0f6;
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.custom-card__image img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.custom-card__content {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+  align-items: flex-start;
+}
+
+.custom-card__content h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2e3f8f;
+  margin: 0;
+}
+
+.custom-card__button {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border: 1.5px solid #2e3f8f;
+  border-radius: 999px;
+  color: #2e3f8f;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.custom-card__button:hover {
+  background: #2e3f8f;
+  color: white;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 989px) {
+  .custom-cards__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .custom-cards__grid {
+    grid-template-columns: 1fr;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Custom cards grid",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Título ejemplo"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Texto botón",
+          "default": "SABER MÁS"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom cards grid",
+      "blocks": [
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+>>>>>>> f06736b545b9e0c2dd9c2010b54e601b2b6c01ed
