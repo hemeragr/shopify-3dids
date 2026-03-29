@@ -11,6 +11,35 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
+    "newsletter_image_split_ctWBH6": {
+      "type": "newsletter-image-split",
+      "name": "Newsletter imagen split",
+      "settings": {
+        "image": "shopify://shop_images/c_copia_estrecha.jpg",
+        "reverse_layout": false,
+        "badge_text": "Newsletter exclusiva",
+        "heading": "Suscríbete a nuestra newsletter y disfruta de un 5% de descuento en tu primera compra",
+        "subheading": "<p>Entérate antes que nadie de novedades, colecciones y ofertas especiales.</p>",
+        "placeholder": "Su dirección de correo electrónico",
+        "button_label": "SUSCRÍBASE",
+        "success_text": "Gracias por suscribirte.",
+        "heading_size": 36,
+        "image_radius": 0,
+        "section_bg": "#f4f4f4",
+        "heading_color": "#27348b",
+        "text_color": "#2d2d2d",
+        "badge_bg": "#e8ecff",
+        "badge_color": "#27348b",
+        "field_bg": "#ffffff",
+        "field_border": "#27348b",
+        "input_text_color": "#1f1f1f",
+        "placeholder_color": "#9aa3c7",
+        "button_bg": "#27348b",
+        "button_text": "#ffffff",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
     "section_CYm8JA": {
       "type": "section",
       "blocks": {
@@ -342,6 +371,7 @@
     }
   },
   "order": [
+    "newsletter_image_split_ctWBH6",
     "section_CYm8JA",
     "footer_m9NzUG",
     "footer_utilities_jLGE8U"

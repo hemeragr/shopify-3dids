@@ -94,10 +94,15 @@
     {% endif %}
 
     <div class="featured-blog-posts-card__content layout-panel-flex--column">
-      <h4>{{ title }}</h4>
-      {{ details }}
-      {{ description }}
-    </div>
+    <h4>{{ title }}</h4>
+
+    {% unless onboarding %}
+      <a href="{{ article.url }}" class="featured-blog-posts-card__button">
+        SABER MÁS
+        <span class="featured-blog-posts-card__button-arrow">→</span>
+      </a>
+    {% endunless %}
+  </div>
   </div>
 </div>
 
@@ -147,6 +152,93 @@
   .featured-blog-posts-card__content h4 {
     margin: 0;
   }
+
+  .featured-blog-posts-card {
+  text-align: var(--text-align);
+  background: #eef0f6; /* gris claro */
+  border-radius: 20px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.featured-blog-posts-card__inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* IMAGEN */
+.featured-blog-posts-card__image,
+.featured-blog-posts-card img,
+.blog-placeholder-svg {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+/* CONTENIDO */
+.featured-blog-posts-card__content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* TÍTULO */
+.featured-blog-posts-card__content h4 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #1e2a78; /* azul oscuro */
+}
+
+/* DETALLES (autor/fecha) */
+.featured-blog-posts-card__content .blog-post-info-text {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+/* TEXTO */
+.featured-blog-posts-card__content p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* BOTÓN */
+.featured-blog-posts-card__content a {
+  margin-top: auto;
+  width: fit-content;
+  padding: 10px 20px;
+  border: 1.5px solid #2c3e9e;
+  border-radius: 999px;
+  color: #2c3e9e;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.25s ease;
+}
+
+/* Flecha */
+.featured-blog-posts-card__content a::after {
+  content: "→";
+  font-size: 16px;
+}
+
+/* Hover */
+.featured-blog-posts-card__content a:hover {
+  background: #2c3e9e;
+  color: #fff;
+}
+
+/* GRID spacing (muy importante) */
+.resource-list {
+  gap: 24px;
+}
 {% endstylesheet %}
 
 {% schema %}
