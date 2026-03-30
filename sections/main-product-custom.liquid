@@ -263,6 +263,7 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
     {% endif %}
 
 
+
 {% assign has_videos = false %}
 {% if video_1_url != blank or video_2_url != blank or video_3_url != blank %}
   {% assign has_videos = true %}
@@ -323,6 +324,8 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
     </div>
   </div>
 {% endif %}
+</div>
+</section>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const sectionRoot = document.querySelector('.main-product-custom--{{ section.id }}');
@@ -375,8 +378,6 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
       });
     }
   });
-</div>
-</section>
 </script>
 
 <style>
