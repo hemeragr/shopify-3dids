@@ -169,14 +169,14 @@
   </details>
 {% endif %}
 
-          {% if instrucciones != blank %}
-            <details class="main-product-custom__accordion">
-              <summary>Instrucciones</summary>
-              <div class="main-product-custom__accordion-content rte">
-                {{ instrucciones | metafield_tag }}
-              </div>
-            </details>
-          {% endif %}
+{% if instrucciones_obj != blank %}
+  <details class="main-product-custom__accordion">
+    <summary>Instrucciones</summary>
+    <div class="main-product-custom__accordion-content rte">
+      {{ instrucciones_obj | metafield_tag }}
+    </div>
+  </details>
+{% endif %}
         </div>
       </div>
     </div>
