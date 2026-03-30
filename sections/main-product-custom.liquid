@@ -6,9 +6,9 @@
   assign detalles_producto = current_product.metafields.custom.custom_detalles_producto
   assign instrucciones = current_product.metafields.custom.custom_instrucciones
 
-assign video_1_url = current_product.metafields.custom.custom_video_1_url.value | append: ''
-assign video_2_url = current_product.metafields.custom.custom_video_2_url.value | append: ''
-assign video_3_url = current_product.metafields.custom.custom_video_3_url.value | append: ''
+  assign video_1_url = current_product.metafields.custom.custom_video_1_url.value
+  assign video_2_url = current_product.metafields.custom.custom_video_2_url.value
+  assign video_3_url = current_product.metafields.custom.custom_video_3_url.value
 
   assign video_1_title = current_product.metafields.custom.custom_video_1_title.value
   assign video_2_title = current_product.metafields.custom.custom_video_2_title.value
@@ -261,6 +261,12 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
         </div>
       {% endif %}
     {% endif %}
+
+    {% assign has_videos = false %}
+    {% if video_1_url != blank or video_2_url != blank or video_3_url != blank %}
+      {% assign has_videos = true %}
+    {% endif %}
+
 {% assign has_videos = false %}
 {% if video_1_url != blank or video_2_url != blank or video_3_url != blank %}
   {% assign has_videos = true %}
@@ -272,15 +278,15 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
 
     <div class="main-product-custom__videos-grid">
       {% if video_1_url != blank %}
-        {% assign video_1_id = video_1_url | remove: 'https://www.youtube.com/watch?v=' | remove: 'http://www.youtube.com/watch?v=' | remove: 'https://youtube.com/watch?v=' | remove: 'http://youtube.com/watch?v=' | remove: 'https://youtu.be/' | remove: 'http://youtu.be/' | split: '&' | first | split: '?' | first %}
+        {% assign video_1_embed = video_1_url | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' %}
         <div class="main-product-custom__video-card">
           <h3>{{ video_1_title | default: 'Presentación' }}</h3>
           <div class="main-product-custom__video-embed">
             <iframe
-              src="https://www.youtube-nocookie.com/embed/{{ video_1_id }}?rel=0"
-              title="{{ video_1_title | default: 'Presentación' | escape }}"
+              src="{{ video_1_embed }}"
+              title="{{ video_1_title | escape }}"
               loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>
           </div>
@@ -288,15 +294,15 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
       {% endif %}
 
       {% if video_2_url != blank %}
-        {% assign video_2_id = video_2_url | remove: 'https://www.youtube.com/watch?v=' | remove: 'http://www.youtube.com/watch?v=' | remove: 'https://youtube.com/watch?v=' | remove: 'http://youtube.com/watch?v=' | remove: 'https://youtu.be/' | remove: 'http://youtu.be/' | split: '&' | first | split: '?' | first %}
+        {% assign video_2_embed = video_2_url | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' %}
         <div class="main-product-custom__video-card">
           <h3>{{ video_2_title | default: 'Contenido del kit' }}</h3>
           <div class="main-product-custom__video-embed">
             <iframe
-              src="https://www.youtube-nocookie.com/embed/{{ video_2_id }}?rel=0"
-              title="{{ video_2_title | default: 'Contenido del kit' | escape }}"
+              src="{{ video_2_embed }}"
+              title="{{ video_2_title | escape }}"
               loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>
           </div>
@@ -304,15 +310,15 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
       {% endif %}
 
       {% if video_3_url != blank %}
-        {% assign video_3_id = video_3_url | remove: 'https://www.youtube.com/watch?v=' | remove: 'http://www.youtube.com/watch?v=' | remove: 'https://youtube.com/watch?v=' | remove: 'http://youtube.com/watch?v=' | remove: 'https://youtu.be/' | remove: 'http://youtu.be/' | split: '&' | first | split: '?' | first %}
+        {% assign video_3_embed = video_3_url | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' %}
         <div class="main-product-custom__video-card">
           <h3>{{ video_3_title | default: 'Instrucciones' }}</h3>
           <div class="main-product-custom__video-embed">
             <iframe
-              src="https://www.youtube-nocookie.com/embed/{{ video_3_id }}?rel=0"
-              title="{{ video_3_title | default: 'Instrucciones' | escape }}"
+              src="{{ video_3_embed }}"
+              title="{{ video_3_title | escape }}"
               loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>
           </div>
@@ -321,8 +327,9 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
     </div>
   </div>
 {% endif %}
-</div>
+  </div>
 </section>
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const sectionRoot = document.querySelector('.main-product-custom--{{ section.id }}');
@@ -386,23 +393,9 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
   .main-product-custom--{{ section.id }} .main-product-custom__container {
     max-width: 1360px;
     margin: 0 auto;
-    padding: 20px 28px 56px;
+    padding: 170px 28px 56px;
   }
 
-  .main-product-custom--{{ section.id }} .main-product-custom__video-embed iframe {
-    display: block;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    min-height: 260px;
-    border: 0;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  @media screen and (max-width: 749px) {
-    .main-product-custom--{{ section.id }} .main-product-custom__video-embed iframe {
-      min-height: 220px;
-    }
-  }
   .main-product-custom--{{ section.id }} .main-product-custom__breadcrumbs {
     display: flex;
     flex-wrap: wrap;
