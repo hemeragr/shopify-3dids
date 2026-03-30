@@ -151,14 +151,14 @@
         {% endform %}
 
         <div class="main-product-custom__accordions">
-          {% if breve_descripcion != blank %}
-            <details class="main-product-custom__accordion" open>
-              <summary>Breve descripción</summary>
-              <div class="main-product-custom__accordion-content rte">
-                {{ breve_descripcion | metafield_tag }}
-              </div>
-            </details>
-          {% endif %}
+ {% if breve_descripcion_obj != blank %}
+  <details class="main-product-custom__accordion" open>
+    <summary>Breve descripción</summary>
+    <div class="main-product-custom__accordion-content rte">
+      {{ breve_descripcion_obj | metafield_tag }}
+    </div>
+  </details>
+{% endif %}
 
           {% if detalles_producto != blank %}
             <details class="main-product-custom__accordion">
