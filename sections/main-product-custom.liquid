@@ -261,8 +261,6 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
         </div>
       {% endif %}
     {% endif %}
-
-
 {% assign has_videos = false %}
 {% if video_1_url != blank or video_2_url != blank or video_3_url != blank %}
   {% assign has_videos = true %}
@@ -274,16 +272,15 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
 
     <div class="main-product-custom__videos-grid">
       {% if video_1_url != blank %}
-        {% assign video_1_id = video_1_url | split: 'v=' | last | split: '&' | first %}
+        {% assign video_1_id = video_1_url | remove: 'https://www.youtube.com/watch?v=' | remove: 'http://www.youtube.com/watch?v=' | remove: 'https://youtube.com/watch?v=' | remove: 'http://youtube.com/watch?v=' | remove: 'https://youtu.be/' | remove: 'http://youtu.be/' | split: '&' | first | split: '?' | first %}
         <div class="main-product-custom__video-card">
           <h3>{{ video_1_title | default: 'Presentación' }}</h3>
           <div class="main-product-custom__video-embed">
             <iframe
-              src="https://www.youtube.com/embed/{{ video_1_id }}"
+              src="https://www.youtube-nocookie.com/embed/{{ video_1_id }}?rel=0"
               title="{{ video_1_title | default: 'Presentación' | escape }}"
               loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
             ></iframe>
           </div>
@@ -291,16 +288,15 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
       {% endif %}
 
       {% if video_2_url != blank %}
-        {% assign video_2_id = video_2_url | split: 'v=' | last | split: '&' | first %}
+        {% assign video_2_id = video_2_url | remove: 'https://www.youtube.com/watch?v=' | remove: 'http://www.youtube.com/watch?v=' | remove: 'https://youtube.com/watch?v=' | remove: 'http://youtube.com/watch?v=' | remove: 'https://youtu.be/' | remove: 'http://youtu.be/' | split: '&' | first | split: '?' | first %}
         <div class="main-product-custom__video-card">
           <h3>{{ video_2_title | default: 'Contenido del kit' }}</h3>
           <div class="main-product-custom__video-embed">
             <iframe
-              src="https://www.youtube.com/embed/{{ video_2_id }}"
+              src="https://www.youtube-nocookie.com/embed/{{ video_2_id }}?rel=0"
               title="{{ video_2_title | default: 'Contenido del kit' | escape }}"
               loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
             ></iframe>
           </div>
@@ -308,16 +304,15 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
       {% endif %}
 
       {% if video_3_url != blank %}
-        {% assign video_3_id = video_3_url | split: 'v=' | last | split: '&' | first %}
+        {% assign video_3_id = video_3_url | remove: 'https://www.youtube.com/watch?v=' | remove: 'http://www.youtube.com/watch?v=' | remove: 'https://youtube.com/watch?v=' | remove: 'http://youtube.com/watch?v=' | remove: 'https://youtu.be/' | remove: 'http://youtu.be/' | split: '&' | first | split: '?' | first %}
         <div class="main-product-custom__video-card">
           <h3>{{ video_3_title | default: 'Instrucciones' }}</h3>
           <div class="main-product-custom__video-embed">
             <iframe
-              src="https://www.youtube.com/embed/{{ video_3_id }}"
+              src="https://www.youtube-nocookie.com/embed/{{ video_3_id }}?rel=0"
               title="{{ video_3_title | default: 'Instrucciones' | escape }}"
               loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
             ></iframe>
           </div>
