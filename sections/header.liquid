@@ -31,6 +31,18 @@
     assign sticky = 'scroll-up'
   endif
 
+  if section.settings.enable_sticky_header == 'always'
+    assign sticky = 'always'
+  elsif section.settings.enable_sticky_header == 'scroll-up'
+    assign sticky = 'scroll-up'
+  endif
+
+  assign enable_scroll_design = false
+
+  if template.name == 'product' or template.name == 'collection'
+    assign enable_scroll_design = true
+  endif
+
   if transparent and sticky
     assign transparent = 'not-sticky'
   endif
@@ -182,11 +194,7 @@
     assign transparent_color_scheme_value = 'bottom'
   endif
 
-    if section.settings.enable_sticky_header == 'always'
-    assign sticky = 'always'
-  elsif section.settings.enable_sticky_header == 'scroll-up'
-    assign sticky = 'scroll-up'
-  endif
+  
 %}
 
 {% capture localization_markup %}
@@ -294,7 +302,6 @@
     "url": {{ request.origin | append: page.url | json }}
   }
 </script>
-
 <header-component
   id="header-component"
   class="{{ class }}"
@@ -304,6 +311,9 @@
   {% endif %}
   {% if sticky %}
     sticky="{{ sticky }}"
+  {% endif %}
+  {% if enable_scroll_design %}
+    data-scroll-design="enabled"
   {% endif %}
   data-skip-node-update
   data-scroll-direction="none"
