@@ -266,7 +266,6 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
     {% if video_1_url != blank or video_2_url != blank or video_3_url != blank %}
       {% assign has_videos = true %}
     {% endif %}
-
 {% assign has_videos = false %}
 {% if video_1_url != blank or video_2_url != blank or video_3_url != blank %}
   {% assign has_videos = true %}
@@ -278,13 +277,13 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
 
     <div class="main-product-custom__videos-grid">
       {% if video_1_url != blank %}
-        {% assign video_1_embed = video_1_url | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' %}
+        {% assign video_1_embed = video_1_url | split: '&' | first | replace: 'https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/' | replace: 'https://youtube.com/watch?v=', 'https://www.youtube.com/embed/' | replace: 'https://youtu.be/', 'https://www.youtube.com/embed/' %}
         <div class="main-product-custom__video-card">
           <h3>{{ video_1_title | default: 'Presentación' }}</h3>
           <div class="main-product-custom__video-embed">
             <iframe
               src="{{ video_1_embed }}"
-              title="{{ video_1_title | escape }}"
+              title="{{ video_1_title | default: 'Presentación' | escape }}"
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
@@ -294,13 +293,13 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
       {% endif %}
 
       {% if video_2_url != blank %}
-        {% assign video_2_embed = video_2_url | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' %}
+        {% assign video_2_embed = video_2_url | split: '&' | first | replace: 'https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/' | replace: 'https://youtube.com/watch?v=', 'https://www.youtube.com/embed/' | replace: 'https://youtu.be/', 'https://www.youtube.com/embed/' %}
         <div class="main-product-custom__video-card">
           <h3>{{ video_2_title | default: 'Contenido del kit' }}</h3>
           <div class="main-product-custom__video-embed">
             <iframe
               src="{{ video_2_embed }}"
-              title="{{ video_2_title | escape }}"
+              title="{{ video_2_title | default: 'Contenido del kit' | escape }}"
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
@@ -310,13 +309,13 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
       {% endif %}
 
       {% if video_3_url != blank %}
-        {% assign video_3_embed = video_3_url | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' %}
+        {% assign video_3_embed = video_3_url | split: '&' | first | replace: 'https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/' | replace: 'https://youtube.com/watch?v=', 'https://www.youtube.com/embed/' | replace: 'https://youtu.be/', 'https://www.youtube.com/embed/' %}
         <div class="main-product-custom__video-card">
           <h3>{{ video_3_title | default: 'Instrucciones' }}</h3>
           <div class="main-product-custom__video-embed">
             <iframe
               src="{{ video_3_embed }}"
-              title="{{ video_3_title | escape }}"
+              title="{{ video_3_title | default: 'Instrucciones' | escape }}"
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
@@ -327,9 +326,6 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
     </div>
   </div>
 {% endif %}
-  </div>
-</section>
-
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const sectionRoot = document.querySelector('.main-product-custom--{{ section.id }}');
