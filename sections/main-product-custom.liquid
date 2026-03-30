@@ -1,13 +1,18 @@
-<<<<<<< HEAD
 {% liquid
   assign current_product = product
   assign first_variant = current_product.selected_or_first_available_variant
-  assign breve_descripcion = current_product.metafields.custom.breve_descripcion
-  assign detalles_producto = current_product.metafields.custom.detalles_producto
-  assign instrucciones = current_product.metafields.custom.instrucciones
-  assign video_1_url = current_product.metafields.custom.video_1_url
-  assign video_2_url = current_product.metafields.custom.video_2_url
-  assign video_3_url = current_product.metafields.custom.video_3_url
+
+  assign breve_descripcion_obj = current_product.metafields.custom.breve_descripcion
+  assign detalles_producto_obj = current_product.metafields.custom.detalles_producto
+  assign instrucciones_obj = current_product.metafields.custom.instrucciones
+
+  assign video_1_url = current_product.metafields.custom.video_1_url.value
+  assign video_2_url = current_product.metafields.custom.video_2_url.value
+  assign video_3_url = current_product.metafields.custom.video_3_url.value
+
+  assign video_1_title = current_product.metafields.custom.video_1_title.value
+  assign video_2_title = current_product.metafields.custom.video_2_title.value
+  assign video_3_title = current_product.metafields.custom.video_3_title.value
 %}
 
 <section class="main-product-custom main-product-custom--{{ section.id }}">
