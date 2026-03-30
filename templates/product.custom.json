@@ -17,12 +17,12 @@
         "show_related_products": true,
         "related_title": "También puedes necesitar...",
         "related_collection": "acabados",
-        "show_videos": true,
+        "show_videos": false,
         "videos_title": "Vídeos",
         "add_to_cart_text": "Añadir al carrito",
         "bg_color": "#f5f5f7",
-        "text_color": "#1e1e1e",
-        "accent_color": "#27348b",
+        "text_color": "#27348b",
+        "accent_color": "#273488",
         "button_bg": "#27348b",
         "button_text": "#ffffff"
       }
