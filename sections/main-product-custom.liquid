@@ -13,13 +13,27 @@
   assign video_1_title = current_product.metafields.custom.custom_video_1_title.value
   assign video_2_title = current_product.metafields.custom.custom_video_2_title.value
   assign video_3_title = current_product.metafields.custom.custom_video_3_title.value
+
+  assign current_sku = first_variant.sku
+  assign breadcrumb_collection = current_product.collections.first
 %}
 
 <section class="main-product-custom main-product-custom--{{ section.id }}">
   <div class="main-product-custom__container">
-    <div class="main-product-custom__debug">
-      <pre>{{ product.metafields.custom | json }}</pre>
-    </div>
+
+    {% if section.settings.show_breadcrumbs %}
+      <nav class="main-product-custom__breadcrumbs" aria-label="Migas de pan">
+        <a href="{{ routes.root_url }}">{{ section.settings.home_breadcrumb_label }}</a>
+
+        {% if breadcrumb_collection != blank %}
+          <span>/</span>
+          <a href="{{ breadcrumb_collection.url }}">{{ breadcrumb_collection.title }}</a>
+        {% endif %}
+
+        <span>/</span>
+        <span>{{ current_product.title }}</span>
+      </nav>
+    {% endif %}
 
     <div class="main-product-custom__top">
       <div class="main-product-custom__gallery">
@@ -92,6 +106,13 @@
 
         <h1 class="main-product-custom__title">{{ current_product.title }}</h1>
 
+        {% if current_sku != blank %}
+          <div class="main-product-custom__meta-line">
+            <span class="main-product-custom__meta-label">Referencia</span>
+            <span class="main-product-custom__meta-value">{{ current_sku }}</span>
+          </div>
+        {% endif %}
+
         <div class="main-product-custom__price-wrap">
           {% if first_variant.compare_at_price > first_variant.price %}
             <span class="main-product-custom__price main-product-custom__price--compare">
@@ -101,6 +122,10 @@
           <span class="main-product-custom__price">
             {{ first_variant.price | money }}
           </span>
+        </div>
+
+        <div class="main-product-custom__taxes">
+          {{ section.settings.tax_text }}
         </div>
 
         {% if section.settings.show_short_description and breve_descripcion != blank %}
@@ -138,7 +163,21 @@
 
           <input type="hidden" name="id" value="{{ first_variant.id }}">
 
-          <div class="main-product-custom__buybox">
+          <div class="main-product-custom__purchase-row">
+            <div class="main-product-custom__quantity" data-quantity-wrapper>
+              <button type="button" class="main-product-custom__qty-btn" data-qty-minus aria-label="Restar cantidad">−</button>
+              <input
+                class="main-product-custom__qty-input"
+                type="number"
+                name="quantity"
+                min="1"
+                value="1"
+                inputmode="numeric"
+                pattern="[0-9]*"
+              >
+              <button type="button" class="main-product-custom__qty-btn" data-qty-plus aria-label="Sumar cantidad">+</button>
+            </div>
+
             <button
               type="submit"
               name="add"
@@ -150,6 +189,16 @@
               {% else %}
                 Agotado
               {% endif %}
+            </button>
+
+            <button
+              type="button"
+              class="main-product-custom__wishlist"
+              aria-label="Añadir a wishlist"
+              aria-pressed="false"
+              data-wishlist-toggle
+            >
+              <span class="main-product-custom__wishlist-icon" aria-hidden="true">♡</span>
             </button>
           </div>
         {% endform %}
@@ -223,53 +272,53 @@
         <h2 class="main-product-custom__section-title">{{ section.settings.videos_title }}</h2>
 
         <div class="main-product-custom__videos-grid">
-{% if video_1_url != blank %}
-  {% assign video_1_embed = video_1_url | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' %}
-  <div class="main-product-custom__video-card">
-    <h3>{{ video_1_title | default: 'Presentación' }}</h3>
-    <div class="main-product-custom__video-embed">
-      <iframe
-        src="{{ video_1_embed }}"
-        title="{{ video_1_title | escape }}"
-        loading="lazy"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
-    </div>
-  </div>
-{% endif %}
+          {% if video_1_url != blank %}
+            {% assign video_1_embed = video_1_url | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' %}
+            <div class="main-product-custom__video-card">
+              <h3>{{ video_1_title | default: 'Presentación' }}</h3>
+              <div class="main-product-custom__video-embed">
+                <iframe
+                  src="{{ video_1_embed }}"
+                  title="{{ video_1_title | escape }}"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+          {% endif %}
 
-{% if video_2_url != blank %}
-  {% assign video_2_embed = video_2_url | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' %}
-  <div class="main-product-custom__video-card">
-    <h3>{{ video_2_title | default: 'Contenido del kit' }}</h3>
-    <div class="main-product-custom__video-embed">
-      <iframe
-        src="{{ video_2_embed }}"
-        title="{{ video_2_title | escape }}"
-        loading="lazy"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
-    </div>
-  </div>
-{% endif %}
+          {% if video_2_url != blank %}
+            {% assign video_2_embed = video_2_url | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' %}
+            <div class="main-product-custom__video-card">
+              <h3>{{ video_2_title | default: 'Contenido del kit' }}</h3>
+              <div class="main-product-custom__video-embed">
+                <iframe
+                  src="{{ video_2_embed }}"
+                  title="{{ video_2_title | escape }}"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+          {% endif %}
 
-{% if video_3_url != blank %}
-  {% assign video_3_embed = video_3_url | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' %}
-  <div class="main-product-custom__video-card">
-    <h3>{{ video_3_title | default: 'Instrucciones' }}</h3>
-    <div class="main-product-custom__video-embed">
-      <iframe
-        src="{{ video_3_embed }}"
-        title="{{ video_3_title | escape }}"
-        loading="lazy"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
-    </div>
-  </div>
-{% endif %}
+          {% if video_3_url != blank %}
+            {% assign video_3_embed = video_3_url | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' %}
+            <div class="main-product-custom__video-card">
+              <h3>{{ video_3_title | default: 'Instrucciones' }}</h3>
+              <div class="main-product-custom__video-embed">
+                <iframe
+                  src="{{ video_3_embed }}"
+                  title="{{ video_3_title | escape }}"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+          {% endif %}
         </div>
       </div>
     {% endif %}
@@ -297,6 +346,36 @@
         if (targetPanel) targetPanel.classList.add('is-active');
       });
     });
+
+    const qtyWrapper = sectionRoot.querySelector('[data-quantity-wrapper]');
+    if (qtyWrapper) {
+      const input = qtyWrapper.querySelector('.main-product-custom__qty-input');
+      const minus = qtyWrapper.querySelector('[data-qty-minus]');
+      const plus = qtyWrapper.querySelector('[data-qty-plus]');
+
+      minus?.addEventListener('click', () => {
+        const current = parseInt(input.value || '1', 10);
+        input.value = Math.max(1, current - 1);
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+
+      plus?.addEventListener('click', () => {
+        const current = parseInt(input.value || '1', 10);
+        input.value = current + 1;
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+    }
+
+    const wishlistBtn = sectionRoot.querySelector('[data-wishlist-toggle]');
+    if (wishlistBtn) {
+      wishlistBtn.addEventListener('click', () => {
+        const isPressed = wishlistBtn.getAttribute('aria-pressed') === 'true';
+        wishlistBtn.setAttribute('aria-pressed', String(!isPressed));
+        const icon = wishlistBtn.querySelector('.main-product-custom__wishlist-icon');
+        if (icon) icon.textContent = !isPressed ? '♥' : '♡';
+        wishlistBtn.classList.toggle('is-active', !isPressed);
+      });
+    }
   });
 </script>
 
@@ -312,14 +391,19 @@
     padding: 170px 28px 56px;
   }
 
-  .main-product-custom--{{ section.id }} .main-product-custom__debug {
-    display: none;
-    background: #fff3a6;
-    color: #111;
-    padding: 16px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    font-size: 14px;
+  .main-product-custom--{{ section.id }} .main-product-custom__breadcrumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 26px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: rgba(0, 0, 0, 0.65);
+  }
+
+  .main-product-custom--{{ section.id }} .main-product-custom__breadcrumbs a {
+    color: inherit;
+    text-decoration: none;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__top {
@@ -403,11 +487,28 @@
     font-weight: 800;
   }
 
+  .main-product-custom--{{ section.id }} .main-product-custom__meta-line {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .main-product-custom--{{ section.id }} .main-product-custom__meta-label {
+    opacity: .65;
+  }
+
+  .main-product-custom--{{ section.id }} .main-product-custom__meta-value {
+    font-weight: 600;
+  }
+
   .main-product-custom--{{ section.id }} .main-product-custom__price-wrap {
     display: flex;
     gap: 10px;
     align-items: center;
-    margin-bottom: 18px;
+    margin-bottom: 6px;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__price {
@@ -419,6 +520,12 @@
     text-decoration: line-through;
     opacity: .5;
     font-size: 18px;
+  }
+
+  .main-product-custom--{{ section.id }} .main-product-custom__taxes {
+    margin-bottom: 18px;
+    font-size: 13px;
+    opacity: .75;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__short-description {
@@ -452,8 +559,49 @@
     background: #fff;
   }
 
-  .main-product-custom--{{ section.id }} .main-product-custom__buybox {
+  .main-product-custom--{{ section.id }} .main-product-custom__purchase-row {
+    display: grid;
+    grid-template-columns: 132px minmax(0, 1fr) 56px;
+    gap: 12px;
+    align-items: center;
     margin-bottom: 18px;
+  }
+
+  .main-product-custom--{{ section.id }} .main-product-custom__quantity {
+    display: grid;
+    grid-template-columns: 40px 1fr 40px;
+    align-items: center;
+    min-height: 50px;
+    border: 1px solid rgba(0,0,0,0.14);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .main-product-custom--{{ section.id }} .main-product-custom__qty-btn {
+    border: 0;
+    background: transparent;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    height: 100%;
+  }
+
+  .main-product-custom--{{ section.id }} .main-product-custom__qty-input {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    outline: none;
+    -moz-appearance: textfield;
+  }
+
+  .main-product-custom--{{ section.id }} .main-product-custom__qty-input::-webkit-outer-spin-button,
+  .main-product-custom--{{ section.id }} .main-product-custom__qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__add-to-cart {
@@ -465,6 +613,23 @@
     font-weight: 700;
     border: 0;
     cursor: pointer;
+  }
+
+  .main-product-custom--{{ section.id }} .main-product-custom__wishlist {
+    width: 56px;
+    min-width: 56px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,0.14);
+    background: #fff;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .main-product-custom--{{ section.id }} .main-product-custom__wishlist.is-active {
+    border-color: {{ section.settings.accent_color }};
+    color: {{ section.settings.accent_color }};
   }
 
   .main-product-custom--{{ section.id }} .main-product-custom__accordion {
@@ -579,6 +744,14 @@
       overflow-x: auto;
     }
 
+    .main-product-custom--{{ section.id }} .main-product-custom__purchase-row {
+      grid-template-columns: 1fr;
+    }
+
+    .main-product-custom--{{ section.id }} .main-product-custom__wishlist {
+      width: 100%;
+    }
+
     .main-product-custom--{{ section.id }} .main-product-custom__related-grid,
     .main-product-custom--{{ section.id }} .main-product-custom__videos-grid {
       grid-template-columns: 1fr;
@@ -592,6 +765,18 @@
   "settings": [
     {
       "type": "checkbox",
+      "id": "show_breadcrumbs",
+      "label": "Mostrar migas de pan",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "home_breadcrumb_label",
+      "label": "Texto inicio migas de pan",
+      "default": "Inicio"
+    },
+    {
+      "type": "checkbox",
       "id": "show_vendor",
       "label": "Mostrar marca",
       "default": false
@@ -601,6 +786,12 @@
       "id": "show_short_description",
       "label": "Mostrar descripción corta",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "tax_text",
+      "label": "Texto impuestos",
+      "default": "Impuestos incluidos"
     },
     {
       "type": "checkbox",
