@@ -221,7 +221,7 @@
         <div class="main-product-custom__videos-grid">
           {% if video_1_url != blank %}
             <div class="main-product-custom__video-card">
-              <h3>{{ current_product.metafields.custom.video_1_title | default: 'Presentación' }}</h3>
+              <h3>{{ video_1_title | default: 'Presentación' }}</h3>
               <div class="main-product-custom__video-embed">
                 {{ video_1_url | external_video_url: autoplay: false | external_video_tag }}
               </div>
@@ -680,7 +680,7 @@
         <div class="main-product-custom__videos-grid">
           {% if video_1_url != blank %}
             <div class="main-product-custom__video-card">
-              <h3>{{ current_product.metafields.custom.video_1_title | default: 'Presentación' }}</h3>
+              <h3>{{ video_1_title | default: 'Presentación' }}</h3>
               <div class="main-product-custom__video-embed">
                 {{ video_1_url | external_video_url: autoplay: false | external_video_tag }}
               </div>
@@ -689,7 +689,7 @@
 
           {% if video_2_url != blank %}
             <div class="main-product-custom__video-card">
-              <h3>{{ current_product.metafields.custom.video_2_title | default: 'Contenido del kit' }}</h3>
+              <h3>{{ video_2_title | default: 'Contenido del kit' }}</h3>
               <div class="main-product-custom__video-embed">
                 {{ video_2_url | external_video_url: autoplay: false | external_video_tag }}
               </div>
