@@ -99,11 +99,11 @@
           </span>
         </div>
 
-        {% if section.settings.show_short_description and breve_descripcion != blank %}
-          <div class="main-product-custom__short-description rte">
-            {{ breve_descripcion | metafield_tag }}
-          </div>
-        {% endif %}
+      {% if section.settings.show_short_description and breve_descripcion_obj != blank %}
+  <div class="main-product-custom__short-description rte">
+    {{ breve_descripcion_obj | metafield_tag }}
+  </div>
+{% endif %}
 
         {% form 'product', current_product, class: 'main-product-custom__form', data-type: 'add-to-cart-form' %}
           {% unless current_product.has_only_default_variant %}
