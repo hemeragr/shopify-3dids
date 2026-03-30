@@ -160,14 +160,14 @@
   </details>
 {% endif %}
 
-          {% if detalles_producto != blank %}
-            <details class="main-product-custom__accordion">
-              <summary>Detalles del producto</summary>
-              <div class="main-product-custom__accordion-content rte">
-                {{ detalles_producto | metafield_tag }}
-              </div>
-            </details>
-          {% endif %}
+{% if detalles_producto_obj != blank %}
+  <details class="main-product-custom__accordion">
+    <summary>Detalles del producto</summary>
+    <div class="main-product-custom__accordion-content rte">
+      {{ detalles_producto_obj | metafield_tag }}
+    </div>
+  </details>
+{% endif %}
 
           {% if instrucciones != blank %}
             <details class="main-product-custom__accordion">
