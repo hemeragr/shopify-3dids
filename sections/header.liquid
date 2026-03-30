@@ -1362,6 +1362,15 @@
   #header-component[data-scroll-design='enabled'] .header__row--bottom {
     background: transparent !important;
   }
+    /* Quitar el bloque/fondo que aparece al hacer hover en el menú */
+  .header__underlay-open,
+  .header__underlay-closed,
+  .header__underlay-open::after,
+  .header__underlay-closed::after {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
   /* Quitar cualquier fondo que el header recupere al pasar por el menú */
   .header:has(.mega-menu__list:hover),
   .header:has(.menu-list__link:hover),
