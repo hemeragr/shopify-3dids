@@ -223,32 +223,53 @@
         <h2 class="main-product-custom__section-title">{{ section.settings.videos_title }}</h2>
 
         <div class="main-product-custom__videos-grid">
-          {% if video_1_url != blank %}
-            <div class="main-product-custom__video-card">
-              <h3>{{ video_1_title | default: 'Presentación' }}</h3>
-              <div class="main-product-custom__video-embed">
-                {{ video_1_url | external_video_url: autoplay: false | external_video_tag }}
-              </div>
-            </div>
-          {% endif %}
+{% if video_1_url != blank %}
+  {% assign video_1_embed = video_1_url | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' %}
+  <div class="main-product-custom__video-card">
+    <h3>{{ video_1_title | default: 'Presentación' }}</h3>
+    <div class="main-product-custom__video-embed">
+      <iframe
+        src="{{ video_1_embed }}"
+        title="{{ video_1_title | escape }}"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+{% endif %}
 
-          {% if video_2_url != blank %}
-            <div class="main-product-custom__video-card">
-              <h3>{{ video_2_title | default: 'Contenido del kit' }}</h3>
-              <div class="main-product-custom__video-embed">
-                {{ video_2_url | external_video_url: autoplay: false | external_video_tag }}
-              </div>
-            </div>
-          {% endif %}
+{% if video_2_url != blank %}
+  {% assign video_2_embed = video_2_url | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' %}
+  <div class="main-product-custom__video-card">
+    <h3>{{ video_2_title | default: 'Contenido del kit' }}</h3>
+    <div class="main-product-custom__video-embed">
+      <iframe
+        src="{{ video_2_embed }}"
+        title="{{ video_2_title | escape }}"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+{% endif %}
 
-          {% if video_3_url != blank %}
-            <div class="main-product-custom__video-card">
-              <h3>{{ video_3_title | default: 'Instrucciones' }}</h3>
-              <div class="main-product-custom__video-embed">
-                {{ video_3_url | external_video_url: autoplay: false | external_video_tag }}
-              </div>
-            </div>
-          {% endif %}
+{% if video_3_url != blank %}
+  {% assign video_3_embed = video_3_url | replace: 'watch?v=', 'embed/' | replace: 'youtu.be/', 'www.youtube.com/embed/' %}
+  <div class="main-product-custom__video-card">
+    <h3>{{ video_3_title | default: 'Instrucciones' }}</h3>
+    <div class="main-product-custom__video-embed">
+      <iframe
+        src="{{ video_3_embed }}"
+        title="{{ video_3_title | escape }}"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+{% endif %}
         </div>
       </div>
     {% endif %}
