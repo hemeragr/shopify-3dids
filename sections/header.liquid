@@ -1266,75 +1266,102 @@
       display: none;
     }
   }
-    #header-component {
-      background: transparent;
-    }
+     /* =========================
+     DISEÑO ESPECIAL SOLO EN PRODUCTO Y COLECCIÓN
+     ========================= */
 
-    #header-component::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
+  #header-component[data-scroll-design='enabled'] {
+    background: transparent;
+    --color-foreground: #ffffff;
+    --color-foreground-rgb: 255 255 255;
+  }
 
-      background: linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 0.8) 100%
-      );
+  #header-component[data-scroll-design='enabled']::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.8) 100%
+    );
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
 
-      opacity: 1;
-      transition: opacity 0.3s ease;
-    }
+  /* SIN SCROLL -> blanco */
+  #header-component[data-scroll-design='enabled']:not([data-sticky-state='active']) {
+    --color-foreground: #ffffff;
+    --color-foreground-rgb: 255 255 255;
+  }
 
-    /* Cuando haces scroll */
-    #header-component[data-sticky-state='active'] {
-      background: #ffffff;
-    }
+  #header-component[data-scroll-design='enabled']:not([data-sticky-state='active']) .menu-list__link {
+    color: #ffffff;
+    padding: 0;
+  }
 
-    #header-component[data-sticky-state='active']::before {
-      opacity: 0;
-    }
+  /* CON SCROLL -> fondo blanco + azul */
+  #header-component[data-scroll-design='enabled'][data-sticky-state='active'] {
+    background: #ffffff;
+    --color-foreground: #273488;
+    --color-foreground-rgb: 39 52 136;
+  }
 
-    /* SIN SCROLL → blanco */
-    #header-component {
-      --color-foreground: #ffffff;
-      --color-foreground-rgb: 255 255 255;
-    }
+  #header-component[data-scroll-design='enabled'][data-sticky-state='active']::before {
+    opacity: 0;
+  }
 
-    /*menú blanco */
-    #header-component:not([data-sticky-state='active']) .menu-list__link {
-      color: #ffffff;
-      padding: 0;
-    }
+  #header-component[data-scroll-design='enabled'][data-sticky-state='active'] .menu-list__link {
+    color: #273488;
+    padding: 0;
+  }
 
+  /* transición suave */
+  #header-component[data-scroll-design='enabled'],
+  #header-component[data-scroll-design='enabled'] * {
+    transition: color 0.3s ease, fill 0.3s ease, stroke 0.3s ease;
+  }
 
-    /* SCROLL → azul */
-    #header-component[data-sticky-state='active'] {
-      --color-foreground: #273488;
-      --color-foreground-rgb: 39 52 136;
-    }
-
-    /* menú azul */
-    #header-component[data-sticky-state='active'] .menu-list__link {
-      color: #273488;
-      padding: 0;
-    }
-
-    /* transición suave */
-    #header-component,
-    #header-component * {
-      transition: color 0.3s ease, fill 0.3s ease, stroke 0.3s ease;
-    }
-  /* Quitar el bloque/fondo que aparece al hacer hover en el menú */
-  .header__underlay-open,
-  .header__underlay-closed,
-  .header__underlay-open::after,
-  .header__underlay-closed::after {
+  /* Quitar underlays solo en producto y colección */
+  #header-component[data-scroll-design='enabled'] .header__underlay-open,
+  #header-component[data-scroll-design='enabled'] .header__underlay-closed,
+  #header-component[data-scroll-design='enabled'] .header__underlay-open::after,
+  #header-component[data-scroll-design='enabled'] .header__underlay-closed::after {
     background: transparent !important;
     box-shadow: none !important;
   }
 
+  /* Evitar que el hover del menú repinte fondo */
+  #header-component[data-scroll-design='enabled'].header:has(.mega-menu__list:hover),
+  #header-component[data-scroll-design='enabled'].header:has(.menu-list__link:hover),
+  #header-component[data-scroll-design='enabled'].header:has(.menu-list__link:is([aria-expanded='true'])),
+  #header-component[data-scroll-design='enabled'].header:has(.menu-list__list-item[slot='overflow'] .menu-list__link:hover),
+  #header-component[data-scroll-design='enabled'].header:has(.menu-list__list-item[slot='overflow'] .menu-list__link:is([aria-expanded='true'])) {
+    --color-background: transparent !important;
+    --color-background-rgb: transparent !important;
+    --color-scheme-top-row: transparent !important;
+    --color-scheme-bottom-row: transparent !important;
+    --color-submenu: transparent !important;
+    --closed-underlay-height: 0px !important;
+  }
+
+  /* Submenús transparentes solo en esas páginas */
+  #header-component[data-scroll-design='enabled'] .menu-list__submenu,
+  #header-component[data-scroll-design='enabled'] .mega-menu,
+  #header-component[data-scroll-design='enabled'] .mega-menu__list,
+  #header-component[data-scroll-design='enabled'] details[open] > .menu-list__submenu {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Evitar fondos de filas solo en producto y colección */
+  #header-component[data-scroll-design='enabled'] .header__row,
+  #header-component[data-scroll-design='enabled'] .header__row--top,
+  #header-component[data-scroll-design='enabled'] .header__row--bottom {
+    background: transparent !important;
+  }
   /* Quitar cualquier fondo que el header recupere al pasar por el menú */
   .header:has(.mega-menu__list:hover),
   .header:has(.menu-list__link:hover),
