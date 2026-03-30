@@ -18,11 +18,20 @@
 <section class="main-product-custom main-product-custom--{{ section.id }}">
   <div class="main-product-custom__container">
     <div class="main-product-custom__debug">
-      <p><strong>Breve descripción:</strong> {{ breve_descripcion }}</p>
-      <p><strong>Detalles producto:</strong> {{ detalles_producto }}</p>
-      <p><strong>Instrucciones:</strong> {{ instrucciones }}</p>
-      <p><strong>Video 1 URL:</strong> {{ video_1_url }}</p>
-      <p><strong>Video 1 title:</strong> {{ video_1_title }}</p>
+<p><strong>Breve descripción obj:</strong> {{ product.metafields.custom.breve_descripcion }}</p>
+<p><strong>Breve descripción value:</strong> {{ product.metafields.custom.breve_descripcion.value }}</p>
+
+<p><strong>Detalles obj:</strong> {{ product.metafields.custom.detalles_producto }}</p>
+<p><strong>Detalles value:</strong> {{ product.metafields.custom.detalles_producto.value }}</p>
+
+<p><strong>Instrucciones obj:</strong> {{ product.metafields.custom.instrucciones }}</p>
+<p><strong>Instrucciones value:</strong> {{ product.metafields.custom.instrucciones.value }}</p>
+
+<p><strong>Video 1 obj:</strong> {{ product.metafields.custom.video_1_url }}</p>
+<p><strong>Video 1 value:</strong> {{ product.metafields.custom.video_1_url.value }}</p>
+
+<p><strong>Video 1 title obj:</strong> {{ product.metafields.custom.video_1_title }}</p>
+<p><strong>Video 1 title value:</strong> {{ product.metafields.custom.video_1_title.value }}</p>
     </div>
 
     <div class="main-product-custom__top">
