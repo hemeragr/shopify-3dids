@@ -699,7 +699,7 @@
 
           {% if video_3_url != blank %}
             <div class="main-product-custom__video-card">
-              <h3>{{ current_product.metafields.custom.video_3_title | default: 'Instrucciones' }}</h3>
+              <h3>{{ video_3_title | default: 'Instrucciones' }}</h3>
               <div class="main-product-custom__video-embed">
                 {{ video_3_url | external_video_url: autoplay: false | external_video_tag }}
               </div>
