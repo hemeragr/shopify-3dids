@@ -394,6 +394,15 @@ assign video_3_url = current_product.metafields.custom.custom_video_3_url.value 
     padding: 170px 28px 56px;
   }
 
+  .main-product-custom--{{ section.id }} .main-product-custom__video-embed iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    min-height: 260px;
+    border: 0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
   .main-product-custom--{{ section.id }} .main-product-custom__breadcrumbs {
     display: flex;
     flex-wrap: wrap;
