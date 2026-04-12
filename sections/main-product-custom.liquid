@@ -223,64 +223,63 @@
           </div>
         {% endform %}
 
-                {% if nivel_desafio != blank or escala_producto != blank or numero_piezas != blank or promo_producto != blank or reposicion_piezas_texto != blank %}
-          <div class="main-product-custom__extra-info">
+          {% if nivel_desafio != blank or escala_producto != blank or numero_piezas != blank or promo_producto != blank or reposicion_piezas_texto != blank %}
+  <div class="main-product-custom__extra-info">
 
-            {% if nivel_desafio != blank %}
-              <div class="main-product-custom__difficulty">
-                <div class="main-product-custom__difficulty-bars">
-                  <span class="bar bar--1"></span>
-                  <span class="bar bar--2"></span>
-                  <span class="bar bar--3"></span>
-                  <span class="bar bar--4"></span>
-                </div>
-                <div class="main-product-custom__difficulty-text">
-                  {{ section.settings.difficulty_label }}: {{ nivel_desafio | metafield_tag  }}
-                </div>
-              </div>
-            {% endif %}
-
-            {% if escala_producto != blank or numero_piezas != blank or promo_producto != blank %}
-              <ul class="main-product-custom__highlights">
-                {% if escala_producto != blank %}
-                  <li>
-                    <span class="main-product-custom__highlight-icon">✓</span>
-                    <span><strong>{{ section.settings.scale_label }}:</strong> {{ escala_producto | metafield_tag  }}</span>
-                  </li>
-                {% endif %}
-
-                {% if numero_piezas != blank %}
-                  <li>
-                    <span class="main-product-custom__highlight-icon">✓</span>
-                    <span><strong>{{ section.settings.pieces_label }}:</strong> {{ numero_piezas | metafield_tag }}</span>
-                  </li>
-                {% endif %}
-
-                {% if promo_producto != blank %}
-                  <li>
-                    <span class="main-product-custom__highlight-icon">✓</span>
-                    <span><strong>{{ section.settings.promo_label }}:</strong> {{ promo_producto | metafield_tag  }}</span>
-                  </li>
-                {% endif %}
-              </ul>
-            {% endif %}
-
-{% if reposicion_piezas_texto != blank %}
-  {% if mostrar_reposicion == blank or mostrar_reposicion.value == true %}
-    {% if reposicion_piezas_url != blank %}
-      <a href="{{ reposicion_piezas_url }}" class="main-product-custom__replacement-button">
-        {{ reposicion_piezas_texto | metafield_tag  }}
-      </a>
-    {% else %}
-      <div class="main-product-custom__replacement-button">
-        {{ reposicion_piezas_texto | metafield_tag  }}
+    {% if nivel_desafio != blank %}
+      <div class="main-product-custom__difficulty">
+        <div class="main-product-custom__difficulty-bars">
+          <span class="bar bar--1"></span>
+          <span class="bar bar--2"></span>
+          <span class="bar bar--3"></span>
+          <span class="bar bar--4"></span>
+        </div>
+        <div class="main-product-custom__difficulty-text">
+          {{ section.settings.difficulty_label }}: {{ nivel_desafio }}
+        </div>
       </div>
     {% endif %}
-  {% endif %}
+
+    {% if escala_producto != blank or numero_piezas != blank or promo_producto != blank %}
+      <ul class="main-product-custom__highlights">
+        {% if escala_producto != blank %}
+          <li>
+            <span class="main-product-custom__highlight-icon">✓</span>
+            <span><strong>{{ section.settings.scale_label }}:</strong> {{ escala_producto }}</span>
+          </li>
+        {% endif %}
+
+        {% if numero_piezas != blank %}
+          <li>
+            <span class="main-product-custom__highlight-icon">✓</span>
+            <span><strong>{{ section.settings.pieces_label }}:</strong> {{ numero_piezas }}</span>
+          </li>
+        {% endif %}
+
+        {% if promo_producto != blank %}
+          <li>
+            <span class="main-product-custom__highlight-icon">✓</span>
+            <span><strong>{{ section.settings.promo_label }}:</strong> {{ promo_producto }}</span>
+          </li>
+        {% endif %}
+      </ul>
+    {% endif %}
+
+    {% if reposicion_piezas_texto != blank %}
+      {% if reposicion_piezas_url != blank %}
+        <a href="{{ reposicion_piezas_url }}" class="main-product-custom__replacement-button">
+          {{ reposicion_piezas_texto }}
+        </a>
+      {% else %}
+        <div class="main-product-custom__replacement-button">
+          {{ reposicion_piezas_texto }}
+        </div>
+      {% endif %}
+    {% endif %}
+
+  </div>
 {% endif %}
 
-          </div>
-        {% endif %}
 
         <div class="main-product-custom__accordions">
           {% if breve_descripcion != blank %}
