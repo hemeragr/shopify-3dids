@@ -142,33 +142,13 @@ assign video_3_title = current_product.metafields.custom.custom_video_3_title.va
 <div style="background:#dff0d8; color:#000; padding:12px; margin:12px 0;">
   {{ current_product.metafields.custom | json }}
 </div>
-
-<div style="background:yellow; color:black; padding:12px; margin:12px 0;">
-  PRODUCTO ACTUAL: {{ current_product.title }}<br>
-  HANDLE: {{ current_product.handle }}<br>
-  ID: {{ current_product.id }}
-</div>
-
-<div style="background:orange; color:black; padding:12px; margin:12px 0;">
-  Klarna raw: {{ product.metafields.custom.financing_klarna_text.value }}<br>
-  Sequra raw: {{ product.metafields.custom.financing_sequra_text.value }}<br>
-  Nivel raw: {{ product.metafields.custom.nivel_desafio.value }}<br>
-  Escala raw: {{ product.metafields.custom.escala_producto.value }}<br>
-  Piezas raw: {{ product.metafields.custom.numero_piezas.value }}<br>
-  Promo raw: {{ product.metafields.custom.promo_producto.value }}<br>
-  Reposición texto raw: {{ product.metafields.custom.reposicion_piezas_texto.value }}<br>
-  Reposición url raw: {{ product.metafields.custom.reposicion_piezas_url.value }}
-</div>
-
-<div style="background: yellow; color: black; padding: 10px; margin-bottom: 10px;">
-  Klarna: {{ financing_klarna_text }}<br>
-  Sequra: {{ financing_sequra_text }}<br>
-  Nivel: {{ nivel_desafio }}<br>
-  Escala: {{ escala_producto }}<br>
-  Piezas: {{ numero_piezas }}<br>
-  Promo: {{ promo_producto }}<br>
-  Reposición texto: {{ reposicion_piezas_texto }}<br>
-  Reposición url: {{ reposicion_piezas_url }}
+<div style="background:#cfe8ff; color:#000; padding:12px; margin:12px 0;">
+  video_1_url: {{ current_product.metafields.custom.custom_video_1_url.value }}<br>
+  video_1_title: {{ current_product.metafields.custom.custom_video_1_title.value }}<br>
+  video_2_url: {{ current_product.metafields.custom.custom_video_2_url.value }}<br>
+  video_2_title: {{ current_product.metafields.custom.custom_video_2_title.value }}<br>
+  video_3_url: {{ current_product.metafields.custom.custom_video_3_url.value }}<br>
+  video_3_title: {{ current_product.metafields.custom.custom_video_3_title.value }}
 </div>
 
 {% if financing_klarna_text != blank %}
