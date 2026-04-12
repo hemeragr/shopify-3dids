@@ -302,15 +302,14 @@ assign video_3_title = current_product.metafields.custom.custom_video_3_title.va
               </div>
             </details>
           {% endif %}
-
-          {% if instrucciones != blank %}
-            <details class="main-product-custom__accordion">
-              <summary>Instrucciones</summary>
-              <div class="main-product-custom__accordion-content rte">
-                {{ instrucciones | metafield_tag }}
-              </div>
-            </details>
-          {% endif %}
+{% if instrucciones != blank %}
+  <details class="main-product-custom__accordion main-product-custom__accordion--files">
+    <summary>Instrucciones</summary>
+    <div class="main-product-custom__accordion-content main-product-custom__accordion-content--files">
+      {{ instrucciones | metafield_tag }}
+    </div>
+  </details>
+{% endif %}
         </div>
       </div>
     </div>
