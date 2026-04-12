@@ -429,6 +429,97 @@
     </div>
   </div>
 {% endif %}
+
+{% if section.settings.show_bundle_block %}
+  <div class="main-product-custom__bundle">
+    <h2 class="main-product-custom__section-title">{{ section.settings.bundle_title }}</h2>
+
+    <div class="main-product-custom__bundle-box">
+      <div class="main-product-custom__bundle-products">
+        {% assign bundle_total = current_product.price %}
+
+        <div class="main-product-custom__bundle-item">
+          {% if current_product.featured_image != blank %}
+            <img
+              src="{{ current_product.featured_image | image_url: width: 220 }}"
+              alt="{{ current_product.title | escape }}"
+              loading="lazy"
+              width="{{ current_product.featured_image.width }}"
+              height="{{ current_product.featured_image.height }}"
+            >
+          {% endif %}
+        </div>
+
+        {% if bundle_product_1 != blank %}
+          {% assign bundle_total = bundle_total | plus: bundle_product_1.price %}
+          <span class="main-product-custom__bundle-plus">+</span>
+          <div class="main-product-custom__bundle-item">
+            {% if bundle_product_1.featured_image != blank %}
+              <img
+                src="{{ bundle_product_1.featured_image | image_url: width: 220 }}"
+                alt="{{ bundle_product_1.title | escape }}"
+                loading="lazy"
+                width="{{ bundle_product_1.featured_image.width }}"
+                height="{{ bundle_product_1.featured_image.height }}"
+              >
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if bundle_product_2 != blank %}
+          {% assign bundle_total = bundle_total | plus: bundle_product_2.price %}
+          <span class="main-product-custom__bundle-plus">+</span>
+          <div class="main-product-custom__bundle-item">
+            {% if bundle_product_2.featured_image != blank %}
+              <img
+                src="{{ bundle_product_2.featured_image | image_url: width: 220 }}"
+                alt="{{ bundle_product_2.title | escape }}"
+                loading="lazy"
+                width="{{ bundle_product_2.featured_image.width }}"
+                height="{{ bundle_product_2.featured_image.height }}"
+              >
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="main-product-custom__bundle-side">
+        <div class="main-product-custom__bundle-price">
+          Precio total: <strong>{{ bundle_total | money }}</strong>
+        </div>
+
+        <button
+          type="button"
+          class="main-product-custom__bundle-button"
+          data-bundle-add
+        >
+          {{ section.settings.bundle_button_text }}
+        </button>
+
+        <ul class="main-product-custom__bundle-list">
+          <li>
+            <input type="checkbox" checked disabled>
+            <span>{{ current_product.title }} — {{ current_product.price | money }}</span>
+          </li>
+
+          {% if bundle_product_1 != blank %}
+            <li>
+              <input type="checkbox" checked disabled>
+              <span>{{ bundle_product_1.title }} — {{ bundle_product_1.price | money }}</span>
+            </li>
+          {% endif %}
+
+          {% if bundle_product_2 != blank %}
+            <li>
+              <input type="checkbox" checked disabled>
+              <span>{{ bundle_product_2.title }} — {{ bundle_product_2.price | money }}</span>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endif %}
 </div>
 </section>
 <script>
