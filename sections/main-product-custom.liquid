@@ -652,6 +652,24 @@
         }
       });
     }
+
+    const zoomWrappers = document.querySelectorAll('.main-product-custom__zoom-wrapper');
+
+zoomWrappers.forEach(wrapper => {
+  const img = wrapper.querySelector('img');
+
+  wrapper.addEventListener('mousemove', (e) => {
+    const rect = wrapper.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    img.style.transformOrigin = `${x}% ${y}%`;
+  });
+
+  wrapper.addEventListener('mouseleave', () => {
+    img.style.transformOrigin = 'center';
+  });
+});
   }
 
 );
@@ -660,6 +678,21 @@
 </script>
 
 <style>
+  .main-product-custom__zoom-wrapper {
+  overflow: hidden;
+  position: relative;
+  cursor: zoom-in;
+}
+
+.main-product-custom__zoom-image {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.main-product-custom__zoom-wrapper:hover .main-product-custom__zoom-image {
+  transform: scale(1.6);
+}
   .main-product-custom--{{ section.id }} {
     background: {{ section.settings.bg_color }};
     color: {{ section.settings.text_color }};
