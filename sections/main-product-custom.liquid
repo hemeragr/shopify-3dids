@@ -28,6 +28,10 @@
   assign reposicion_piezas_texto = current_product.metafields.custom.custom_reposicion_piezas_texto.value
   assign reposicion_piezas_url = current_product.metafields.custom.custom_reposicion_piezas_ur.value
   
+    assign bundle_product_1 = all_products[section.settings.bundle_product_1]
+  assign bundle_product_2 = all_products[section.settings.bundle_product_2]
+  assign bundle_product_3 = all_products[section.settings.bundle_product_3]
+  assign needed_products_collection = collections[section.settings.needed_products_collection]
 
 %}
 
