@@ -270,7 +270,7 @@
 {% if reposicion_piezas_texto != blank %}
   {% if mostrar_reposicion == blank or mostrar_reposicion.value == true %}
     {% if reposicion_piezas_url != blank %}
-      <a href="{{ reposicion_piezas_url | metafield_tag  }}" class="main-product-custom__replacement-button">
+      <a href="{{ reposicion_piezas_url }}" class="main-product-custom__replacement-button">
         {{ reposicion_piezas_texto | metafield_tag  }}
       </a>
     {% else %}
