@@ -599,7 +599,43 @@
         wishlistBtn.classList.toggle('is-active', !isPressed);
       });
     }
-  });
+
+        const bundleBtn = sectionRoot.querySelector('[data-bundle-add]');
+    if (bundleBtn) {
+      bundleBtn.addEventListener('click', async () => {
+        const items = [
+          { id: {{ first_variant.id }}, quantity: 1 }
+          {% if bundle_product_1 != blank %},
+          { id: {{ bundle_product_1.selected_or_first_available_variant.id }}, quantity: 1 }
+          {% endif %}
+          {% if bundle_product_2 != blank %},
+          { id: {{ bundle_product_2.selected_or_first_available_variant.id }}, quantity: 1 }
+          {% endif %}
+        ];
+
+        try {
+          const response = await fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ items })
+          });
+
+          if (!response.ok) throw new Error('Error al añadir el pack');
+
+          window.location.href = '/cart';
+        } catch (error) {
+          console.error(error);
+          alert('No se ha podido añadir el pack a la cesta.');
+        }
+      });
+    }
+  }
+
+);
+
+
 </script>
 
 <style>
