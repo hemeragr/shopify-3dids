@@ -17,16 +17,14 @@
   assign current_sku = first_variant.sku
   assign breadcrumb_collection = current_product.collections.first
 
-  assign financing_klarna_text = current_product.metafields.custom.financing_klarna_text
-  assign financing_sequra_text = current_product.metafields.custom.financing_sequra_text
-  assign nivel_desafio = current_product.metafields.custom.nivel_desafio
-  assign escala_producto = current_product.metafields.custom.escala_producto
-  assign numero_piezas = current_product.metafields.custom.numero_piezas
-  assign promo_producto = current_product.metafields.custom.promo_producto
-  assign reposicion_piezas_texto = current_product.metafields.custom.reposicion_piezas_texto
-  assign reposicion_piezas_url = current_product.metafields.custom.reposicion_piezas_url
-  assign mostrar_financiacion = current_product.metafields.custom.mostrar_financiacion
-  assign mostrar_reposicion = current_product.metafields.custom.mostrar_reposicion
+  assign financing_klarna_text = current_product.metafields.custom.financing_klarna_text.value
+  assign financing_sequra_text = current_product.metafields.custom.financing_sequra_text.value
+  assign nivel_desafio = current_product.metafields.custom.nivel_desafio.value
+  assign escala_producto = current_product.metafields.custom.escala_producto.value
+  assign numero_piezas = current_product.metafields.custom.numero_piezas.value
+  assign promo_producto = current_product.metafields.custom.promo_producto.value
+  assign reposicion_piezas_texto = current_product.metafields.custom.reposicion_piezas_texto.value
+  assign reposicion_piezas_url = current_product.metafields.custom.reposicion_piezas_url.value
 %}
 
 <section class="main-product-custom main-product-custom--{{ section.id }}">
