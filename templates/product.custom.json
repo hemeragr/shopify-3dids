@@ -12,19 +12,33 @@
     "main": {
       "type": "main-product-custom",
       "settings": {
+        "show_breadcrumbs": true,
+        "home_breadcrumb_label": "Inicio",
         "show_vendor": true,
         "show_short_description": true,
+        "tax_text": "Impuestos incluidos",
         "show_related_products": true,
         "related_title": "También puedes necesitar...",
         "related_collection": "acabados",
-        "show_videos": false,
+        "show_videos": true,
         "videos_title": "Vídeos",
         "add_to_cart_text": "Añadir al carrito",
         "bg_color": "#f5f5f7",
         "text_color": "#27348b",
         "accent_color": "#273488",
         "button_bg": "#27348b",
-        "button_text": "#ffffff"
+        "button_text": "#ffffff",
+        "klarna_badge_text": "Klarna",
+        "difficulty_label": "Nivel de desafío",
+        "scale_label": "Escala",
+        "pieces_label": "Nº de piezas",
+        "promo_label": "PROMO",
+        "level_color_1": "#56c45f",
+        "level_color_2": "#f1d54b",
+        "level_color_3": "#f08a3e",
+        "level_color_4": "#eb2f3a",
+        "replacement_bg": "#e9eaf7",
+        "replacement_text": "#27348b"
       }
     }
   },
