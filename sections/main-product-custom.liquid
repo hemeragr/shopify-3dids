@@ -137,6 +137,10 @@
   {{ section.settings.tax_text }}
 </div>
 
+<div style="background:#dff0d8; color:#000; padding:12px; margin:12px 0;">
+  {{ current_product.metafields.custom | json }}
+</div>
+
 <div style="background:yellow; color:black; padding:12px; margin:12px 0;">
   PRODUCTO ACTUAL: {{ current_product.title }}<br>
   HANDLE: {{ current_product.handle }}<br>
