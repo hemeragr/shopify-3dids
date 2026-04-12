@@ -1201,6 +1201,16 @@
 .main-product-custom--{{ section.id }} .main-product-custom__info {
   position: relative;
 }
+@media screen and (max-width: 1200px) {
+  .main-product-custom--{{ section.id }} .main-product-custom__top {
+    grid-template-columns: 1fr;
+  }
+
+  .main-product-custom--{{ section.id }} .main-product-custom__gallery,
+  .main-product-custom--{{ section.id }} .main-product-custom__info {
+    position: static;
+  }
+}
 </style>
 
 {% schema %}
