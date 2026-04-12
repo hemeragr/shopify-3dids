@@ -12,6 +12,15 @@
     "main": {
       "type": "main-product-custom",
       "settings": {
+        "show_bundle_block": true,
+        "bundle_title": "Pack recomendado",
+        "bundle_product_1": "carabela-santa-maria-1-65-maqueta-de-barco-en-madera",
+        "bundle_product_2": "the-indian-girl-canoe-1-16-maqueta-de-barco-en-madera",
+        "bundle_product_3": "king-of-the-mississippi-1-80-maqueta-de-barco-de-vapor-en-madera",
+        "bundle_button_text": "AÑADIR LOS TRES A LA CESTA",
+        "show_needed_products": true,
+        "needed_products_title": "TAMBIÉN PUEDES NECESITAR...",
+        "needed_products_collection": "barcos",
         "show_breadcrumbs": true,
         "home_breadcrumb_label": "Inicio",
         "show_vendor": true,
