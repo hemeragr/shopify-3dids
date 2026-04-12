@@ -1512,6 +1512,47 @@
     grid-template-columns: 1fr;
   }
 }
+
+.main-product-custom--{{ section.id }} .main-product-custom__actions {
+  display: flex;
+  gap: 14px;
+  margin: 16px 0 24px;
+}
+
+.main-product-custom--{{ section.id }} .main-product-custom__action-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Botón reseña (azul) */
+.main-product-custom--{{ section.id }} .main-product-custom__action-btn--review {
+  background: {{ section.settings.accent_color }};
+  color: #fff;
+}
+
+.main-product-custom--{{ section.id }} .main-product-custom__action-btn--review:hover {
+  opacity: 0.85;
+}
+
+/* Botón pregunta (gris) */
+.main-product-custom--{{ section.id }} .main-product-custom__action-btn--question {
+  background: #5c5c5c;
+  color: #fff;
+}
+
+.main-product-custom--{{ section.id }} .main-product-custom__action-btn--question:hover {
+  opacity: 0.85;
+}
 </style> 
 
 {% schema %}
