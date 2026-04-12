@@ -146,14 +146,14 @@
         {{ section.settings.klarna_badge_text }}
       </div>
       <div class="main-product-custom__finance-text">
-        {{ financing_klarna_text.value }}
+        {{ financing_klarna_text | metafield_tag  }}
       </div>
     </div>
   {% endif %}
 
   {% if financing_sequra_text != blank %}
     <div class="main-product-custom__finance-line">
-      {{ financing_sequra_text.value }}
+      {{ financing_sequra_text | metafield_tag  }}
     </div>
   {% endif %}
 {% endif %}
