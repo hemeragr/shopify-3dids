@@ -137,23 +137,21 @@
   {{ section.settings.tax_text }}
 </div>
 
-{% if mostrar_financiacion == blank or mostrar_financiacion.value == true %}
-  {% if financing_klarna_text != blank %}
-    <div class="main-product-custom__finance-box">
-      <div class="main-product-custom__finance-badge main-product-custom__finance-badge--klarna">
-        {{ section.settings.klarna_badge_text }}
-      </div>
-      <div class="main-product-custom__finance-text">
-        {{ financing_klarna_text | metafield_tag  }}
-      </div>
+{% if financing_klarna_text != blank %}
+  <div class="main-product-custom__finance-box">
+    <div class="main-product-custom__finance-badge main-product-custom__finance-badge--klarna">
+      {{ section.settings.klarna_badge_text }}
     </div>
-  {% endif %}
+    <div class="main-product-custom__finance-text">
+      {{ financing_klarna_text }}
+    </div>
+  </div>
+{% endif %}
 
-  {% if financing_sequra_text != blank %}
-    <div class="main-product-custom__finance-line">
-      {{ financing_sequra_text | metafield_tag  }}
-    </div>
-  {% endif %}
+{% if financing_sequra_text != blank %}
+  <div class="main-product-custom__finance-line">
+    {{ financing_sequra_text }}
+  </div>
 {% endif %}
 
         {% form 'product', current_product, class: 'main-product-custom__form', data-type: 'add-to-cart-form' %}
