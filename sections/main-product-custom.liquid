@@ -135,15 +135,28 @@
           </span>
         </div>
 
-        <div class="main-product-custom__taxes">
-          {{ section.settings.tax_text }}
-        </div>
+<div class="main-product-custom__taxes">
+  {{ section.settings.tax_text }}
+</div>
 
-        {% if section.settings.show_short_description and breve_descripcion != blank %}
-          <div class="main-product-custom__short-description rte">
-            {{ breve_descripcion | metafield_tag }}
-          </div>
-        {% endif %}
+{% if mostrar_financiacion == blank or mostrar_financiacion.value == true %}
+  {% if financing_klarna_text != blank %}
+    <div class="main-product-custom__finance-box">
+      <div class="main-product-custom__finance-badge main-product-custom__finance-badge--klarna">
+        {{ section.settings.klarna_badge_text }}
+      </div>
+      <div class="main-product-custom__finance-text">
+        {{ financing_klarna_text.value }}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if financing_sequra_text != blank %}
+    <div class="main-product-custom__finance-line">
+      {{ financing_sequra_text.value }}
+    </div>
+  {% endif %}
+{% endif %}
 
         {% form 'product', current_product, class: 'main-product-custom__form', data-type: 'add-to-cart-form' %}
           {% unless current_product.has_only_default_variant %}
