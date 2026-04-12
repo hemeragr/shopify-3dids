@@ -137,6 +137,17 @@
   {{ section.settings.tax_text }}
 </div>
 
+<div style="background: yellow; color: black; padding: 10px; margin-bottom: 10px;">
+  Klarna: {{ financing_klarna_text }}<br>
+  Sequra: {{ financing_sequra_text }}<br>
+  Nivel: {{ nivel_desafio }}<br>
+  Escala: {{ escala_producto }}<br>
+  Piezas: {{ numero_piezas }}<br>
+  Promo: {{ promo_producto }}<br>
+  Reposición texto: {{ reposicion_piezas_texto }}<br>
+  Reposición url: {{ reposicion_piezas_url }}
+</div>
+
 {% if financing_klarna_text != blank %}
   <div class="main-product-custom__finance-box">
     <div class="main-product-custom__finance-badge main-product-custom__finance-badge--klarna">
