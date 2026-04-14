@@ -99,7 +99,9 @@
                 style="{% render 'submenu-font-styles', settings: block_settings %}"
               >
                 <div class="custom-mega-menu">
-<div class="custom-mega-menu__links">
+{% assign links_count = link.links.size %}
+
+<div class="custom-mega-menu__links {% if links_count <= 4 %}is-single-column{% endif %}">
   {% for child_link in link.links %}
     <div class="custom-mega-menu__item">
       <a
