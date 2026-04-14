@@ -1,4 +1,3 @@
-
 {%- doc -%}
   Renders a header menu block.
 
@@ -29,10 +28,7 @@
         data-hydration-key="header-menu-mobile-navigation-bar"
       >
         <div class="menu-list__scroll-container">
-          <ul
-            class="menu-list__list list-unstyled"
-            role="list"
-          >
+          <ul class="menu-list__list list-unstyled" role="list">
             {% for link in block_settings.menu.links %}
               <li>
                 <a
@@ -51,11 +47,9 @@
         </div>
       </div>
     {% endif %}
+
   {% else %}
     {% liquid
-      assign block_settings = block.settings
-      assign menu_content_type = block_settings.menu_style | default: 'text'
-      assign image_border_radius = block_settings.image_border_radius
       assign color_scheme_classes = ''
       assign color_scheme_setting_id = 'color_scheme_' | append: section.settings.menu_row
       assign current_color_scheme = block_settings.color_scheme
@@ -65,85 +59,80 @@
         assign color_scheme_classes = ' color-' | append: current_color_scheme
       endif
 
-      # Check if header and menu colors match. This is used to apply different padding styles in css
       if parent_color_scheme.settings.background.rgb == current_color_scheme.settings.background.rgb
         assign color_scheme_classes = color_scheme_classes | append: ' color-scheme-matches-parent'
       endif
-
-      if block_settings.menu_style == 'featured_collections'
-        assign ratio = block_settings.featured_collections_aspect_ratio
-      elsif block_settings.menu_style == 'featured_products'
-        assign ratio = block_settings.featured_products_aspect_ratio
-      endif
     %}
-{% capture children %}
-  {% for link in block_settings.menu.links %}
-    <li
-      role="presentation"
-      class="menu-list__list-item"
-      on:focus="/activate"
-      on:blur="/deactivate"
-      on:pointerenter="/activate"
-      on:pointerleave="/deactivate"
-    >
-      <a
-        href="{{ link.url }}"
-        data-skip-node-update="true"
-        class="menu-list__link{% if forloop.last %} menu-list__link--last{% endif %}{% if link.active %} menu-list__link--active{% endif %}"        {%- if link.links != blank -%}
-          aria-controls="submenu-{{ forloop.index }}"
-          aria-haspopup="true"
-          aria-expanded="false"
-        {%- endif -%}
-        {% if link.current %}
-          aria-current="page"
-        {% endif %}
-        ref="menuitem"
-      >
-        <span class="menu-list__link-title">{{- link.title -}}</span>
-      </a>
 
-      {%- if link.links != blank -%}
-        <div class="menu-list__submenu{{ color_scheme_classes }}" ref="submenu[]">
-          <div
-            id="submenu-{{ forloop.index }}"
-            class="menu-list__submenu-inner"
-            style="{% render 'submenu-font-styles', settings: block_settings %}"
+    {% capture children %}
+      {% for link in block_settings.menu.links %}
+        <li
+          role="presentation"
+          class="menu-list__list-item"
+          on:focus="/activate"
+          on:blur="/deactivate"
+          on:pointerenter="/activate"
+          on:pointerleave="/deactivate"
+        >
+          <a
+            href="{{ link.url }}"
+            data-skip-node-update="true"
+            class="menu-list__link{% if forloop.last %} menu-list__link--last{% endif %}{% if link.active %} menu-list__link--active{% endif %}"
+            {%- if link.links != blank -%}
+              aria-controls="submenu-{{ forloop.index }}"
+              aria-haspopup="true"
+              aria-expanded="false"
+            {%- endif -%}
+            {% if link.current %}
+              aria-current="page"
+            {% endif %}
+            ref="menuitem"
           >
-<div class="custom-mega-menu">
-  <div class="custom-mega-menu__links">
-    {% for child_link in link.links %}
-      <a href="{{ child_link.url }}" class="custom-mega-menu__link">
-        {{ child_link.title }}
-      </a>
-    {% endfor %}
-  </div>
+            <span class="menu-list__link-title">{{- link.title -}}</span>
+          </a>
 
-  <div class="custom-mega-menu__image">
-    {% assign first_child_with_image = blank %}
+          {%- if link.links != blank -%}
+            <div class="menu-list__submenu{{ color_scheme_classes }}" ref="submenu[]">
+              <div
+                id="submenu-{{ forloop.index }}"
+                class="menu-list__submenu-inner"
+                style="{% render 'submenu-font-styles', settings: block_settings %}"
+              >
+                <div class="custom-mega-menu">
+                  <div class="custom-mega-menu__links">
+                    {% for child_link in link.links %}
+                      <a href="{{ child_link.url }}" class="custom-mega-menu__link">
+                        {{ child_link.title }}
+                      </a>
+                    {% endfor %}
+                  </div>
 
-    {% for child_link in link.links %}
-      {% if child_link.object and child_link.object.featured_image != blank and first_child_with_image == blank %}
-        {% assign first_child_with_image = child_link.object.featured_image %}
-      {% endif %}
-    {% endfor %}
+                  <div class="custom-mega-menu__image">
+                    {% assign first_child_with_image = blank %}
 
-    {% if first_child_with_image != blank %}
-      <img
-        src="{{ first_child_with_image | image_url: width: 700 }}"
-        alt="{{ link.title | escape }}"
-        loading="lazy"
-        width="700"
-        height="700"
-      >
-    {% endif %}
-  </div>
-</div>
-          </div>
-        </div>
-      {%- endif -%}
-    </li>
-  {% endfor %}
-{% endcapture %}
+                    {% for child_link in link.links %}
+                      {% if child_link.object and child_link.object.featured_image != blank and first_child_with_image == blank %}
+                        {% assign first_child_with_image = child_link.object.featured_image %}
+                      {% endif %}
+                    {% endfor %}
+
+                    {% if first_child_with_image != blank %}
+                      <img
+                        src="{{ first_child_with_image | image_url: width: 700 }}"
+                        alt="{{ link.title | escape }}"
+                        loading="lazy"
+                        width="700"
+                        height="700"
+                      >
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        </li>
+      {% endfor %}
+    {% endcapture %}
 
     <header-menu
       ref="headerMenu"
@@ -177,53 +166,49 @@
   }
 
   @media screen and (max-width: 991px) {
-  .menu-list {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    overflow: visible !important;
+    .menu-list {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+      overflow: visible !important;
+    }
+
+    .menu-list__list-item {
+      flex: 0 1 auto;
+      min-width: 0;
+    }
+
+    .menu-list__link {
+      padding-left: clamp(8px, 1vw, 18px);
+      padding-right: clamp(8px, 1vw, 18px);
+      white-space: nowrap;
+    }
+
+    .menu-list__link-title {
+      font-size: clamp(13px, 0.95vw, 16px);
+    }
   }
 
-  .menu-list__list-item {
-    flex: 0 1 auto;
-    min-width: 0;
-  }
-
-  .menu-list__link {
-    padding-left: clamp(8px, 1vw, 18px);
-    padding-right: clamp(8px, 1vw, 18px);
-    white-space: nowrap;
-  }
-
-  .menu-list__link-title {
-    font-size: clamp(13px, 0.95vw, 16px);
-  }
-
-
-
-}
-
-  /* Último item del menú en rojo */
   .menu-list__link--last {
     color: #d60000 !important;
     font-weight: 600;
   }
-  
-@media screen and (max-width: 992px) {
-  .header__inline-menu,
-  .menu-list {
-    display: none !important;
-  }
 
-  .header__icon--menu,
-  .header__menu-toggle,
-  .menu-drawer-container {
-    display: flex !important;
-  }
-}
+  @media screen and (max-width: 992px) {
+    .header__inline-menu,
+    .menu-list {
+      display: none !important;
+    }
 
+    .header__icon--menu,
+    .header__menu-toggle,
+    .menu-drawer-container {
+      display: flex !important;
+    }
+  }
 {% endstyle %}
+
 {% stylesheet %}
   .header__drawer {
     --header-drawer-min-height: 60px;
@@ -287,7 +272,6 @@
   .menu-list {
     --menu-horizontal-gap: var(--gap-xl);
     --menu-vertical-gap: var(--gap-xl);
-
     display: flex;
     height: 100%;
   }
@@ -338,6 +322,7 @@
   .menu-list__link-title {
     padding-inline: calc(var(--gap-xl) / 2);
   }
+
   [slot='overflow'] .menu-list__link-title {
     padding-inline: 0;
   }
@@ -345,6 +330,7 @@
   .menu-list__list-item:not([slot='overflow']) {
     flex-direction: column;
   }
+
   .menu-list__list-item:not([slot='overflow'])::after {
     content: '';
     width: 100%;
@@ -356,10 +342,6 @@
     content: none;
   }
 
-  /*
-    High specificity selectors to subdue non-hovered links without javascript.
-    If the need for js-generated `hovered` and `focused` classes arises for another reason we can simplify these.
-  */
   .menu-list:where(:has(.menu-list__list-item:hover)),
   .menu-list:where(:has(.menu-list__list-item:focus-within)),
   .menu-list:where(:has(.menu-list__list-item:not([aria-hidden='true']) .menu-list__link--active)) {
@@ -368,7 +350,6 @@
     }
   }
 
-  /* stylelint-disable-next-line selector-max-specificity */
   .menu-list:not(:has(.menu-list__list-item:hover)) .menu-list__link--active,
   .menu-list .menu-list__list-item:where(:hover, :focus-within) .menu-list__link,
   .menu-list .menu-list__list-item[slot='overflow'] .menu-list__link[aria-expanded='true'] {
@@ -376,9 +357,7 @@
   }
 
   .overflow-menu::part(list) {
-    /* Make sure focus outline is not cut off by overflow hidden */
     --focus-outline-size: calc(var(--focus-outline-offset) + var(--focus-outline-width));
-
     gap: 0;
     margin-inline: calc(-1 * var(--menu-horizontal-gap) / 2);
   }
@@ -389,12 +368,10 @@
     margin: calc(-1 * var(--focus-outline-size));
   }
 
-  /** mega menu **/
   .menu-list__submenu,
   .overflow-menu::part(overflow) {
     --submenu-padding-block-start: var(--padding-3xl);
     --submenu-padding-block-end: var(--padding-3xl);
-
     background-color: transparent;
   }
 
@@ -417,33 +394,27 @@
     top: calc(100% - 1px + var(--border-bottom-width) - (var(--full-open-header-height) - var(--submenu-height)));
     z-index: var(--layer-header-menu);
     padding-inline: var(--padding-inline);
-    /* Clip path starts at header height so it doesn't mess with the pointer events in the header */
-    clip-path: rect(var(--header-height) 100% var(--full-open-header-height) 0); /* stylelint-disable-line */
-    transition: clip-path var(--submenu-animation-speed) var(--ease-out-cubic); /* stylelint-disable-line */
+    clip-path: rect(var(--header-height) 100% var(--full-open-header-height) 0);
+    transition: clip-path var(--submenu-animation-speed) var(--ease-out-cubic);
   }
 
   [data-submenu-overlap-bottom-row] {
     .menu-list__list-item:where(:not([slot='overflow'])) > .menu-list__submenu,
     .overflow-menu::part(overflow) {
-      clip-path: rect(var(--top-row-height) 100% var(--full-open-header-height) 0); /* stylelint-disable-line */
+      clip-path: rect(var(--top-row-height) 100% var(--full-open-header-height) 0);
     }
   }
 
-  /* Show the submenus on hover */
   .menu-list__list-item:has([aria-expanded='true']) > .menu-list__submenu,
-  /* Show the overflow menu when a menu item is hovered */
   .overflow-menu:has([slot="overflow"] [aria-expanded='true'])::part(overflow-list),
-  /* Keep the submenus open when they are hovered */
   .menu-list__submenu:is(:hover),
   .overflow-menu::part(overflow):hover {
     --submenu-content-opacity: 1;
-
     visibility: visible;
   }
 
   .overflow-menu::part(overflow) {
     --menu-top-level-font-size: var(--font-size--xlarge);
-
     display: grid;
     grid-template-columns: var(--full-page-grid-with-margins);
   }
@@ -461,7 +432,6 @@
   .menu-list__list-item:is([slot='overflow']) {
     --menu-top-level-font-color: var(--color-foreground);
     --menu-top-level-font-color-rgb: var(--color-foreground-rgb);
-
     display: contents;
     white-space: normal;
 
@@ -498,424 +468,94 @@
 
   .menu-list__submenu-inner {
     position: relative;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    background: #fff;
-  }
-
-  .menu-list__submenu-inner,
-  .overflow-menu::part(overflow-list) {
+    display: block;
     padding-block-start: var(--submenu-padding-block-start);
     padding-block-end: var(--submenu-padding-block-end);
     padding-inline: var(--section-padding-inline);
     opacity: var(--submenu-content-opacity);
     transition: var(--submenu-content-animation);
     transform: translateY(calc(var(--full-open-header-height) - var(--submenu-height)));
-
-    /* Make overflow menu scrollable when content exceeds viewport */
     max-height: calc(80vh - var(--header-height));
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: rgb(var(--color-foreground-rgb) / var(--opacity-40)) transparent;
+    background: #f6f6f6;
   }
 
-  .mega-menu__link {
-    font-family: var(--menu-child-font-family);
-    font-style: var(--menu-child-font-style);
-    font-weight: var(--menu-child-font-weight);
-    font-size: var(--menu-child-font-size);
-    line-height: var(--menu-child-font-line-height);
-    text-transform: var(--menu-child-font-case);
-    color: var(--menu-child-font-color);
-    white-space: normal;
+  .custom-mega-menu {
+    display: grid;
+    grid-template-columns: minmax(520px, 1fr) 360px;
+    gap: 56px;
+    align-items: start;
+    width: 100%;
+    padding: 28px 36px 40px;
+    background: #f6f6f6;
+  }
+
+  .custom-mega-menu__links {
+    column-count: 2;
+    column-gap: 70px;
+  }
+
+  .custom-mega-menu__link {
+    display: block;
+    margin-bottom: 10px;
+    color: #273488;
     text-decoration: none;
-    display: inline-flex;
-    padding: var(--padding-2xs) 0;
-
-    &:hover {
-      color: var(--menu-child-active-font-color);
-    }
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 500;
+    break-inside: avoid;
+    white-space: normal;
   }
 
-  .mega-menu__link--parent {
-    font-family: var(--menu-parent-font-family);
-    font-style: var(--menu-parent-font-style);
-    font-weight: var(--menu-parent-font-weight);
-    font-size: var(--menu-parent-font-size);
-    line-height: var(--menu-parent-font-line-height);
-    text-transform: var(--menu-parent-font-case);
-    color: var(--menu-parent-font-color);
+  .custom-mega-menu__link:hover {
+    text-decoration: underline;
+    color: #273488;
+  }
 
-    &:hover {
-      color: var(--menu-parent-active-font-color);
+  .custom-mega-menu__image {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .custom-mega-menu__image img {
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background: #ffffff;
+    border: 16px solid #273488;
+    border-radius: 30px;
+    padding: 20px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .custom-mega-menu {
+      grid-template-columns: 1fr 300px;
+      gap: 32px;
+    }
+
+    .custom-mega-menu__links {
+      column-gap: 40px;
     }
   }
 
   @media screen and (max-width: 989px) {
-    .mega-menu__content-list-item--hidden-tablet {
+    .custom-mega-menu {
+      grid-template-columns: 1fr;
+    }
+
+    .custom-mega-menu__image {
       display: none;
     }
-  }
 
-  .mega-menu__link:has(.mega-menu__link-image) {
-    display: flex;
-    flex-direction: column;
-    padding-inline: 0;
-    padding-block: var(--padding-sm) 0;
-  }
-
-  .mega-menu__link-image {
-    width: 100%;
-    position: relative;
-    aspect-ratio: 16 / 9;
-    margin-bottom: var(--padding-sm);
-    object-fit: cover;
-    border-radius: var(--menu-image-border-radius);
-  }
-
-  /* Fix alignment for collection image mode links without images */
-
-  /* Target only top-level links (direct children of column > div) in collection image mode */
-  .mega-menu__grid:has(.mega-menu__link-image)
-    .mega-menu__column
-    > div
-    > .mega-menu__link:not(:has(.mega-menu__link-image)) {
-    display: flex;
-    flex-direction: column;
-    padding-inline: 0;
-    padding-block: var(--padding-sm) 0;
-  }
-
-  .mega-menu__grid:has(.mega-menu__link-image)
-    .mega-menu__column
-    > div
-    > .mega-menu__link:not(:has(.mega-menu__link-image))::before {
-    content: '';
-    display: block;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    margin-bottom: var(--padding-sm);
-    background-color: var(--color-foreground-muted);
-    opacity: 0.1;
-    border-radius: var(--menu-image-border-radius);
-  }
-
-  .mega-menu__grid {
-    display: grid;
-    grid-template-columns: repeat(var(--menu-columns-tablet), minmax(0, 1fr));
-    gap: var(--menu-vertical-gap) var(--menu-horizontal-gap);
-    width: 100%;
-
-    @media screen and (min-width: 990px) {
-      grid-template-columns: repeat(var(--menu-columns-desktop), minmax(0, 1fr));
+    .custom-mega-menu__links {
+      column-count: 1;
     }
   }
-
-  .mega-menu__column {
-    grid-column: span 1;
-  }
-
-  .mega-menu__column--span-2 {
-    grid-column: span 2;
-  }
-
-  .mega-menu__column--span-3 {
-    grid-column: span 3;
-  }
-
-  .mega-menu__column--span-4 {
-    grid-column: span 4;
-  }
-
-  .mega-menu__column--wide-collection-image {
-    grid-column: span 1;
-
-    @media screen and (min-width: 990px) {
-      grid-column: span 2;
-    }
-  }
-
-  .mega-menu__submenu .mega-menu__column--wide-collection-image {
-    grid-column: span 1;
-  }
-
-  .mega-menu__content-list {
-    display: grid;
-    justify-content: end;
-    gap: var(--menu-vertical-gap) var(--menu-horizontal-gap);
-  }
-
-  .mega-menu__content-list--products {
-    grid-template-columns: repeat(var(--menu-content-columns-tablet), minmax(0, 1fr));
-
-    @media screen and (min-width: 990px) {
-      grid-template-columns: repeat(var(--menu-content-columns-desktop), minmax(0, 1fr));
-    }
-  }
-
-  .mega-menu__content-list--collections {
-    grid-template-columns: repeat(var(--menu-content-columns-tablet), minmax(0, 300px));
-
-    @media screen and (min-width: 990px) {
-      grid-template-columns: repeat(var(--menu-content-columns-desktop), minmax(0, 300px));
-    }
-  }
-
-  .mega-menu__list {
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-column: span var(--menu-columns-tablet);
-    gap: var(--menu-vertical-gap) var(--menu-horizontal-gap);
-
-    @media screen and (min-width: 990px) {
-      grid-column: span var(--menu-columns-desktop);
-    }
-  }
-
-  .mega-menu__content {
-    grid-column: span var(--menu-content-columns-tablet) / -1;
-
-    @media screen and (min-width: 990px) {
-      grid-column: span var(--menu-content-columns-desktop) / -1;
-    }
-  }
-
-  .menu-list__list-item[slot='overflow'] .section {
-    grid-template-columns: 1fr;
-  }
-
-  .menu-list__list-item[slot='overflow'] .section .mega-menu__grid {
-    grid-column: 1;
-  }
-
-  .mega-menu__content-list li {
-    white-space: normal;
-  }
-
-  /* mega more menu */
-  .mega-menu__more-list {
-    --menu-child-font-size: var(--font-size--xl);
-
-    width: 200px;
-  }
-
-  .mega-menu__submenu {
-    /* preserves the inherited grid layout when this submenu wrapper is used */
-    display: contents;
-  }
-
-  .mega-menu__column .mega-menu__link{
-    color: #273488;
-  }
-
-  /* ===== MEGA MENÚ PERSONALIZADO ===== */
-.menu-list__submenu-inner {
-  padding-top: 28px !important;
-  padding-bottom: 28px !important;
-}
-
-.mega-menu.section {
-  max-width: 100%;
-}
-
-.mega-menu__grid {
-  display: grid !important;
-  grid-template-columns: minmax(420px, 1.2fr) minmax(260px, 380px) !important;
-  gap: 48px !important;
-  align-items: start !important;
-}
-
-/* Columna izquierda: enlaces */
-.mega-menu__list {
-  display: block !important;
-  column-count: 2;
-  column-gap: 56px;
-}
-
-.mega-menu__list .mega-menu__column {
-  display: inline-block;
-  width: 100%;
-  margin-bottom: 8px;
-  break-inside: avoid;
-}
-
-.mega-menu__link {
-  color: #273488 !important;
-  font-size: 16px !important;
-  line-height: 1.45 !important;
-  font-weight: 500 !important;
-  text-decoration: none !important;
-  padding: 4px 0 !important;
-}
-
-.mega-menu__link:hover {
-  color: #273488 !important;
-  text-decoration: underline !important;
-}
-
-.mega-menu__link--parent {
-  color: #273488 !important;
-  font-weight: 600 !important;
-}
-
-/* Columna derecha: imagen */
-.mega-menu__content {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: flex-start !important;
-}
-
-.mega-menu__content-list--collections,
-.mega-menu__content-list--products {
-  display: grid !important;
-  grid-template-columns: 1fr !important;
-  max-width: 360px;
-  width: 100%;
-  gap: 0 !important;
-}
-
-/* Oculta todas las imágenes excepto la primera */
-.mega-menu__content-list--collections > *:not(:first-child),
-.mega-menu__content-list--products > *:not(:first-child) {
-  display: none !important;
-}
-
-/* Tarjeta de imagen */
-.mega-menu__content .mega-menu__link {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  padding: 0 !important;
-}
-
-.mega-menu__link-image {
-  width: 100% !important;
-  max-width: 360px !important;
-  aspect-ratio: 1 / 1 !important;
-  object-fit: contain !important;
-  background: #fff !important;
-  border: 14px solid #273488 !important;
-  border-radius: 28px !important;
-  padding: 18px !important;
-  margin-bottom: 0 !important;
-}
-
-/* Oculta el texto debajo de la imagen derecha */
-.mega-menu__content .mega-menu__link span,
-.mega-menu__content .mega-menu__link .mega-menu__link-title {
-  display: none !important;
-}
-
-/* Fondo general del desplegable */
-.menu-list__submenu-inner {
-  background: #f6f6f6;
-}
-
-/* Ajuste de ancho y aire */
-.menu-list__submenu-inner .section {
-  padding-left: 24px !important;
-  padding-right: 24px !important;
-}
-
-@media screen and (max-width: 1200px) {
-  .mega-menu__grid {
-    grid-template-columns: 1fr 300px !important;
-    gap: 32px !important;
-  }
-
-  .mega-menu__list {
-    column-count: 2;
-    column-gap: 32px;
-  }
-}
-
-@media screen and (max-width: 989px) {
-  .mega-menu__grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  .mega-menu__content {
-    display: none !important;
-  }
-
-  .mega-menu__list {
-    column-count: 1;
-  }
-
-  .custom-mega-menu {
-  display: grid;
-  grid-template-columns: minmax(520px, 1fr) 360px;
-  gap: 56px;
-  align-items: start;
-  width: 100%;
-  padding: 28px 36px 40px;
-  background: #f5f5f5;
-}
-
-.custom-mega-menu__links {
-  column-count: 2;
-  column-gap: 70px;
-}
-
-.custom-mega-menu__link {
-  display: block;
-  margin-bottom: 10px;
-  color: #273488;
-  text-decoration: none;
-  font-size: 16px;
-  line-height: 1.5;
-  font-weight: 500;
-  break-inside: avoid;
-}
-
-.custom-mega-menu__link:hover {
-  text-decoration: underline;
-}
-
-.custom-mega-menu__image {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.custom-mega-menu__image img {
-  width: 100%;
-  max-width: 360px;
-  aspect-ratio: 1 / 1;
-  object-fit: contain;
-  background: #ffffff;
-  border: 16px solid #273488;
-  border-radius: 30px;
-  padding: 20px;
-}
-
-@media screen and (max-width: 1200px) {
-  .custom-mega-menu {
-    grid-template-columns: 1fr 300px;
-    gap: 32px;
-  }
-
-  .custom-mega-menu__links {
-    column-gap: 40px;
-  }
-}
-
-@media screen and (max-width: 989px) {
-  .custom-mega-menu {
-    grid-template-columns: 1fr;
-  }
-
-  .custom-mega-menu__image {
-    display: none;
-  }
-
-  .custom-mega-menu__links {
-    column-count: 1;
-  }
-}
-}
 {% endstylesheet %}
 
 {% schema %}
@@ -944,26 +584,11 @@
       "id": "type_font_primary_size",
       "label": "t:settings.top_level_size",
       "options": [
-        {
-          "value": "0.625rem",
-          "label": "10px"
-        },
-        {
-          "value": "0.75rem",
-          "label": "12px"
-        },
-        {
-          "value": "0.875rem",
-          "label": "14px"
-        },
-        {
-          "value": "1rem",
-          "label": "16px"
-        },
-        {
-          "value": "1.125rem",
-          "label": "18px"
-        }
+        { "value": "0.625rem", "label": "10px" },
+        { "value": "0.75rem", "label": "12px" },
+        { "value": "0.875rem", "label": "14px" },
+        { "value": "1rem", "label": "16px" },
+        { "value": "1.125rem", "label": "18px" }
       ],
       "default": "1rem"
     },
@@ -972,18 +597,9 @@
       "id": "menu_font_style",
       "label": "t:settings.submenu_size",
       "options": [
-        {
-          "value": "regular",
-          "label": "t:options.small"
-        },
-        {
-          "value": "inverse",
-          "label": "t:options.medium"
-        },
-        {
-          "value": "inverse_large",
-          "label": "t:options.large"
-        }
+        { "value": "regular", "label": "t:options.small" },
+        { "value": "inverse", "label": "t:options.medium" },
+        { "value": "inverse_large", "label": "t:options.large" }
       ],
       "default": "inverse"
     },
@@ -992,22 +608,10 @@
       "id": "type_font_primary_link",
       "label": "t:settings.font",
       "options": [
-        {
-          "value": "body",
-          "label": "t:options.body"
-        },
-        {
-          "value": "subheading",
-          "label": "t:options.subheading"
-        },
-        {
-          "value": "heading",
-          "label": "t:options.heading"
-        },
-        {
-          "value": "accent",
-          "label": "t:options.accent"
-        }
+        { "value": "body", "label": "t:options.body" },
+        { "value": "subheading", "label": "t:options.subheading" },
+        { "value": "heading", "label": "t:options.heading" },
+        { "value": "accent", "label": "t:options.accent" }
       ],
       "default": "heading"
     },
@@ -1016,14 +620,8 @@
       "id": "type_case_primary_link",
       "label": "t:settings.text_case",
       "options": [
-        {
-          "value": "none",
-          "label": "t:options.default"
-        },
-        {
-          "value": "uppercase",
-          "label": "t:options.uppercase"
-        }
+        { "value": "none", "label": "t:options.default" },
+        { "value": "uppercase", "label": "t:options.uppercase" }
       ],
       "default": "none"
     },
@@ -1037,22 +635,10 @@
       "label": "t:settings.media_type",
       "info": "t:info.media_type_info",
       "options": [
-        {
-          "value": "text",
-          "label": "t:options.none"
-        },
-        {
-          "value": "collection_images",
-          "label": "t:options.collection_images"
-        },
-        {
-          "value": "featured_products",
-          "label": "t:options.featured_products"
-        },
-        {
-          "value": "featured_collections",
-          "label": "t:options.featured_collections"
-        }
+        { "value": "text", "label": "t:options.none" },
+        { "value": "collection_images", "label": "t:options.collection_images" },
+        { "value": "featured_products", "label": "t:options.featured_products" },
+        { "value": "featured_collections", "label": "t:options.featured_collections" }
       ],
       "default": "collection_images"
     },
@@ -1061,18 +647,9 @@
       "id": "featured_products_aspect_ratio",
       "label": "t:settings.image_ratio",
       "options": [
-        {
-          "value": "adapt",
-          "label": "t:options.auto"
-        },
-        {
-          "value": "4 / 5",
-          "label": "t:options.portrait"
-        },
-        {
-          "value": "1 / 1",
-          "label": "t:options.square"
-        }
+        { "value": "adapt", "label": "t:options.auto" },
+        { "value": "4 / 5", "label": "t:options.portrait" },
+        { "value": "1 / 1", "label": "t:options.square" }
       ],
       "default": "4 / 5",
       "visible_if": "{{ block.settings.menu_style == 'featured_products' }}"
@@ -1082,18 +659,9 @@
       "id": "featured_collections_aspect_ratio",
       "label": "t:settings.image_ratio",
       "options": [
-        {
-          "value": "adapt",
-          "label": "t:options.auto"
-        },
-        {
-          "value": "16 / 9",
-          "label": "t:options.landscape"
-        },
-        {
-          "value": "1 / 1",
-          "label": "t:options.square"
-        }
+        { "value": "adapt", "label": "t:options.auto" },
+        { "value": "16 / 9", "label": "t:options.landscape" },
+        { "value": "1 / 1", "label": "t:options.square" }
       ],
       "default": "16 / 9",
       "visible_if": "{{ block.settings.menu_style == 'featured_collections' }}"
