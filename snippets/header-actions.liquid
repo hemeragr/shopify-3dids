@@ -776,4 +776,99 @@
       margin-inline-end: 0;
     }
   }
+  /* Iconos header con texto debajo */
+.custom-header-actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.custom-header-action-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  line-height: 1;
+  gap: 4px;
+}
+
+.custom-header-action-wrap--link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.custom-header-action-icon,
+.custom-header-action-wrap .svg-wrapper,
+.custom-header-action-wrap .account-button__icon,
+.custom-header-action-wrap .wishlist-button__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-header-action-wrap .svg-wrapper,
+.custom-header-action-wrap .account-button__icon,
+.custom-header-action-wrap .wishlist-button__icon,
+.custom-header-action-wrap svg {
+  width: 21px;
+  height: 21px;
+}
+
+.custom-header-action-label {
+  font-size: 10px;
+  line-height: 1.1;
+  text-align: center;
+  font-weight: 500;
+  color: inherit;
+}
+
+.custom-header-action-wrap .header-actions__cart-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-header-action-wrap .header-actions__cart-icon > span:not(.svg-wrapper) {
+  display: none !important;
+}
+
+/* Ajuste escritorio */
+@media screen and (min-width: 992px) {
+  .custom-header-actions {
+    gap: 18px;
+  }
+
+  .custom-header-action-label {
+    font-size: 10px;
+  }
+
+  .custom-header-action-wrap .header-actions__cart-icon {
+    min-width: auto;
+  }
+}
+
+/* Ajuste móvil */
+@media screen and (max-width: 991px) {
+  .custom-header-actions {
+    gap: 10px;
+    width: auto;
+  }
+
+  .custom-header-action-wrap {
+    gap: 3px;
+  }
+
+  .custom-header-action-label {
+    font-size: 9px;
+  }
+
+  .custom-header-action-wrap .svg-wrapper,
+  .custom-header-action-wrap .account-button__icon,
+  .custom-header-action-wrap .wishlist-button__icon,
+  .custom-header-action-wrap svg {
+    width: 20px;
+    height: 20px;
+  }
+}
 {% endstylesheet %}
