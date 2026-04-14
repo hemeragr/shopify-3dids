@@ -112,16 +112,18 @@
     </div>
   {% endif %}
 
+<div class="custom-header-action-wrap">
   <a
     href="/pages/wishlist"
-    class="header-actions__action custom-header-action-wrap custom-header-action-wrap--link"
+    class="header-actions__action custom-header-action-link"
     aria-label="Favoritos"
   >
     <span class="custom-header-action-icon">
       {{ wishlist_icon }}
     </span>
-    <span class="custom-header-action-label">Favoritos</span>
   </a>
+  <span class="custom-header-action-label">Favoritos</span>
+</div>
 
   {% if settings.cart_type == 'drawer' and template.name != 'cart' %}
     <script
