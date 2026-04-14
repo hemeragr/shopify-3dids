@@ -107,25 +107,44 @@
                     {% endfor %}
                   </div>
 
-                  <div class="custom-mega-menu__image">
-                    {% assign first_child_with_image = blank %}
+<div class="custom-mega-menu__images">
+  {% assign first_child_with_image = blank %}
+  {% assign second_child_with_image = blank %}
 
-                    {% for child_link in link.links %}
-                      {% if child_link.object and child_link.object.featured_image != blank and first_child_with_image == blank %}
-                        {% assign first_child_with_image = child_link.object.featured_image %}
-                      {% endif %}
-                    {% endfor %}
+  {% for child_link in link.links %}
+    {% if child_link.object and child_link.object.featured_image != blank %}
+      {% if first_child_with_image == blank %}
+        {% assign first_child_with_image = child_link.object.featured_image %}
+      {% elsif second_child_with_image == blank %}
+        {% assign second_child_with_image = child_link.object.featured_image %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
 
-                    {% if first_child_with_image != blank %}
-                      <img
-                        src="{{ first_child_with_image | image_url: width: 700 }}"
-                        alt="{{ link.title | escape }}"
-                        loading="lazy"
-                        width="700"
-                        height="700"
-                      >
-                    {% endif %}
-                  </div>
+  {% if first_child_with_image != blank %}
+    <div class="custom-mega-menu__image-card">
+      <img
+        src="{{ first_child_with_image | image_url: width: 700 }}"
+        alt="{{ link.title | escape }}"
+        loading="lazy"
+        width="700"
+        height="700"
+      >
+    </div>
+  {% endif %}
+
+  {% if second_child_with_image != blank %}
+    <div class="custom-mega-menu__image-card">
+      <img
+        src="{{ second_child_with_image | image_url: width: 700 }}"
+        alt="{{ link.title | escape }}"
+        loading="lazy"
+        width="700"
+        height="700"
+      >
+    </div>
+  {% endif %}
+</div>
                 </div>
               </div>
             </div>
