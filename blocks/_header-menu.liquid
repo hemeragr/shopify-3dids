@@ -109,25 +109,35 @@
             class="menu-list__submenu-inner"
             style="{% render 'submenu-font-styles', settings: block_settings %}"
           >
-            {% assign list_id = 'MegaMenuList-' | append: forloop.index %}
-            <div class="mega-menu section section--full-width-margin section--{{ section.settings.section_width }}">
-              <div
-                class="mega-menu__grid"
-                data-menu-grid-id="{{ list_id }}"
-              >
-                {% render 'mega-menu-list',
-                  parent_link: link,
-                  id: list_id,
-                  section: section,
-                  grid_columns_count: 6,
-                  grid_columns_count_tablet: 4,
-                  grid_columns_count_collection_images: 8,
-                  menu_content_type: menu_content_type,
-                  content_aspect_ratio: ratio,
-                  image_border_radius: image_border_radius
-                %}
-              </div>
-            </div>
+<div class="custom-mega-menu">
+  <div class="custom-mega-menu__links">
+    {% for child_link in link.links %}
+      <a href="{{ child_link.url }}" class="custom-mega-menu__link">
+        {{ child_link.title }}
+      </a>
+    {% endfor %}
+  </div>
+
+  <div class="custom-mega-menu__image">
+    {% assign first_child_with_image = blank %}
+
+    {% for child_link in link.links %}
+      {% if child_link.object and child_link.object.featured_image != blank and first_child_with_image == blank %}
+        {% assign first_child_with_image = child_link.object.featured_image %}
+      {% endif %}
+    {% endfor %}
+
+    {% if first_child_with_image != blank %}
+      <img
+        src="{{ first_child_with_image | image_url: width: 700 }}"
+        alt="{{ link.title | escape }}"
+        loading="lazy"
+        width="700"
+        height="700"
+      >
+    {% endif %}
+  </div>
+</div>
           </div>
         </div>
       {%- endif -%}
