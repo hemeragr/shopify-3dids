@@ -99,13 +99,36 @@
                 style="{% render 'submenu-font-styles', settings: block_settings %}"
               >
                 <div class="custom-mega-menu">
-                  <div class="custom-mega-menu__links">
-                    {% for child_link in link.links %}
-                      <a href="{{ child_link.url }}" class="custom-mega-menu__link">
-                        {{ child_link.title }}
-                      </a>
-                    {% endfor %}
-                  </div>
+<div class="custom-mega-menu__links">
+  {% for child_link in link.links %}
+    <div class="custom-mega-menu__item">
+      <a
+        href="{{ child_link.url }}"
+        class="custom-mega-menu__link{% if child_link.title == 'VER TODO' or child_link.title == 'Ver todo' %} custom-mega-menu__link--all{% endif %}{% if child_link.links != blank %} custom-mega-menu__link--has-children{% endif %}"
+      >
+        <span>{{ child_link.title }}</span>
+
+        {% if child_link.links != blank %}
+          <span class="custom-mega-menu__arrow" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2.25 4.5L6 8.25L9.75 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        {% endif %}
+      </a>
+
+      {% if child_link.links != blank %}
+        <div class="custom-mega-menu__sublinks">
+          {% for grandchild_link in child_link.links %}
+            <a href="{{ grandchild_link.url }}" class="custom-mega-menu__sublink">
+              {{ grandchild_link.title }}
+            </a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
 
 <div class="custom-mega-menu__images">
   {% assign first_child_with_image = blank %}
