@@ -696,6 +696,30 @@
 .custom-mega-menu__sublink:hover {
   text-decoration: underline;
 }
+
+.menu-list__link--has-children {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.menu-list__link-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transform: translateY(1px);
+}
+
+.menu-list__link-arrow svg {
+  width: 12px;
+  height: 12px;
+}
+
+.menu-list__link[aria-expanded='true'] .menu-list__link-arrow {
+  transform: translateY(1px) rotate(180deg);
+  transition: transform 0.2s ease;
+}
 {% endstylesheet %}
 
 {% schema %}
