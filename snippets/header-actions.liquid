@@ -61,11 +61,8 @@
     />
   </svg>
 {% endcapture %}
-
 <header-actions
-  {% if display_style == 'text' %}
-    class="header-actions--text"
-  {% endif %}
+  class="custom-header-actions{% if display_style == 'text' %} header-actions--text{% endif %}"
   {{- block.shopify_attributes -}}
 >
   {% if shop.customer_accounts_enabled %}
@@ -87,36 +84,44 @@
         assign account_actions_style = '--header-actions-font-family: ' | append: font_family_safe | append: '; --header-actions-font-weight: ' | append: font_obj.weight | append: ';'
       endif
     %}
-    <div
-      class="account-button header-actions__action{% if display_style == 'text' %} account-button--text{% endif %} color-{{ settings.popover_color_scheme }}"
-    >
-      <shopify-account
-        menu="{{ customer_account_menu }}"
-        {% if account_actions_style != blank %}
-          style="{{ account_actions_style }}"
-        {% endif %}
-      >
-        {% if customer %}
-          <div class="account-button__fallback"></div>
-        {% else %}
-          <span
-            slot="signed-out-avatar"
-            class="account-button__text header-actions__text-style {% if display_style == 'icon' %}hidden{% else %}mobile:hidden{% endif %}"
-          >
-            {{ 'content.account_title' | t }}
-          </span>
 
-          <span
-            slot="signed-out-avatar"
-            class="{% if display_style != 'icon' %}desktop:hidden{% endif %}"
-            aria-hidden="true"
-          >
-            {{ account_icon }}
-          </span>
-        {% endif %}
-      </shopify-account>
+    <div class="custom-header-action-wrap">
+      <div
+        class="account-button header-actions__action{% if display_style == 'text' %} account-button--text{% endif %} color-{{ settings.popover_color_scheme }}"
+      >
+        <shopify-account
+          menu="{{ customer_account_menu }}"
+          {% if account_actions_style != blank %}
+            style="{{ account_actions_style }}"
+          {% endif %}
+        >
+          {% if customer %}
+            <div class="account-button__fallback"></div>
+          {% else %}
+            <span
+              slot="signed-out-avatar"
+              class="{% if display_style != 'icon' %}desktop:hidden{% endif %}"
+              aria-hidden="true"
+            >
+              {{ account_icon }}
+            </span>
+          {% endif %}
+        </shopify-account>
+      </div>
+      <span class="custom-header-action-label">Cuenta</span>
     </div>
   {% endif %}
+
+  <a
+    href="/pages/wishlist"
+    class="header-actions__action custom-header-action-wrap custom-header-action-wrap--link"
+    aria-label="Favoritos"
+  >
+    <span class="custom-header-action-icon">
+      {{ wishlist_icon }}
+    </span>
+    <span class="custom-header-action-label">Favoritos</span>
+  </a>
 
   {% if settings.cart_type == 'drawer' and template.name != 'cart' %}
     <script
@@ -166,16 +171,20 @@
       <template id="empty-cart-template">
         {{ empty_cart_drawer_content }}
       </template>
-      <button
-        class="header-actions__action button-unstyled{% if display_style == 'text' %} header-actions__text-style{% endif %}"
-        on:click="/open"
-        aria-haspopup="dialog"
-        aria-label="{{ 'accessibility.cart' | t }}"
-        aria-describedby="cart-bubble-text"
-        data-testid="cart-drawer-trigger"
-      >
-        {{ cart_icon }}
-      </button>
+
+      <div class="custom-header-action-wrap">
+        <button
+          class="header-actions__action button-unstyled{% if display_style == 'text' %} header-actions__text-style{% endif %}"
+          on:click="/open"
+          aria-haspopup="dialog"
+          aria-label="{{ 'accessibility.cart' | t }}"
+          aria-describedby="cart-bubble-text"
+          data-testid="cart-drawer-trigger"
+        >
+          {{ cart_icon }}
+        </button>
+        <span class="custom-header-action-label">Carrito</span>
+      </div>
 
       <dialog
         ref="dialog"
@@ -250,7 +259,10 @@
       aria-label="{{ 'accessibility.cart' | t }}"
       aria-describedby="cart-bubble-text"
     >
-      {{ cart_icon }}
+      <div class="custom-header-action-wrap">
+        {{ cart_icon }}
+        <span class="custom-header-action-label">Carrito</span>
+      </div>
     </a>
   {% endif %}
 </header-actions>
