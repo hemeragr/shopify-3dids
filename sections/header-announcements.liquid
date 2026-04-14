@@ -27,14 +27,18 @@
         {% if section.settings.left_link != blank %}
           <a href="{{ section.settings.left_link }}" class="announcement-bar__side-link">
             {% if section.settings.show_location_icon %}
-              <span class="announcement-bar__icon" aria-hidden="true">📍</span>
+              <span class="announcement-bar__icon" aria-hidden="true">  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill=#fff>
+    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/>
+  </svg></span>
             {% endif %}
             <span>{{ section.settings.left_text }}</span>
           </a>
         {% else %}
           <div class="announcement-bar__side-text">
             {% if section.settings.show_location_icon %}
-              <span class="announcement-bar__icon" aria-hidden="true">📍</span>
+              <span class="announcement-bar__icon" aria-hidden="true">  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill=#fff>
+    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/>
+  </svg></span>
             {% endif %}
             <span>{{ section.settings.left_text }}</span>
           </div>
